@@ -1,0 +1,3 @@
+displayName = More Town Pets
+author = Lurrae & Skulgan
+version = 0.1

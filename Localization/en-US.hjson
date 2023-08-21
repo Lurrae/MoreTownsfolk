@@ -1,0 +1,139 @@
+Mods: {
+	MoreTownPets: {
+		Conditions: {
+			BestiaryCompletionPercent: Complete {0}% of the Bestiary
+			Dummy: This is only here so tmod's auto-formatting will stop f###ing up my conditions >:(
+		}
+
+		Common: {
+			# Message output to chat when using an Axolotl License
+			AxoLicenseUsed: The license teleports away to the axolotl delivery service...
+			Dummy: I hate tmod's auto-formatting sometimes
+		}
+
+		Items: {
+			# Misc.
+			LicenseAxolotl: {
+				DisplayName: Axolotl License
+				Tooltip:
+					'''
+					Use to adopt an axolotl for your town
+					Already have an axolotl?
+					Use additional licenses to activate the Pet Exchange Program!
+					Find the perfect fit for you and your axolotl!
+					'''
+			}
+		}
+
+		NPCs.Axolotl.DisplayName: Axolotl
+
+		# Specialized names for town pets
+		NPCNames: {
+			AxolotlNames_Blue: {
+				Ao: Ao
+				Mudkip: Mudkip
+				Bloop: Bloop
+				Blue: Blue
+				Umi: Umi
+				Neptune: Neptune
+				Triton: Triton
+				Mizuko: Mizuko
+				Namiko: Namiko
+				Polo: Polo
+				Nahuatl: Nahuatl
+				Atlahua: Atlahua
+				Axochitl: Axochitl
+				Canneo: Canneo
+				Marco: Marco
+			}
+
+			AxolotlNames_Copper: {
+				Copper: Copper
+				Quincy: Quincy
+				Citlalmina: Citlalmina
+				Lincoln: Lincoln
+				Patina: Patina
+				Coyotl: Coyotl
+				Tezcacoatl: Tezcacoatl
+				Haphaestus: Haphaestus
+				Bronze: Bronze
+				Clementine: Clementine
+			}
+
+			AxolotlNames_Gold: {
+				Akarui: Akarui
+				Anacaona: Anacaona
+				Apollo: Apollo
+				Axie: Axie
+				Butters: Butters
+				Goldilocks: Goldilocks
+				Hoshi: Hoshi
+				Sol: Sol
+				Sunflower: Sunflower
+				Tlanexic: Tlanexic
+				Tonatiuh: Tonatiuh
+				Yellow: Yellow
+				Zuma: Zuma
+			}
+
+			AxolotlNames_Pink: {
+				Bubblegum: Bubblegum
+				Coral: Coral
+				Eloxochitl: Eloxochitl
+				Floyd: Floyd
+				Luna: Luna
+				Masawa: Masawa
+				Miko: Miko
+				Mio: Mio
+				Orchid: Orchid
+				Pinkie: Pinkie
+				Quetzal: Quetzal
+				Rosie: Rosie
+				Sakura: Sakura
+				Zipactonal: Zipactonal
+			}
+
+			AxolotlNames_Melanoid: {
+				Ash: Ash
+				Calypso: Calypso
+				Charcoal: Charcoal
+				Itzcoatl: Itzcoatl
+				Natascha: Natascha
+				Samarra: Samarra
+				Sid: Sid
+				Steele: Steele
+				Vanta: Vanta
+				Yokai: Yokai
+				Zephyr: Zephyr
+			}
+
+			AxolotlNames_Wild: {
+				Mudball: Mudball
+				Cocoa: Cocoa
+				Kayla: Kayla
+				Cookie: Cookie
+				Ixchel: Ixchel
+				Quetzalcoatl: Quetzalcoatl
+				Tlalli: Tlalli
+				Mumei: Mumei
+				Matsuri: Matsuri
+				Brownie: Brownie
+				Bort: Bort
+			}
+		}
+
+		# Town pet dialogue
+		Dialogue: {
+			Axolotl: {
+				Dialogue1: *Axolotl noises*
+				Dialogue2: *Salamander noises*
+			}
+		}
+
+		# Bestiary entries for the town pets
+		Bestiary: {
+			Axolotl: This is a placeholder Bestiary entry.
+			Dummy: I hate tmod's auto-formatting sometimes
+		}
+	}
+}
