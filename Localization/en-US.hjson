@@ -1,5 +1,5 @@
 Mods: {
-	MoreTownPets: {
+	MoreTownsfolk: {
 		Conditions: {
 			BestiaryCompletionPercent: Complete {0}% of the Bestiary
 			Dummy: This is only here so tmod's auto-formatting will stop f###ing up my conditions >:(
@@ -25,39 +25,104 @@ Mods: {
 			}
 		}
 
-		NPCs.Axolotl.DisplayName: Axolotl
+		NPCs: {
+			Axolotl: {
+				DisplayName: Axolotl
+				TownNPCMood.Princess_LovesNPC: "{NPCName} is really adorable!"
+			}
 
-		# Specialized names for town pets
+			Harvester: {
+				DisplayName: Harvester
+
+				TownNPCMood: {
+					Content: I'm alright! Business as usual, gutting squirrels, selling livers...
+					NoHome: Well, not the first time I've been homeless, but blood doesn't stop bleeding for nothing!
+					FarFromHome: Do I gotta walk all the way back home from here? Fiiine, but I can't guarantee I won't leave tons of animal corpses in my wake.
+					LoveSpace: Being able to work alone is nice. When your job is as dirty as mine, it helps to not have people to complain.
+					DislikeCrowded: Being around so many people is rough. Hard to work when you have a bunch of people complaining about how it smells, you know?
+					HateCrowded: If one more person complains about blood on their property, their pancreas is mine. This crowd is unbearable!
+					LoveBiome: I love {BiomeName}? What? I shouldn't be saying this. As in, like, this text shouldn't appear in the game. At all.
+					LikeBiome: What's there to like about The Crimson? Maybe I'm a fan of the macabre... or insane! Hey, I won't rule the possibility out.
+					DislikeBiome: The desert is so laaame. Everything's either dead or a cactus.
+					HateBiome: The Hallow makes me want to vomit. The only redeeming quality of it is that the unicorns have colorful entrails.
+					LoveNPC: "{NPCName} the Occultist is so dark, and mysterious... and even a little evil. I love that about her."
+					LikeNPC: "{NPCName} can tolerate gory sights, which I like."
+					LikeNPC_Princess: "{NPCName} might just be the only person I feel the need to clean myself up around. Her aura is just so... pure and sweet!"
+					DislikeNPC: "{NPCName} is not really a fan of violent types like me. Hey, feeling's mutual."
+					HateNPC: "{NPCName} the Dryad is... such a killjoy, holy cow. She is impossible to be around."
+					Princess_LovesNPC: "{NPCName} is strange, but she makes very good ham sandwiches!"
+				}
+			}
+
+			Occultist: {
+				DisplayName: Occultist
+
+				TownNPCMood: {
+					Content: Ahh, all is well, until I do what I do best again...
+					NoHome: Can I live somewhere? Leaving a girl like me alone in the wild isn't wise...
+					FarFromHome: What am I doing so far from home? Maybe you shouldn't find out...
+					LoveSpace: I like not being so close to people. It allows me to have plenty of secrecy.
+					DislikeCrowded: Ooh, a few too many people to moderate me... not a good way to live.
+					HateCrowded: So many people... I can't do anything around here without someone turning their nose up at me...
+					LoveBiome: I love {BiomeName}... But you weren't supposed to know that, since this text shouldn't appear ingame...
+					LikeBiome: The Corruption... It helps me get all my cruel thoughts flowing... I feel right at home...
+					DislikeBiome: The Jungle... So resistant to corruption... and for what? Mud and turtles...
+					HateBiome: The Hallow is repulsive. So saccharine and sweet, and yet harbors cruel pixies and light fiends... At least I do not lie about my evil...
+					LoveNPC: "{NPCName} the Harvester is exciting with a tad of bloodthirst... I'd let her take my heart..."
+					LikeNPC: "{NPCName}... what a sinful soul... makes a good neighbor."
+					LikeNPC_Princess: "{NPCName} the Princess is such an incorruptible youth... I can't bring myself to steer her to evil..."
+					DislikeNPC: "{NPCName} can be rather self-righteous... and annoying... blech."
+					HateNPC: "{NPCName} the Dryad is awful. She doesn't understand that good cannot exist without evil... I hate her out of principle."
+					Princess_LovesNPC: "{NPCName} is strange, but I like her anyways."
+				}
+			}
+		}
+
+		# Specialized names for town NPCs/pets
 		NPCNames: {
+			Harvester: {
+				Leslie: Leslie
+				Name1: Name1
+				Name2: Name2
+				Name3: Name3
+			}
+
+			Occultist: {
+				Brianne: Brianne
+				Name1: Name1
+				Name2: Name2
+				Name3: Name3
+			}
+
 			AxolotlNames_Blue: {
 				Ao: Ao
-				Mudkip: Mudkip
-				Bloop: Bloop
-				Blue: Blue
-				Umi: Umi
-				Neptune: Neptune
-				Triton: Triton
-				Mizuko: Mizuko
-				Namiko: Namiko
-				Polo: Polo
-				Nahuatl: Nahuatl
 				Atlahua: Atlahua
 				Axochitl: Axochitl
+				Bloop: Bloop
+				Blue: Blue
 				Canneo: Canneo
 				Marco: Marco
+				Mizuko: Mizuko
+				Mudkip: Mudkip
+				Nahuatl: Nahuatl
+				Namiko: Namiko
+				Neptune: Neptune
+				Polo: Polo
+				Triton: Triton
+				Umi: Umi
 			}
 
 			AxolotlNames_Copper: {
-				Copper: Copper
-				Quincy: Quincy
+				Bronze: Bronze
 				Citlalmina: Citlalmina
+				Clementine: Clementine
+				Copper: Copper
+				Coyotl: Coyotl
+				Haphaestus: Haphaestus
 				Lincoln: Lincoln
 				Patina: Patina
-				Coyotl: Coyotl
+				Quincy: Quincy
 				Tezcacoatl: Tezcacoatl
-				Haphaestus: Haphaestus
-				Bronze: Bronze
-				Clementine: Clementine
 			}
 
 			AxolotlNames_Gold: {
@@ -108,32 +173,93 @@ Mods: {
 			}
 
 			AxolotlNames_Wild: {
-				Mudball: Mudball
+				Bort: Bort
+				Brownie: Brownie
 				Cocoa: Cocoa
-				Kayla: Kayla
 				Cookie: Cookie
 				Ixchel: Ixchel
+				Kayla: Kayla
+				Matsuri: Matsuri
+				Mudball: Mudball
+				Mumei: Mumei
 				Quetzalcoatl: Quetzalcoatl
 				Tlalli: Tlalli
-				Mumei: Mumei
-				Matsuri: Matsuri
-				Brownie: Brownie
-				Bort: Bort
 			}
 		}
 
-		# Town pet dialogue
+		# Town NPC/pet dialogue
 		Dialogue: {
 			Axolotl: {
+				# Always available
 				Dialogue1: *Axolotl noises*
 				Dialogue2: *Salamander noises*
 			}
+
+			Harvester: {
+				# Always available
+				Dialogue1: Hey, do you have any spare organs? ... Do you NEED any spare organs?
+				Dialogue2: If I chop you up in a meat grinder, and the only thing that comes out and is left of you is your eyeball, would you die? I'm curious.
+				Dialogue3: I've got the meats! And bans in seventeen different territories!
+				Dialogue4: What's the largest Crimera you've ever seen? I could tell you a story...
+				Dialogue5: I stuck my ear against the Crimson dirt one time and could hear a heartbeat. It's alive, I tell you!
+				# Requires a specific town NPC to be present in the world
+				Dialogue6: Does {Nurse} have any Ibuprofen on her? The Crimson is great and all, but it always gives me headaches...
+				Dialogue7: Hey, I've been trying to come up with something to give {MoreTownsfolk.Occultist}. Do you have any ideas?
+				Dialogue8: Can you ask {MoreTownsfolk.Occultist} if she would like to eviscerate some critters with me sometime?
+				# Events
+				Dialogue9: "{?BloodMoon}I'm trying to take a nap, here! What is it?!"
+				Dialogue10: "{?BloodMoon}My head hurts SO MUCH. What do you want?!"
+				Dialogue11: "{?BloodMoon}Either give me your spleen or get out!"
+				Dialogue12: "{?Thunderstorm}Every time thunder strikes, I can almost hear something wailing in pain."
+				Dialogue13: "{?Thunderstorm}Oof, this thunder is really not helping my head..."
+				Dialogue14: "{?!Thunderstorm}{?Rain}Did you know that the Crimson rains blood? I think that's how it regulates its moisture."
+				Dialogue15: "{?!Thunderstorm}{?Rain}Rain's great, but it's hard to do my usual flaying when it pours."
+				Dialogue16: "{?BirthdayParty}I used to drink TONS of Bloody Marys during parties, but one time I blacked out and woke up covered in the organs of multiple different animals."
+				Dialogue17: "{?BirthdayParty}Let's play pin the tail on the donkey! ... You have a donkey somewhere, right?"
+				Dialogue18: "{?!Thunderstorm}{?HappyWindyDay}The smell of blood carries very well on the wind. Can you smell that coppery scent?"
+				Dialogue19: "{?!Thunderstorm}{?HappyWindyDay}I love wearing thick clothing on a windy day! All cold on the outside and warm on the inside..."
+				# Biomes/Environment
+				Dialogue20: "{?Graveyard}Can we dig some of these graves up? This is a waste of perfectly good human bones!"
+				# Other
+				Dialogue21: "{?Day}{?!Day}Hey, I have some seeds for the Crimson. Think you could do me a solid and make a small patch of it for me to live in? Thanks!"
+			}
+
+			Occultist: {
+				# Always available
+				Dialogue1: Have you had any intrusive thoughts recently? You should listen to them for once...
+				Dialogue2: You, too, could be a companion to the corruption, if you wish to learn how...
+				Dialogue3: Everyone is watching you, judging you no matter what you do... why restrain yourself?
+				Dialogue4: I'm your friend. Tell me your darkest secrets...
+				Dialogue5: I am free, and the world has imprisoned itself. Maybe you should let yourself outside?
+				# Requires a specific town NPC to be present in the world
+				Dialogue6: When is {TaxCollector} coming around to collect again? The Corruption requires more evil to feed upon...
+				Dialogue7: I know every one of {Clothier}'s sins... but I won't tell you what they are.
+				Dialogue8: I picked a bunch of Elderberries today for {MoreTownsfolk.Harvester}... Do you think she'll like them?
+				Dialogue9: Every now and again, I like to watch {MoreTownsfolk.Harvester} from far away as she does her work... She's so good at it, isn't she?
+				# Events
+				Dialogue10: "{?BloodMoon}Ha, ha... hahahah... why am I laughing? It's better you don't know..."
+				Dialogue11: "{?BloodMoon}Are you keeping an eye on me tonight? Smart..."
+				Dialogue12: "{?BloodMoon}I hid a block of ebonstone somewhere under your house. Don't tell anyone!"
+				Dialogue13: "{?Thunderstorm}Ooh, what a nasty storm... Perhaps I could crawl up under the ebonstone caves..."
+				Dialogue14: "{?Thunderstorm}The sun... what a reliable friend, hm? This is why I trust the pits more..."
+				Dialogue15: "{?!Thunderstorm}{?Rain}Have you ever stood outside in the rain? It helps me think sometimes..."
+				Dialogue16: "{?!Thunderstorm}{?Rain}The sky is crying... I think we should give it a reason to cry..."
+				Dialogue17: "{?BirthdayParty}A party? A perfect time to make decisions you'll regret..."
+				Dialogue18: "{?BirthdayParty}I made some punch. Would you like to try some? ... What? I didn't put anything in it."
+				Dialogue19: "{?!Thunderstorm}{?HappyWindyDay}I love the Corruption... but days like these remind me that it absolutely reeks..."
+				Dialogue20: "{?!Thunderstorm}{?HappyWindyDay}The wind might carry the screams of the next person you stab. Keep that in mind..."
+				# Other
+				Dialogue21: "{?Day}{?!Day}Think you could do me a favor? Take some of these seeds... make a home I'd truly love for me..."
+			}
 		}
 
-		# Bestiary entries for the town pets
+		# Bestiary entries for the town NPCs and pets
 		Bestiary: {
 			Axolotl: This is a placeholder Bestiary entry.
-			Dummy: I hate tmod's auto-formatting sometimes
+			Harvester: A crimson fanatic with a penchant for bloodshed. Has aspirations to flay a human, but hasn't found a willing candidate yet.
+			Occultist: A corruption fanatic who likes to get up to mischief for fun. Wants to create an abomination of her own one day.
 		}
+
+		Projectiles.HarvesterAttack.DisplayName: The Hook
 	}
 }

@@ -1,7 +1,7 @@
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 
-namespace MoreTownPets.NPCs
+namespace MoreTownsfolk.NPCs
 {
 	[AutoloadHead]
 	public class Axolotl : ModNPC
@@ -26,7 +26,7 @@ namespace MoreTownPets.NPCs
 
 		public override void SetStaticDefaults()
 		{
-			Main.npcFrameCount[Type] = 26;
+			Main.npcFrameCount[Type] = 28;
 
 			// Copy the NPCID Sets of the town cat
 			// Not sure how many of these are necessary
@@ -55,6 +55,7 @@ namespace MoreTownPets.NPCs
 			NPC.CloneDefaults(NPCID.TownCat);
 			NPC.height = 16;
 			NPC.aiStyle = NPCAIStyleID.Passive;
+			AIType = NPCID.TownCat;
 			AnimationType = NPCID.TownCat; // Copies town cat's animation style exactly
 		}
 
@@ -63,13 +64,13 @@ namespace MoreTownPets.NPCs
 			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
-				new FlavorTextBestiaryInfoElement("Mods.MoreTownPets.Bestiary.Axolotl")
+				new FlavorTextBestiaryInfoElement("Mods.MoreTownsfolk.Bestiary.Axolotl")
 			});
 		}
 
 		public override string GetChat()
 		{
-			string locKey = "Mods.MoreTownPets.Dialogue.Axolotl.Dialogue" + (Main.rand.NextBool() ? "1" : "2");
+			string locKey = "Mods.MoreTownsfolk.Dialogue.Axolotl.Dialogue" + (Main.rand.NextBool() ? "1" : "2");
 			return Language.GetTextValue(locKey);
 		}
 
@@ -94,9 +95,9 @@ namespace MoreTownPets.NPCs
 				var rect = new Rectangle((int)(NPC.getRect().X - screenPos.X), (int)(NPC.getRect().Y - screenPos.Y), frame.Width, frame.Height);
 				var origin = new Vector2(frame.Width / 2, frame.Height / 2);
 
-				if (frame.Y < 22 * 40)
+				if (frame.Y < 0)
 				{
-					frame.Y = 22 * 40;
+					frame.Y = 0;
 				}
 
 				if (!Main.gamePaused && !Main.gameInactive) // Pause animation while game is paused or inactive
@@ -107,42 +108,61 @@ namespace MoreTownPets.NPCs
 					swimTimer = 0;
 					frame.Y += 40;
 
-					if (frame.Y > 25 * 40)
+					if (frame.Y > 3 * 40)
 					{
-						frame.Y = 22 * 40;
+						frame.Y = 0;
 					}
 				}
 
-				spriteBatch.Draw(Profile.GetTextureNPCShouldUse(NPC).Value, rect, frame, drawColor, NPC.rotation, origin, spriteEffects, 0);
+				spriteBatch.Draw(Request<Texture2D>(Profile.GetTexturePath(NPC) + "_Swim").Value, rect, frame, drawColor, NPC.rotation, origin, spriteEffects, 0);
 				return false;
 			}
 
 			return base.PreDraw(spriteBatch, screenPos, drawColor);
 		}
 
-		// Stop vertical movement in water
+		// Extra AI for swimming
 		int timer = 0;
 		public override void PostAI()
 		{
-			if (NPC.wet)
-			{
-				float targetY = (float)Math.Sin(timer/24);
-				timer++;
+			// This AI only runs if the axolotl is in water
+			if (!NPC.wet)
+				return;
 
-				NPC.velocity = NPC.velocity.MoveTowards(new Vector2(4.5f * NPC.direction, targetY * 0.5f), 0.5f);
-				
-				// Drowning immunity
-				NPC.breath = NPC.breathMax;
+			// Prevent the Axolotl from drowning
+			NPC.breath = NPC.breathMax;
+
+			// Target y-velocity for bobbing up and down in the water
+			float targetY = (float)Math.Sin(timer / 24);
+			timer++;
+
+			// Face the player when spoken to, even in water
+			Player plr = Main.player[Main.myPlayer];
+
+			if (plr.TalkNPC == NPC)
+			{
+				NPC.velocity = Vector2.Zero;
+				if (NPC.DirectionTo(plr.Center).X > 0)
+					NPC.direction = 1;
+				else
+					NPC.direction = -1;
+
+				NPC.velocity = NPC.velocity.MoveTowards(new Vector2(0, targetY * 0.5f), 0.5f);
+
+				return;
 			}
+
+			// Swim in current direction, and turn around when nearing the world's edges
+			NPC.velocity = NPC.velocity.MoveTowards(new Vector2(4.5f * NPC.direction, targetY * 0.5f), 0.5f);
 
 			// If near either edge of the world, turn around
 			// Without this, the axolotls would be able to swim off into the sunset, never to be seen again
 			// ...Until the following morning when they respawn, of course
-			if (NPC.direction == -1 && NPC.position.X <= 0 + Conversions.ToPixels(45)) // Within 45 blocks of left edge
+			if (NPC.direction == -1 && NPC.position.X <= Conversions.ToPixels(45)) // Within 45 blocks of left edge
 			{
 				NPC.direction = 1;
 			}
-			else if (NPC.direction == 1 && NPC.position.X >= Main.maxTilesX - Conversions.ToPixels(45)) // Within 45 blocks of right edge
+			else if (NPC.direction == 1 && NPC.position.X >= Conversions.ToPixels(Main.maxTilesX) - Conversions.ToPixels(45)) // Within 45 blocks of right edge
 			{
 				NPC.direction = -1;
 			}

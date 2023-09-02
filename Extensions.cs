@@ -2,7 +2,7 @@ using ReLogic.Content;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 
-namespace MoreTownPets
+namespace MoreTownsfolk
 {
 	public static class Conversions
 	{
@@ -272,7 +272,7 @@ namespace MoreTownPets
 	{
 		public static Condition BestiaryCompletionPercent(float targetPercent)
 		{
-			string description = Language.GetTextValue("Mods.MoreTownPets.Conditions.BestiaryCompletionPercent", targetPercent);
+			string description = Language.GetTextValue("Mods.MoreTownsfolk.Conditions.BestiaryCompletionPercent", targetPercent);
 
 			return new Condition(description, () => Main.GetBestiaryProgressReport().CompletionPercent >= targetPercent);
 		}
@@ -314,7 +314,7 @@ namespace MoreTownPets
 		}
 
 		public int RollVariation() => Main.rand.Next(_variants.Length);
-		public string GetNameForVariant(NPC npc) => WorldGen.genRand.NextFromCollection(Language.FindAll(Lang.CreateDialogFilter("Mods.MoreTownPets.NPCNames." + _npcBaseName + "Names_" + _variants[npc.townNpcVariationIndex])).ToList()).Value;
+		public string GetNameForVariant(NPC npc) => WorldGen.genRand.NextFromCollection(Language.FindAll(Lang.CreateDialogFilter("Mods.MoreTownsfolk.NPCNames." + _npcBaseName + "Names_" + _variants[npc.townNpcVariationIndex])).ToList()).Value;
 
 		public Asset<Texture2D> GetTextureNPCShouldUse(NPC npc)
 		{
@@ -327,6 +327,8 @@ namespace MoreTownPets
 
 			return _variantTextures[text];
 		}
+
+		public string GetTexturePath(NPC npc) => _rootFilePath + "_" + _variants[npc.townNpcVariationIndex];
 
 		public int GetHeadTextureIndex(NPC npc) => _variantHeadIDs[npc.townNpcVariationIndex];
 	}

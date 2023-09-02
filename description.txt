@@ -1,1 +1,14 @@
-More Town Pets is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+Adds more town pets and town NPCs to the game! Currently adds the following content:
+
+Items: 
+- Axolotl License: A new pet license, sold by the Zoologist at 65% or greater Bestiary completion. Allows the Axolotl to come to your town
+- [UPCOMING] Corruption Pylon: A pylon which can be placed in the Corruption, and only requires one nearby NPC to function instead of two. Sold by the Occultist when she's housed in the Corruption and happy enough.
+- [UPCOMING] Crimson Pylon: A pylon which can be placed in the Crimson, and only requires one nearby NPC to function instead of two. Sold by the Harvester when she's housed in the Crimson and happy enough.
+- [UPCOMING] The Hook: A flail which is dropped by the Harvester at a 1/8 chance when she is killed.
+
+Town NPCs:
+- Harvester: A crimson fanatic who sells various Crimson-themed items, and can uniquely be housed within evil biomes! She spawns in Hardmode worlds that have at least one block of Corruption.
+- [UPCOMING] Occultist: A corruption fanatic who sells various Corruption-themed items, and can uniquely be housed within evil biomes! She spawns in Hardmode worlds that have at least one block of Crimson.
+
+Town Pets:
+- Axolotl: A new town pet which shows up after using an Axolotl License. Comes in six different colors, and using an Axolotl License while you have an Axolotl already rerolls its color and name. The Axolotl is capable of swimming and cannot drown!

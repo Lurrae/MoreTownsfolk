@@ -1,6 +1,6 @@
-using MoreTownPets.NPCs;
+using MoreTownsfolk.NPCs;
 
-namespace MoreTownPets.Items
+namespace MoreTownsfolk.Items
 {
 	public class LicenseAxolotl : ModItem
 	{
@@ -18,7 +18,7 @@ namespace MoreTownPets.Items
 
 		public override bool? UseItem(Player player)
 		{
-			player.LicenseOrExchangePet(Item, ref MTPWorld.boughtAxolotl, NPCType<Axolotl>(), "Mods.MoreTownPets.Common.AxoLicenseUsed", -14);
+			player.LicenseOrExchangePet(Item, ref TownsfolkWorld.boughtAxolotl, NPCType<Axolotl>(), "Mods.MoreTownsfolk.Common.AxoLicenseUsed", -14);
 
 			return base.UseItem(player);
 		}

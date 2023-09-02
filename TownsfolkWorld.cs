@@ -1,9 +1,9 @@
 using System.IO;
 using Terraria.ModLoader.IO;
 
-namespace MoreTownPets
+namespace MoreTownsfolk
 {
-	public class MTPWorld : ModSystem
+	public class TownsfolkWorld : ModSystem
 	{
 		public static bool boughtAxolotl = false;
 
