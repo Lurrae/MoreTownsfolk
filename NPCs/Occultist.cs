@@ -1,3 +1,4 @@
+using Humanizer;
 using MoreTownsfolk.Items;
 using MoreTownsfolk.Projectiles;
 using TepigCore.Base.ModdedNPC;
@@ -9,21 +10,21 @@ using Terraria.GameContent.Personalities;
 namespace MoreTownsfolk.NPCs
 {
 	[AutoloadHead]
-	public class Harvester : ModTownee
+	public class Occultist : ModTownee
 	{
 		//private static int ShimmerHeadIdx;
 		private static Profiles.StackedNPCProfile Profile;
 
-		public override string DialogueKey => "Mods.MoreTownsfolk.Dialogue.Harvester.";
+		public override string DialogueKey => "Mods.MoreTownsfolk.Dialogue.Occultist.";
 		public override bool IsMale => false;
 
 		public override void TowneeStaticDefaults()
 		{
-			Main.npcFrameCount[Type] = 25;
+			Main.npcFrameCount[Type] = 23;
 
-			NPCID.Sets.ExtraFramesCount[Type] = 5;
-			NPCID.Sets.AttackFrameCount[Type] = 4;
-			NPCID.Sets.AttackType[Type] = 0;
+			NPCID.Sets.ExtraFramesCount[Type] = 4;
+			NPCID.Sets.AttackFrameCount[Type] = 3;
+			NPCID.Sets.AttackType[Type] = 2;
 			NPCID.Sets.AttackTime[Type] = 45;
 			NPCID.Sets.AttackAverageChance[Type] = 30;
 
@@ -31,7 +32,7 @@ namespace MoreTownsfolk.NPCs
 				.SetBiomeAffection<CrimsonBiome>(AffectionLevel.Like)
 				.SetBiomeAffection<DesertBiome>(AffectionLevel.Dislike)
 				.SetBiomeAffection<HallowBiome>(AffectionLevel.Hate)
-				.SetNPCAffection(NPCType<Occultist>(), AffectionLevel.Love)
+				.SetNPCAffection(NPCType<Harvester>(), AffectionLevel.Love)
 				.SetNPCAffection(NPCID.Nurse, AffectionLevel.Like)
 				.SetNPCAffection(NPCID.Pirate, AffectionLevel.Like)
 				.SetNPCAffection(NPCID.Guide, AffectionLevel.Dislike)
@@ -45,7 +46,7 @@ namespace MoreTownsfolk.NPCs
 
 		public override void TowneeSetDefaults()
 		{
-			AnimationType = NPCID.Merchant;
+			AnimationType = NPCID.Wizard;
 		}
 
 		//public override void Load()
@@ -58,7 +59,7 @@ namespace MoreTownsfolk.NPCs
 			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
 			{
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson,
-				new FlavorTextBestiaryInfoElement("Mods.MoreTownsfolk.Bestiary.Harvester")
+				new FlavorTextBestiaryInfoElement("Mods.MoreTownsfolk.Bestiary.Occultist")
 			});
 		}
 
@@ -71,7 +72,7 @@ namespace MoreTownsfolk.NPCs
 		{
 			List<string> names = new();
 
-			foreach (LocalizedText text in Language.FindAll(Lang.CreateDialogFilter("Mods.MoreTownsfolk.NPCNames.Harvester")))
+			foreach (LocalizedText text in Language.FindAll(Lang.CreateDialogFilter("Mods.MoreTownsfolk.NPCNames.Occultist")))
 			{
 				names.Add(text.Value);
 			}
@@ -79,7 +80,7 @@ namespace MoreTownsfolk.NPCs
 			return names;
 		}
 
-		// Spawns in Hardmode if at least one block of Corruption exists
+		// Spawns in Hardmode if at least one block of Crimson exists
 		public override bool CanTownNPCSpawn(int numTownNPCs)
 		{
 			if (Main.hardMode)
@@ -87,7 +88,7 @@ namespace MoreTownsfolk.NPCs
 				var tileCounts = new int[TileLoader.TileCount];
 				WorldGen.CountTileTypesInArea(tileCounts, 0, Main.maxTilesX, 0, Main.maxTilesY);
 				tileCounts[TileID.Sunflower] = 0;
-				if (WorldGen.GetTileTypeCountByCategory(tileCounts, TileScanGroup.Corruption) > 0)
+				if (WorldGen.GetTileTypeCountByCategory(tileCounts, TileScanGroup.Crimson) > 0)
 				{
 					return true;
 				}
@@ -123,7 +124,7 @@ namespace MoreTownsfolk.NPCs
 		public override void AddShops()
 		{
 			var npcShop = new NPCShop(Type, "Shop")
-				.Add(ItemID.CrimsonSeeds)
+				.Add(ItemID.CorruptSeeds)
 				.Add(ItemID.TeleportationPylonVictory, Condition.HappyEnoughToSellPylons)
 			;
 
@@ -132,13 +133,13 @@ namespace MoreTownsfolk.NPCs
 
 		public override string GetChat()
 		{
-			// Has a 30% chance to return a special dialogue if your world has no Crimson
+			// Has a 30% chance to return a special dialogue if your world has no Corruption
 			var tileCounts = new int[TileLoader.TileCount];
 			WorldGen.CountTileTypesInArea(tileCounts, 0, Main.maxTilesX, 0, Main.maxTilesY);
 			tileCounts[TileID.Sunflower] = 0;
-			if (WorldGen.GetTileTypeCountByCategory(tileCounts, TileScanGroup.Crimson) <= 0 && Main.rand.NextFloat() <= 0.3f)
+			if (WorldGen.GetTileTypeCountByCategory(tileCounts, TileScanGroup.Corruption) <= 0 && Main.rand.NextFloat() <= 0.3f)
 			{
-				return Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Harvester.Dialogue21").Replace("{?Day}{?!Day}", "");
+				return Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Occultist.Dialogue21").Replace("{?Day}{?!Day}", "");
 			}
 
 			// Otherwise, just returns default dialogue
@@ -147,8 +148,8 @@ namespace MoreTownsfolk.NPCs
 
 		public override void TownNPCAttackStrength(ref int damage, ref float knockback)
 		{
-			damage = 30;
-			knockback = 6.5f;
+			damage = 12;
+			knockback = 1.5f;
 		}
 
 		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown)
@@ -159,7 +160,7 @@ namespace MoreTownsfolk.NPCs
 
 		public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
 		{
-			projType = ProjectileType<HarvesterAttack>();
+			projType = ProjectileType<OccultistAttack>();
 			attackDelay = 1;
 		}
 
@@ -170,7 +171,7 @@ namespace MoreTownsfolk.NPCs
 
 		public override void HitEffect(NPC.HitInfo hit)
 		{
-			foreach (Projectile proj in Main.projectile.Where(p => p.type == ProjectileType<HarvesterAttack>()))
+			foreach (Projectile proj in Main.projectile.Where(p => p.type == ProjectileType<OccultistAttack>()))
 			{
 				if (proj.owner == NPC.whoAmI)
 				{
@@ -179,10 +180,10 @@ namespace MoreTownsfolk.NPCs
 			}
 		}
 
-		// 1/10 chance to drop "The Hook", a melee weapon
+		// 1/10 chance to drop "Spittle", a magic weapon
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			npcLoot.Add(new CommonDrop(ItemType<TheHook>(), 10));
+			npcLoot.Add(new CommonDrop(ItemType<Spittle>(), 10));
 		}
 	}
 }

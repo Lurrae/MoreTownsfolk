@@ -23,10 +23,10 @@ namespace MoreTownsfolk.NPCs
 		public override void SetStaticDefaults()
 		{
 			int harvesterType = NPCType<Harvester>();
-			//int occultistType = NPCType<Occultist>();
+			int occultistType = NPCType<Occultist>();
 			var guideHappiness = NPCHappiness.Get(NPCID.Guide);
 			var dryadHappiness = NPCHappiness.Get(NPCID.Dryad);
-			//var clothierHappiness = NPCHappiness.Get(NPCID.Clothier);
+			var clothierHappiness = NPCHappiness.Get(NPCID.Clothier);
 			var zoologistHappiness = NPCHappiness.Get(NPCID.BestiaryGirl);
 
 			// Harvester: Disliked by the Guide and Zoologist, hated by the Dryad
@@ -35,9 +35,9 @@ namespace MoreTownsfolk.NPCs
 			dryadHappiness.SetNPCAffection(harvesterType, AffectionLevel.Hate);
 			
 			// Occultist: Disliked by the Guide and Clothier, hated by the Dryad
-			//guideHappiness.SetNPCAffection(occultistType, AffectionLevel.Dislike);
-			//clothierHappiness.SetNPCAffection(occultistType, AffectionLevel.Dislike);
-			//dryadHappiness.SetNPCAffection(occultistType, AffectionLevel.Hate);
+			guideHappiness.SetNPCAffection(occultistType, AffectionLevel.Dislike);
+			clothierHappiness.SetNPCAffection(occultistType, AffectionLevel.Dislike);
+			dryadHappiness.SetNPCAffection(occultistType, AffectionLevel.Hate);
 		}
 
 		// Custom dialogue can go here as needed

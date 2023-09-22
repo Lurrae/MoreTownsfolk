@@ -34,7 +34,7 @@ namespace MoreTownsfolk
 
 		private void On_WorldGen_ScoreRoom(On_WorldGen.orig_ScoreRoom orig, int ignoreNPC, int npcTypeAskingToScoreRoom)
 		{
-			if (npcTypeAskingToScoreRoom == NPCType<Harvester>() /*|| npcTypeAskingToScoreRoom == NPCType<Occultist>()*/)
+			if (npcTypeAskingToScoreRoom == NPCType<Harvester>() || npcTypeAskingToScoreRoom == NPCType<Occultist>())
 			{
 				EvilFanaticBeingHoused = true;
 			}
@@ -56,7 +56,7 @@ namespace MoreTownsfolk
 
 		private void On_ShopHelper_ProcessMood(On_ShopHelper.orig_ProcessMood orig, ShopHelper self, Player player, NPC npc)
 		{
-			if (npc.type == NPCType<Harvester>() /*|| npc.type == NPCType<Occultist>()*/)
+			if (npc.type == NPCType<Harvester>() || npc.type == NPCType<Occultist>())
 			{
 				PlayerTalkingToEvilFanatic = true;
 			}

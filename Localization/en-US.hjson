@@ -23,6 +23,16 @@ Mods: {
 					Find the perfect fit for you and your axolotl!
 					'''
 			}
+
+			Spittle: {
+				DisplayName: Spittle
+				Tooltip: ""
+			}
+
+			TheHook: {
+				DisplayName: The Hook
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -260,6 +270,11 @@ Mods: {
 			Occultist: A corruption fanatic who likes to get up to mischief for fun. Wants to create an abomination of her own one day.
 		}
 
-		Projectiles.HarvesterAttack.DisplayName: The Hook
+		Projectiles: {
+			HarvesterAttack.DisplayName: The Hook
+			OccultistAttack.DisplayName: Spittle
+			SpittleProj.DisplayName: Spittle
+			TheHookProj.DisplayName: The Hook
+		}
 	}
 }
