@@ -1,5 +1,6 @@
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
+using Terraria.ID;
 
 namespace MoreTownsfolk.NPCs
 {
@@ -34,7 +35,7 @@ namespace MoreTownsfolk.NPCs
 			NPCID.Sets.TownNPCBestiaryPriority.Add(Type);
 			NPCID.Sets.ExtraFramesCount[Type] = 18;
 			NPCID.Sets.DangerDetectRange[Type] = 250;
-			NPCID.Sets.ShimmerImmunity[Type] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Shimmer] = true;
 			NPCID.Sets.NPCFramingGroup[Type] = 4;
 
 			// Values copied from town cat's bestiary entry

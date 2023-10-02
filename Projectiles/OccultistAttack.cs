@@ -184,7 +184,7 @@ namespace MoreTownsfolk.Projectiles
 		}
 
 		// Play sound on death, but only if spawned by a player
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (!IsOwnedByHarvester)
 				SoundEngine.PlaySound(SoundID.NPCDeath9, Projectile.Center);
