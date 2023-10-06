@@ -3,6 +3,7 @@ global using Microsoft.Xna.Framework.Graphics;
 global using System;
 global using System.Collections.Generic;
 global using System.Linq;
+global using TepigCore;
 global using Terraria;
 global using Terraria.Enums;
 global using Terraria.ID;
@@ -11,7 +12,6 @@ global using Terraria.ModLoader;
 global using static Terraria.ModLoader.ModContent;
 using MoreTownsfolk.NPCs;
 using Terraria.GameContent;
-using Terraria.GameContent.Achievements;
 
 namespace MoreTownsfolk
 {
