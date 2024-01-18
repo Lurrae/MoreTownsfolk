@@ -1,4 +1,3 @@
-using Humanizer;
 using MoreTownsfolk.Items;
 using MoreTownsfolk.Projectiles;
 using TepigCore.Base.ModdedNPC;
@@ -27,10 +26,11 @@ namespace MoreTownsfolk.NPCs
 			NPCID.Sets.AttackType[Type] = 2;
 			NPCID.Sets.AttackTime[Type] = 45;
 			NPCID.Sets.AttackAverageChance[Type] = 30;
+			NPCID.Sets.HatOffsetY[Type] = 4;
 
 			NPC.Happiness
-				.SetBiomeAffection<CrimsonBiome>(AffectionLevel.Like)
-				.SetBiomeAffection<DesertBiome>(AffectionLevel.Dislike)
+				.SetBiomeAffection<CorruptionBiome>(AffectionLevel.Like)
+				.SetBiomeAffection<JungleBiome>(AffectionLevel.Dislike)
 				.SetBiomeAffection<HallowBiome>(AffectionLevel.Hate)
 				.SetNPCAffection(NPCType<Harvester>(), AffectionLevel.Love)
 				.SetNPCAffection(NPCID.Nurse, AffectionLevel.Like)
@@ -39,8 +39,8 @@ namespace MoreTownsfolk.NPCs
 				.SetNPCAffection(NPCID.Dryad, AffectionLevel.Hate);
 
 			Profile = new Profiles.StackedNPCProfile(
-				new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture))//,
-				//new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIdx)
+				new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture), Texture + "_Party")//,
+				//new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIdx, Texture + _ShimmerParty)
 			);
 		}
 
@@ -125,7 +125,7 @@ namespace MoreTownsfolk.NPCs
 		{
 			var npcShop = new NPCShop(Type, "Shop")
 				.Add(ItemID.CorruptSeeds)
-				.Add(ItemID.TeleportationPylonVictory, Condition.HappyEnoughToSellPylons)
+				.Add(ItemType<TeleportationPylonCorruption>(), Condition.HappyEnoughToSellPylons)
 			;
 
 			npcShop.Register();

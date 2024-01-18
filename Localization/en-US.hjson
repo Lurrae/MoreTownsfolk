@@ -33,6 +33,24 @@ Mods: {
 				DisplayName: The Hook
 				Tooltip: ""
 			}
+
+			TeleportationPylonCrimson: {
+				DisplayName: Crimson Pylon
+				Tooltip:
+					'''
+					Teleport to another pylon when 1 villager is nearby
+					You can only place one per type and in the matching biome
+					'''
+			}
+
+			TeleportationPylonCorruption: {
+				DisplayName: Corruption Pylon
+				Tooltip:
+					'''
+					Teleport to another pylon when 1 villager is nearby
+					You can only place one per type and in the matching biome
+					'''
+			}
 		}
 
 		NPCs: {
@@ -287,6 +305,11 @@ Mods: {
 			OccultistAttack.DisplayName: Spittle
 			SpittleProj.DisplayName: Spittle
 			TheHookProj.DisplayName: The Hook
+		}
+
+		Tiles: {
+			CrimsonPylonTile.MapEntry: Crimson Pylon
+			CorruptPylonTile.MapEntry: Corruption Pylon
 		}
 	}
 }
