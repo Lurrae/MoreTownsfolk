@@ -13,6 +13,17 @@ namespace MoreTownsfolk.NPCs
 			{
 				shop.InsertAfter(ItemID.LicenseBunny, ItemType<LicenseAxolotl>(), ExtraConditions.BestiaryCompletionPercent(0.65f));
 			}
+
+			// Remove the world evil pylons from all town NPC shops other than the evil fanatics
+			if (shop.NpcType != NPCType<Occultist>() && shop.ActiveEntries.Any(e => e.Item.type == ItemType<TeleportationPylonCorruption>()))
+			{
+				shop.GetEntry(ItemType<TeleportationPylonCorruption>()).Disable();
+			}
+
+			if (shop.NpcType != NPCType<Harvester>() && shop.ActiveEntries.Any(e => e.Item.type == ItemType<TeleportationPylonCrimson>()))
+			{
+				shop.GetEntry(ItemType<TeleportationPylonCrimson>()).Disable();
+			}
 		}
 	}
 

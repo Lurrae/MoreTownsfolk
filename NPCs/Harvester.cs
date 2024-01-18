@@ -38,8 +38,8 @@ namespace MoreTownsfolk.NPCs
 				.SetNPCAffection(NPCID.Dryad, AffectionLevel.Hate);
 
 			Profile = new Profiles.StackedNPCProfile(
-				new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture))//,
-				//new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIdx)
+				new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture), Texture + "_Party")//,
+				//new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIdx, Texture + _ShimmerParty)
 			);
 		}
 
@@ -124,7 +124,7 @@ namespace MoreTownsfolk.NPCs
 		{
 			var npcShop = new NPCShop(Type, "Shop")
 				.Add(ItemID.CrimsonSeeds)
-				.Add(ItemID.TeleportationPylonVictory, Condition.HappyEnoughToSellPylons)
+				.Add(ItemType<TeleportationPylonCrimson>(), Condition.HappyEnoughToSellPylons)
 			;
 
 			npcShop.Register();

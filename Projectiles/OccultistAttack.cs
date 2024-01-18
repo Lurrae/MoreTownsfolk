@@ -1,11 +1,6 @@
 using MoreTownsfolk.NPCs;
-using System.Reflection.Metadata;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using static Humanizer.In;
-using Terraria.ID;
-using System;
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace MoreTownsfolk.Projectiles
 {
