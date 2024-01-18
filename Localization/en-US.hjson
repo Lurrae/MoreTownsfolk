@@ -39,6 +39,7 @@ Mods: {
 			Axolotl: {
 				DisplayName: Axolotl
 				TownNPCMood.Princess_LovesNPC: "{NPCName} is really adorable!"
+				Census.SpawnCondition: Conditions unknown
 			}
 
 			Harvester: {
@@ -62,6 +63,8 @@ Mods: {
 					HateNPC: "{NPCName} is... such a killjoy, holy cow. She is impossible to be around."
 					Princess_LovesNPC: "{NPCName} is strange, but she makes very good ham sandwiches!"
 				}
+
+				Census.SpawnCondition: Conditions unknown
 			}
 
 			Occultist: {
@@ -85,6 +88,8 @@ Mods: {
 					HateNPC: "{NPCName} is awful. She doesn't understand that good cannot exist without evil... I hate her out of principle."
 					Princess_LovesNPC: "{NPCName} is strange, but I like her anyways."
 				}
+
+				Census.SpawnCondition: Conditions unknown
 			}
 		}
 
