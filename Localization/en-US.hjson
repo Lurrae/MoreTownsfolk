@@ -91,17 +91,29 @@ Mods: {
 		# Specialized names for town NPCs/pets
 		NPCNames: {
 			Harvester: {
+				Carmilla: Carmilla
+				Carmine: Carmine
+				Heather: Heather
 				Leslie: Leslie
-				Name1: Name1
-				Name2: Name2
-				Name3: Name3
+				Lilith: Lilith
+				Mary: Mary
+				Rosemary: Rosemary
+				Ruby: Ruby
+				Scarlett: Scarlett
+				Sienna: Sienna
 			}
 
 			Occultist: {
+				Ashley: Ashley
+				Bellatrix: Bellatrix
+				Blair: Blair
 				Brianne: Brianne
-				Name1: Name1
-				Name2: Name2
-				Name3: Name3
+				Iris: Iris
+				Lavender: Lavender
+				Lilac: Lilac
+				Ophelia: Ophelia
+				Salem: Salem
+				Violet: Violet
 			}
 
 			AxolotlNames_Blue: {
