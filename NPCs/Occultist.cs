@@ -83,18 +83,7 @@ namespace MoreTownsfolk.NPCs
 		// Spawns in Hardmode if at least one block of Crimson exists
 		public override bool CanTownNPCSpawn(int numTownNPCs)
 		{
-			if (Main.hardMode)
-			{
-				var tileCounts = new int[TileLoader.TileCount];
-				WorldGen.CountTileTypesInArea(tileCounts, 0, Main.maxTilesX, 0, Main.maxTilesY);
-				tileCounts[TileID.Sunflower] = 0;
-				if (WorldGen.GetTileTypeCountByCategory(tileCounts, TileScanGroup.Crimson) > 0)
-				{
-					return true;
-				}
-			}
-
-			return false;
+			return TownsfolkWorld.downedBrain;
 		}
 
 		// Prevent housing in areas with too many "good" tiles

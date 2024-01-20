@@ -75,4 +75,21 @@ namespace MoreTownsfolk.NPCs
 			}
 		}*/
 	}
+
+	// Handles custom downed booleans for vanilla NPCs, like Eater of Worlds and Brain of Cthulhu
+	public class DownedGlobalNPC : GlobalNPC
+	{
+		public override void OnKill(NPC npc)
+		{
+			if (npc.type == NPCID.BrainofCthulhu)
+			{
+				TownsfolkWorld.downedBrain = true;
+			}
+
+			if (npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail && npc.boss)
+			{
+				TownsfolkWorld.downedEater = true;
+			}
+		}
+	}
 }

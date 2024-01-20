@@ -57,6 +57,7 @@ Mods: {
 			Axolotl: {
 				DisplayName: Axolotl
 				TownNPCMood.Princess_LovesNPC: "{NPCName} is really adorable!"
+				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.LicenseAxolotl.DisplayName} [i:MoreTownsfolk/LicenseAxolotl], sold by Zoologist
 			}
 
 			Harvester: {
@@ -80,6 +81,8 @@ Mods: {
 					HateNPC: "{NPCName} is... such a killjoy, holy cow. She is impossible to be around."
 					Princess_LovesNPC: "{NPCName} is strange, but she makes very good ham sandwiches!"
 				}
+
+				Census.SpawnCondition: When the Eater of Worlds has been defeated
 			}
 
 			Occultist: {
@@ -103,6 +106,8 @@ Mods: {
 					HateNPC: "{NPCName} is awful. She doesn't understand that good cannot exist without evil... I hate her out of principle."
 					Princess_LovesNPC: "{NPCName} is strange, but I like her anyways."
 				}
+
+				Census.SpawnCondition: When the Brain of Cthulhu has been defeated
 			}
 		}
 

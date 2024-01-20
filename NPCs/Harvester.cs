@@ -82,18 +82,7 @@ namespace MoreTownsfolk.NPCs
 		// Spawns in Hardmode if at least one block of Corruption exists
 		public override bool CanTownNPCSpawn(int numTownNPCs)
 		{
-			if (Main.hardMode)
-			{
-				var tileCounts = new int[TileLoader.TileCount];
-				WorldGen.CountTileTypesInArea(tileCounts, 0, Main.maxTilesX, 0, Main.maxTilesY);
-				tileCounts[TileID.Sunflower] = 0;
-				if (WorldGen.GetTileTypeCountByCategory(tileCounts, TileScanGroup.Corruption) > 0)
-				{
-					return true;
-				}
-			}
-
-			return false;
+			return TownsfolkWorld.downedEater;
 		}
 
 		// Prevent housing in areas with too many "good" tiles
