@@ -1,6 +1,7 @@
 using MoreTownsfolk.Items;
 using MoreTownsfolk.Projectiles;
 using TepigCore.Base.ModdedNPC;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
@@ -98,23 +99,148 @@ namespace MoreTownsfolk.NPCs
 			return base.CheckConditions(left, right, top, bottom);
 		}
 
+		public static int crittersGiven = 0;
+
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = Language.GetTextValue("LegacyInterface.28"); // "Shop"
+			button2 = Language.GetTextValue("Mods.MoreTownsfolk.Common.HarvestButton") + $"({crittersGiven}/5)"; // "Give Critter (#/5)"
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
 			if (firstButton)
 				shopName = "Shop";
+			else
+			{
+				Player player = Main.LocalPlayer;
+
+				if (!player.inventory.Any(i => !i.favorited && i.stack > 0 && i.makeNPC > 0)) // Player has no usable critters in their inventory
+				{
+					Main.npcChatText = Language.GetTextValue("Mods.MoreTownsfolk.SpecialDialogue.Harvester.NoCritters" + Main.rand.Next(3));
+				}
+				else
+				{
+					foreach (Item item in player.inventory)
+					{
+						if (item.favorited || item.stack <= 0)
+							continue;
+
+						if (item.makeNPC > 0) // Item is most likely a critter (theoretically it could be a captured NPC from Fargo's though)
+						{
+							item.stack--;
+							crittersGiven++;
+							SoundEngine.PlaySound(SoundID.Grab);
+
+							if (item.stack <= 0)
+								item.TurnToAir();
+
+							if (crittersGiven >= 5)
+							{
+								crittersGiven = 0;
+								Main.npcChatText = Language.GetTextValue("Mods.MoreTownsfolk.SpecialDialogue.Harvester.GaveMeat" + Main.rand.Next(3));
+								var source = player.GetSource_GiftOrReward();
+
+								List<int> preBoss = new()
+							{
+								ItemID.BananaSplit,
+								ItemID.Burger,
+								ItemID.MilkCarton,
+								ItemID.ChickenNugget,
+								ItemID.CoffeeCup,
+								ItemID.FriedEgg,
+								ItemID.Fries,
+								ItemID.Hotdog,
+								ItemID.IceCream,
+								ItemID.Nachos,
+								ItemID.Pizza,
+								ItemID.PotatoChips,
+								ItemID.ShrimpPoBoy,
+								ItemID.Spaghetti,
+								ItemID.Steak
+							};
+
+								List<int> postSkele = new()
+							{
+								ItemID.CreamSoda
+							};
+
+								List<int> hardmode = new()
+							{
+								ItemID.ApplePie,
+								ItemID.Bacon,
+								ItemID.ChocolateChipCookie,
+								ItemID.Grapes,
+								ItemID.Milkshake
+							};
+
+								List<int> postPlant = new()
+							{
+								ItemID.BBQRibs
+							};
+
+								if (NPC.downedBoss3)
+									preBoss.AddRange(postSkele);
+
+								if (Main.hardMode)
+									preBoss.AddRange(hardmode);
+
+								if (NPC.downedPlantBoss)
+									preBoss.AddRange(postPlant);
+
+								player.QuickSpawnItem(source, preBoss[Main.rand.Next(preBoss.Count)]);
+								SoundEngine.PlaySound(SoundID.Chat);
+							}
+
+							break;
+						}
+					}
+				}
+			}
 		}
 
 		public override void AddShops()
 		{
 			var npcShop = new NPCShop(Type, "Shop")
+				// Crimson Seeds
 				.Add(ItemID.CrimsonSeeds)
+				
+				// Crimson Heart items and Crimtane (dependent on moon phase)
+				.Add(ItemID.CrimtaneOre, Condition.MoonPhaseFull)
+				.Add(ItemID.TheUndertaker, Condition.MoonPhaseWaningGibbous)
+				.Add(ItemID.TheRottedFork, Condition.MoonPhaseThirdQuarter)
+				.Add(ItemID.CrimsonRod, Condition.MoonPhaseWaningCrescent)
+				.Add(ItemID.PanicNecklace, Condition.MoonPhaseNew)
+				.Add(ItemID.CrimsonHeart, Condition.MoonPhaseWaxingCrescent)
+				
+				// Crimson Pylon
 				.Add(ItemType<TeleportationPylonCrimson>(), Condition.HappyEnoughToSellPylons)
 			;
+
+			if (ModLoader.TryGetMod("ThoriumMod", out Mod thorium))
+			{
+				if (thorium.TryFind("FanLetter", out ModItem fanLetter) && thorium.TryFind("DarkHeart", out ModItem darkHeart))
+				{
+					npcShop
+						.Add(fanLetter.Type, Condition.MoonPhaseFirstQuarter)
+						.Add(darkHeart.Type, Condition.MoonPhaseWaxingGibbous)
+					;
+				}
+				else
+				{
+					npcShop
+						.Add(ItemID.CrimtaneOre, Condition.MoonPhaseFirstQuarter)
+						.Add(ItemID.CrimtaneOre, Condition.MoonPhaseWaxingGibbous)
+					;
+				}
+			}
+			else
+			{
+				npcShop
+					.Add(ItemID.CrimtaneOre, Condition.MoonPhaseFirstQuarter)
+					.Add(ItemID.CrimtaneOre, Condition.MoonPhaseWaxingGibbous)
+				;
+			}
 
 			npcShop.Register();
 		}

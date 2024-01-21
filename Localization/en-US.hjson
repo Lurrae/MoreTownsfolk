@@ -1,14 +1,46 @@
 Mods: {
 	MoreTownsfolk: {
-		Conditions: {
-			BestiaryCompletionPercent: Complete {0}% of the Bestiary
-			Dummy: This is only here so tmod's auto-formatting will stop f###ing up my conditions >:(
-		}
-
 		Common: {
 			# Message output to chat when using an Axolotl License
 			AxoLicenseUsed: The license teleports away to the axolotl delivery service...
-			Dummy: I hate tmod's auto-formatting sometimes
+			# Secondary button text for the Occultist and Harvester
+			CorruptButton: Corrupt Armor
+			HarvestButton: Give Critter
+			# Text for Occultist's corruption UI
+			Cost: "Cost: "
+			PlaceArmorHere: Place an armor piece here
+		}
+
+		OccultistCorruptions: {
+			Soulless: {
+				DisplayName: Soulless
+				Tooltip: Increases the defense of the armor piece by 15%, but decreases all healing received by 5%
+			}
+
+			Wallowing: {
+				DisplayName: Wallowing
+				Tooltip: Increases the defense of the armor piece by 15%, but decreases all attack speed by 5%
+			}
+
+			Abominable: {
+				DisplayName: Abominable
+				Tooltip: Increases the defense of the armor piece by 15%, but decreases the wearer's movement speed by 2%
+			}
+
+			Wrathful: {
+				DisplayName: Wrathful
+				Tooltip: Decreases the defense of the armor piece by 15%, but attacks deal 5% more damage
+			}
+
+			Deceitful: {
+				DisplayName: Deceitful
+				Tooltip: Decreases the defense of the armor piece by 15%, but reduces damage taken by 2%
+			}
+
+			Fretful: {
+				DisplayName: Fretful
+				Tooltip: Decreases the defense of the armor piece by 15%, but increases the wearer's movement speed by 2%
+			}
 		}
 
 		Items: {
@@ -298,6 +330,17 @@ Mods: {
 			}
 		}
 
+		SpecialDialogue: {
+			Harvester: {
+				NoCritters0: Got a critter on you? No? I'm willing to butcher any animal you hand over. Who knows? You might get something out of it!
+				NoCritters1: Listen, you know what I do - feed my vice and I might just feed you back.
+				NoCritters2: Got an animal you don't like the look of? Give it to me! I'll rip its face off and give you anything that might be left over!
+				GaveFood0: Hey! I managed to pull this out of the gore from all those animals you gave me! Keep it - consider it a show of thanks.
+				GaveFood1: Oh, sweet! Just found this after going through the carcasses. Here you go...
+				GaveFood2: Ooh, found something! I'm telling you, it's like cracking open tiny piñatas. Here - see?
+			}
+		}
+
 		# Bestiary entries for the town NPCs and pets
 		Bestiary: {
 			Axolotl: This is a placeholder Bestiary entry.
@@ -316,5 +359,7 @@ Mods: {
 			CrimsonPylonTile.MapEntry: Crimson Pylon
 			CorruptPylonTile.MapEntry: Corruption Pylon
 		}
+
+		Conditions.BestiaryCompletionPercent: Mods.MoreTownsfolk.Conditions.BestiaryCompletionPercent
 	}
 }

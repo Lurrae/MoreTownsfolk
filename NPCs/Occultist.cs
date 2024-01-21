@@ -33,8 +33,8 @@ namespace MoreTownsfolk.NPCs
 				.SetBiomeAffection<JungleBiome>(AffectionLevel.Dislike)
 				.SetBiomeAffection<HallowBiome>(AffectionLevel.Hate)
 				.SetNPCAffection(NPCType<Harvester>(), AffectionLevel.Love)
-				.SetNPCAffection(NPCID.Nurse, AffectionLevel.Like)
-				.SetNPCAffection(NPCID.Pirate, AffectionLevel.Like)
+				.SetNPCAffection(NPCID.TaxCollector, AffectionLevel.Like)
+				.SetNPCAffection(NPCID.Clothier, AffectionLevel.Like)
 				.SetNPCAffection(NPCID.Guide, AffectionLevel.Dislike)
 				.SetNPCAffection(NPCID.Dryad, AffectionLevel.Hate);
 
@@ -102,20 +102,63 @@ namespace MoreTownsfolk.NPCs
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = Language.GetTextValue("LegacyInterface.28"); // "Shop"
+			button2 = Language.GetTextValue("Mods.MoreTownsfolk.Common.CorruptButton"); // "Corrupt Armor"
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
 			if (firstButton)
 				shopName = "Shop";
+			else
+			{
+				Main.playerInventory = true;
+				OccultUI.NPCIndex = NPC.whoAmI;
+				OccultUI.CurrentlyViewing = true;
+			}
 		}
 
 		public override void AddShops()
 		{
 			var npcShop = new NPCShop(Type, "Shop")
+				// Corrupt Seeds
 				.Add(ItemID.CorruptSeeds)
+
+				// Shadow Orb items and Demonite (dependent on moon phase)
+				.Add(ItemID.DemoniteOre, Condition.MoonPhaseFull)
+				.Add(ItemID.Musket, Condition.MoonPhaseWaningGibbous)
+				.Add(ItemID.BallOHurt, Condition.MoonPhaseThirdQuarter)
+				.Add(ItemID.Vilethorn, Condition.MoonPhaseWaningCrescent)
+				.Add(ItemID.BandofStarpower, Condition.MoonPhaseNew)
+				.Add(ItemID.ShadowOrb, Condition.MoonPhaseWaxingCrescent)
+
+				// Corruption Pylon
 				.Add(ItemType<TeleportationPylonCorruption>(), Condition.HappyEnoughToSellPylons)
 			;
+
+			if (ModLoader.TryGetMod("ThoriumMod", out Mod thorium))
+			{
+				if (thorium.TryFind("FanLetter2", out ModItem fanLetter) && thorium.TryFind("DarkHeart", out ModItem darkHeart))
+				{
+					npcShop
+						.Add(fanLetter.Type, Condition.MoonPhaseFirstQuarter)
+						.Add(darkHeart.Type, Condition.MoonPhaseWaxingGibbous)
+					;
+				}
+				else
+				{
+					npcShop
+						.Add(ItemID.DemoniteOre, Condition.MoonPhaseFirstQuarter)
+						.Add(ItemID.DemoniteOre, Condition.MoonPhaseWaxingGibbous)
+					;
+				}
+			}
+			else
+			{
+				npcShop
+					.Add(ItemID.DemoniteOre, Condition.MoonPhaseFirstQuarter)
+					.Add(ItemID.DemoniteOre, Condition.MoonPhaseWaxingGibbous)
+				;
+			}
 
 			npcShop.Register();
 		}

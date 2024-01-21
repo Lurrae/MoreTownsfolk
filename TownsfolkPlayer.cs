@@ -1,5 +1,4 @@
 using MoreTownsfolk.NPCs;
-using Terraria.GameContent.Achievements;
 
 namespace MoreTownsfolk
 {
@@ -22,6 +21,29 @@ namespace MoreTownsfolk
 					Player.SetCompositeArmBack(true, stretch, -MathHelper.TwoPi * 0.1f * Player.direction);
 				}
 			}
+		}
+	}
+
+	// Handles custom effects from the Occultist's Corruptions
+	public class CorruptionPlayer : ModPlayer
+	{
+		public float healingMult = 1f;
+
+		public override void ResetEffects()
+		{
+			healingMult = 1f;
+		}
+
+		public override void UpdateLifeRegen()
+		{
+			if (Player.lifeRegen > 0)
+				Player.lifeRegen = Math.Max(0, (int)Math.Round(Player.lifeRegen * healingMult));
+		}
+
+		public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
+		{
+			if (healingMult != 1f)
+				healValue = (int)Math.Round(healValue * healingMult);
 		}
 	}
 }

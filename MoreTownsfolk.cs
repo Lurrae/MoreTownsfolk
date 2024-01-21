@@ -11,10 +11,16 @@ global using Terraria.Localization;
 global using Terraria.ModLoader;
 global using static Terraria.ModLoader.ModContent;
 using MoreTownsfolk.NPCs;
+using System.IO;
 using Terraria.GameContent;
 
 namespace MoreTownsfolk
 {
+	public enum PacketType
+	{
+		HarvesterCritters = 0
+	}
+
 	public class MoreTownsfolk : Mod
 	{
 		private static bool PlayerTalkingToEvilFanatic = false;
