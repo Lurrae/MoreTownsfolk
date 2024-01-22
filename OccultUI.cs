@@ -161,7 +161,7 @@ namespace MoreTownsfolk
 
 			if (CorruptButtonClickCountdown > 0f)
 			{
-				reforgeIconTexture = TextureAssets.Reforge[0].Value;
+				reforgeIconTexture = TextureAssets.Reforge[1].Value;
 			}
 
 			isHoveringOverItemIcon = MouseScreenArea.Intersects(new Rectangle((int)itemSlotDrawPosition.X, (int)itemSlotDrawPosition.Y, (int)(itemSlotTexture.Width * scale.X), (int)(itemSlotTexture.Height * scale.Y)));
@@ -232,6 +232,12 @@ namespace MoreTownsfolk
 			Main.LocalPlayer.BuyItem(cost);
 			SoundEngine.PlaySound(SoundID.AbigailUpgrade, Main.LocalPlayer.Center);
 
+			string originalName = CurrentlyHeldItem.Name;
+			CurrentlyHeldItem.SetNameOverride(CurrentlyHeldItem.GetGlobalItem<TownsfolkGlobalItem>().OccultistCorruption + " " + originalName);
+			CurrentlyHeldItem.position.X = Main.LocalPlayer.position.X + (Main.LocalPlayer.width / 2) - CurrentlyHeldItem.width / 2;
+			CurrentlyHeldItem.position.Y = Main.LocalPlayer.position.Y + (Main.LocalPlayer.height / 2) - CurrentlyHeldItem.height / 2;
+			PopupText.NewText(PopupTextContext.ItemReforge, CurrentlyHeldItem, CurrentlyHeldItem.stack, true);
+			CurrentlyHeldItem.SetNameOverride(originalName);
 		}
 	}
 }
