@@ -100,11 +100,12 @@ namespace MoreTownsfolk.NPCs
 		}
 
 		public static int crittersGiven = 0;
+		static readonly int MAX_CRITTERS = 10;
 
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = Language.GetTextValue("LegacyInterface.28"); // "Shop"
-			button2 = Language.GetTextValue("Mods.MoreTownsfolk.Common.HarvestButton") + $"({crittersGiven}/5)"; // "Give Critter (#/5)"
+			button2 = Language.GetTextValue("Mods.MoreTownsfolk.Common.HarvestButton") + $"({crittersGiven}/{MAX_CRITTERS})"; // "Give Critter (#/10)"
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
@@ -135,49 +136,49 @@ namespace MoreTownsfolk.NPCs
 							if (item.stack <= 0)
 								item.TurnToAir();
 
-							if (crittersGiven >= 5)
+							if (crittersGiven >= MAX_CRITTERS)
 							{
 								crittersGiven = 0;
 								Main.npcChatText = Language.GetTextValue("Mods.MoreTownsfolk.SpecialDialogue.Harvester.GaveMeat" + Main.rand.Next(3));
 								var source = player.GetSource_GiftOrReward();
 
 								List<int> preBoss = new()
-							{
-								ItemID.BananaSplit,
-								ItemID.Burger,
-								ItemID.MilkCarton,
-								ItemID.ChickenNugget,
-								ItemID.CoffeeCup,
-								ItemID.FriedEgg,
-								ItemID.Fries,
-								ItemID.Hotdog,
-								ItemID.IceCream,
-								ItemID.Nachos,
-								ItemID.Pizza,
-								ItemID.PotatoChips,
-								ItemID.ShrimpPoBoy,
-								ItemID.Spaghetti,
-								ItemID.Steak
-							};
+								{
+									ItemID.BananaSplit,
+									ItemID.Burger,
+									ItemID.MilkCarton,
+									ItemID.ChickenNugget,
+									ItemID.CoffeeCup,
+									ItemID.FriedEgg,
+									ItemID.Fries,
+									ItemID.Hotdog,
+									ItemID.IceCream,
+									ItemID.Nachos,
+									ItemID.Pizza,
+									ItemID.PotatoChips,
+									ItemID.ShrimpPoBoy,
+									ItemID.Spaghetti,
+									ItemID.Steak
+								};
 
 								List<int> postSkele = new()
-							{
-								ItemID.CreamSoda
-							};
+								{
+									ItemID.CreamSoda
+								};
 
 								List<int> hardmode = new()
-							{
-								ItemID.ApplePie,
-								ItemID.Bacon,
-								ItemID.ChocolateChipCookie,
-								ItemID.Grapes,
-								ItemID.Milkshake
-							};
+								{
+									ItemID.ApplePie,
+									ItemID.Bacon,
+									ItemID.ChocolateChipCookie,
+									ItemID.Grapes,
+									ItemID.Milkshake
+								};
 
 								List<int> postPlant = new()
-							{
-								ItemID.BBQRibs
-							};
+								{
+									ItemID.BBQRibs
+								};
 
 								if (NPC.downedBoss3)
 									preBoss.AddRange(postSkele);
