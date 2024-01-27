@@ -1,8 +1,38 @@
+TownNPCMood_Nurse.LikeBiome: I like how {BiomeName}'s environment helps keep the spread of contagious diseases to a minimum.
+
 Mods: {
 	MoreTownsfolk: {
+		Biomes: {
+			Sky: the Sky
+			Hell: the Underworld
+		}
+
 		Conditions: {
 			NotInSkyHeight: Not in the Sky
 			BestiaryCompletionPercent: Mods.MoreTownsfolk.Conditions.BestiaryCompletionPercent
+		}
+
+		Configs: {
+			ServerConfig: {
+				DisplayName: Extra Townsfolk Server Config
+
+				ShuffleBiomePreferences: {
+					Label: Sky/Underworld Biome Split
+					Tooltip:
+						'''
+						If enabled, separates the Sky and Underworld into distinct biomes from the Forest and Underground, and adds two new Pylons for them.
+						As a result, the following NPCs have their biome preferences altered:
+						Nurse: Likes the Sky instead of the Hallow
+						Merchant: Likes the Sky instead of the Forest, dislikes the Underworld instead of the Desert
+						Angler: Dislikes the Underworld instead of the Desert
+						Tavernkeep: Dislikes the Sky instead of the Snow
+						Mechanic: Dislikes the Underworld in addition to the Underground
+						Dullahan: Likes the Underworld instead of the Underground
+						NPCs who like or dislike the Forest: Neutral to the Sky
+						NPCs who like or dislike the Underground: Neutral to the Underworld
+						'''
+				}
+			}
 		}
 
 		Common: {

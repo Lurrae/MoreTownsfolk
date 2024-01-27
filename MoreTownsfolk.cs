@@ -10,6 +10,7 @@ global using Terraria.ID;
 global using Terraria.Localization;
 global using Terraria.ModLoader;
 global using static Terraria.ModLoader.ModContent;
+using MoreTownsfolk.Configs;
 using MoreTownsfolk.NPCs;
 using Terraria.GameContent;
 
@@ -32,9 +33,28 @@ namespace MoreTownsfolk
 			
 			On_ShopHelper.ProcessMood += On_ShopHelper_ProcessMood;
 			On_ShopHelper.IsPlayerInEvilBiomes += On_ShopHelper_IsPlayerInEvilBiomes;
-
+			
 			On_Player.PetAnimal += On_Player_PetAnimal;
 			On_Player.StopPettingAnimal += On_Player_StopPettingAnimal;
+
+			MonoModHooks.Add(typeof(Player).GetProperty(nameof(Player.ShoppingZone_Forest)).GetGetMethod(), ShoppingZone_Forest_NotSky);
+			MonoModHooks.Add(typeof(Player).GetProperty(nameof(Player.ShoppingZone_BelowSurface)).GetGetMethod(), ShoppingZone_BelowSurface_NotHell);
+		}
+
+		public static bool ShoppingZone_Forest_NotSky(Func<Player, bool> orig, Player self)
+		{
+			if (Conversions.ToBlocks(self.position.Y) <= Main.worldSurface * 0.35f && GetInstance<ServerConfig>().ShuffleBiomePreferences)
+				return false;
+
+			return orig.Invoke(self);
+		}
+
+		public static bool ShoppingZone_BelowSurface_NotHell(Func<Player, bool> orig, Player self)
+		{
+			if (Conversions.ToBlocks(self.position.Y) >= Main.UnderworldLayer && GetInstance<ServerConfig>().ShuffleBiomePreferences)
+				return false;
+
+			return orig.Invoke(self);
 		}
 
 		private void On_WorldGen_ScoreRoom(On_WorldGen.orig_ScoreRoom orig, int ignoreNPC, int npcTypeAskingToScoreRoom)

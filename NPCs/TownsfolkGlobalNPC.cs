@@ -1,3 +1,4 @@
+using MoreTownsfolk.Configs;
 using MoreTownsfolk.Items;
 using Terraria.GameContent.Personalities;
 
@@ -24,6 +25,10 @@ namespace MoreTownsfolk.NPCs
 			{
 				shop.GetEntry(ItemType<TeleportationPylonCrimson>()).Disable();
 			}
+
+			// Only apply the below changes if the config option is enabled; if it's disabled, leave vanilla pylon sales unchanged
+			if (!GetInstance<ServerConfig>().ShuffleBiomePreferences)
+				return;
 
 			if (shop.ActiveEntries.Any(e => e.Item.type == ItemType<TeleportationPylonSky>() && !e.Conditions.Any(c => c == Condition.InSkyHeight)))
 			{
@@ -55,20 +60,63 @@ namespace MoreTownsfolk.NPCs
 		{
 			int harvesterType = NPCType<Harvester>();
 			int occultistType = NPCType<Occultist>();
-			var guideHappiness = NPCHappiness.Get(NPCID.Guide);
-			var dryadHappiness = NPCHappiness.Get(NPCID.Dryad);
-			var clothierHappiness = NPCHappiness.Get(NPCID.Clothier);
-			var zoologistHappiness = NPCHappiness.Get(NPCID.BestiaryGirl);
+			Dictionary<int, NPCHappiness> happiness = new();
+
+			foreach (NPC npc in ContentSamples.NpcsByNetId.Values.Where(n => n.townNPC))
+			{
+				happiness.Add(npc.type, NPCHappiness.Get(npc.type));
+			}
 
 			// Harvester: Disliked by the Guide and Zoologist, hated by the Dryad
-			guideHappiness.SetNPCAffection(harvesterType, AffectionLevel.Dislike);
-			zoologistHappiness.SetNPCAffection(harvesterType, AffectionLevel.Dislike);
-			dryadHappiness.SetNPCAffection(harvesterType, AffectionLevel.Hate);
-			
+			happiness[NPCID.Guide].SetNPCAffection(harvesterType, AffectionLevel.Dislike);
+			happiness[NPCID.BestiaryGirl].SetNPCAffection(harvesterType, AffectionLevel.Dislike);
+			happiness[NPCID.Dryad].SetNPCAffection(harvesterType, AffectionLevel.Hate);
+
 			// Occultist: Disliked by the Guide and Clothier, hated by the Dryad
-			guideHappiness.SetNPCAffection(occultistType, AffectionLevel.Dislike);
-			clothierHappiness.SetNPCAffection(occultistType, AffectionLevel.Dislike);
-			dryadHappiness.SetNPCAffection(occultistType, AffectionLevel.Hate);
+			happiness[NPCID.Guide].SetNPCAffection(occultistType, AffectionLevel.Dislike);
+			happiness[NPCID.Clothier].SetNPCAffection(occultistType, AffectionLevel.Dislike);
+			happiness[NPCID.Dryad].SetNPCAffection(occultistType, AffectionLevel.Hate);
+
+			// Only apply the below changes if the config option is enabled; if it's disabled, skip doing all of this
+			if (!GetInstance<ServerConfig>().ShuffleBiomePreferences)
+				return;
+
+			// Nurse: Changed to like the Sky instead of the Hallow
+			happiness[NPCID.Nurse].SetBiomeAffection<CustomShoppingBiomes.SkyBiome>(AffectionLevel.Like);
+			happiness[NPCID.Nurse].SetBiomeAffection<HallowBiome>(0);
+
+			// Merchant: Changed to like the Sky and dislike the Underworld instead of liking the Forest and disliking the Desert
+			happiness[NPCID.Merchant].SetBiomeAffection<CustomShoppingBiomes.SkyBiome>(AffectionLevel.Like);
+			happiness[NPCID.Merchant].SetBiomeAffection<CustomShoppingBiomes.HellBiome>(AffectionLevel.Dislike);
+			happiness[NPCID.Merchant].SetBiomeAffection<ForestBiome>(0);
+			happiness[NPCID.Merchant].SetBiomeAffection<DesertBiome>(0);
+
+			// Tavernkeep: Changed to dislike the Sky instead of the Snow
+			happiness[NPCID.DD2Bartender].SetBiomeAffection<CustomShoppingBiomes.SkyBiome>(AffectionLevel.Dislike);
+			happiness[NPCID.DD2Bartender].SetBiomeAffection<SnowBiome>(0);
+
+			// Mechanic: Dislikes the Underworld as well as Underground (since they are now separate)
+			happiness[NPCID.Mechanic].SetBiomeAffection<CustomShoppingBiomes.HellBiome>(AffectionLevel.Dislike);
+
+			// Angler: Dislikes the Underworld instead of the Desert
+			happiness[NPCID.Angler].SetBiomeAffection<CustomShoppingBiomes.HellBiome>(AffectionLevel.Dislike);
+			happiness[NPCID.Angler].SetBiomeAffection<DesertBiome>(0);
+
+			// Thorium mod support
+			if (ModLoader.TryGetMod("ThoriumMod", out Mod thorium))
+			{
+				if (thorium.TryFind("WeaponMaster", out ModNPC weaponMaster))
+				{
+					// Weapons Master: Dislikes the Underworld as well as the Underground
+					NPCHappiness.Get(weaponMaster.Type).SetBiomeAffection<CustomShoppingBiomes.HellBiome>(AffectionLevel.Like);
+				}
+
+				if (thorium.TryFind("Spiritualist", out ModNPC spiritualist))
+				{
+					// Spiritualist: Hates the Underworld, in addition to disliking the Underground
+					NPCHappiness.Get(spiritualist.Type).SetBiomeAffection<CustomShoppingBiomes.HellBiome>(AffectionLevel.Hate);
+				}
+			}
 		}
 
 		// Custom dialogue can go here as needed
