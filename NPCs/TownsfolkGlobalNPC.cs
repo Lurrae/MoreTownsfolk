@@ -107,7 +107,7 @@ namespace MoreTownsfolk.NPCs
 			{
 				if (thorium.TryFind("WeaponMaster", out ModNPC weaponMaster))
 				{
-					// Weapons Master: Dislikes the Underworld as well as the Underground
+					// Weapons Master: Likes the Underworld as well as the Underground
 					NPCHappiness.Get(weaponMaster.Type).SetBiomeAffection<CustomShoppingBiomes.HellBiome>(AffectionLevel.Like);
 				}
 
