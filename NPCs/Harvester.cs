@@ -139,7 +139,7 @@ namespace MoreTownsfolk.NPCs
 							if (crittersGiven >= MAX_CRITTERS)
 							{
 								crittersGiven = 0;
-								Main.npcChatText = Language.GetTextValue("Mods.MoreTownsfolk.SpecialDialogue.Harvester.GaveMeat" + Main.rand.Next(3));
+								Main.npcChatText = Language.GetTextValue("Mods.MoreTownsfolk.SpecialDialogue.Harvester.GaveFood" + Main.rand.Next(3));
 								var source = player.GetSource_GiftOrReward();
 
 								List<int> preBoss = new()
