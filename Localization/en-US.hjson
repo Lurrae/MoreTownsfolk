@@ -107,7 +107,7 @@ Mods: {
 					DislikeBiome: The desert is so laaame. Everything's either dead or a cactus.
 					HateBiome: The Hallow makes me want to vomit. The only redeeming quality of it is that the unicorns have colorful entrails.
 					LoveNPC: "{NPCName} is so dark, and mysterious... and even a little evil. I love that about her."
-					LikeNPC: "{NPCName} can tolerate gory sights, which I like."
+					LikeNPC: I like that {NPCName} can tolerate gory sights.
 					LikeNPC_Princess: "{NPCName} might just be the only person I feel the need to clean myself up around. Her aura is just so... pure and sweet!"
 					DislikeNPC: "{NPCName} is not really a fan of violent types like me. Hey, feeling's mutual."
 					HateNPC: "{NPCName} is... such a killjoy, holy cow. She is impossible to be around."
@@ -132,7 +132,7 @@ Mods: {
 					DislikeBiome: The Jungle... So resistant to corruption... and for what? Mud and turtles...
 					HateBiome: The Hallow is repulsive. So saccharine and sweet, and yet harbors cruel pixies and light fiends... At least I do not lie about my evil...
 					LoveNPC: "{NPCName} is exciting with a tad of bloodthirst... I'd let her take my heart..."
-					LikeNPC: "{NPCName}... what a sinful soul... makes a good neighbor."
+					LikeNPC: "{NPCName} is a sinful soul... and a good neighbor."
 					LikeNPC_Princess: "{NPCName} is such an incorruptible youth... I can't bring myself to steer her to evil..."
 					DislikeNPC: "{NPCName} can be rather self-righteous... and annoying... blech."
 					HateNPC: "{NPCName} is awful. She doesn't understand that good cannot exist without evil... I hate her out of principle."
