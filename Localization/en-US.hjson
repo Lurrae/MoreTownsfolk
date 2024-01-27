@@ -1,5 +1,10 @@
 Mods: {
 	MoreTownsfolk: {
+		Conditions: {
+			NotInSkyHeight: Not in the Sky
+			BestiaryCompletionPercent: Mods.MoreTownsfolk.Conditions.BestiaryCompletionPercent
+		}
+
 		Common: {
 			# Message output to chat when using an Axolotl License
 			AxoLicenseUsed: The license teleports away to the axolotl delivery service...
@@ -375,7 +380,5 @@ Mods: {
 			HellPylonTile.MapEntry: Hell Pylon Tile
 			SkyPylonTile.MapEntry: Sky Pylon Tile
 		}
-
-		Conditions.BestiaryCompletionPercent: Mods.MoreTownsfolk.Conditions.BestiaryCompletionPercent
 	}
 }

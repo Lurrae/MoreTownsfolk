@@ -11,7 +11,6 @@ global using Terraria.Localization;
 global using Terraria.ModLoader;
 global using static Terraria.ModLoader.ModContent;
 using MoreTownsfolk.NPCs;
-using System.IO;
 using Terraria.GameContent;
 
 namespace MoreTownsfolk

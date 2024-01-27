@@ -24,6 +24,26 @@ namespace MoreTownsfolk.NPCs
 			{
 				shop.GetEntry(ItemType<TeleportationPylonCrimson>()).Disable();
 			}
+
+			if (shop.ActiveEntries.Any(e => e.Item.type == ItemType<TeleportationPylonSky>() && !e.Conditions.Any(c => c == Condition.InSkyHeight)))
+			{
+				shop.GetEntry(ItemType<TeleportationPylonSky>()).AddCondition(Condition.InSkyHeight);
+			}
+
+			if (shop.ActiveEntries.Any(e => e.Item.type == ItemID.TeleportationPylonPurity && !e.Conditions.Any(c => c == ExtraConditions_MoreTownsfolk.NotInSkyHeight)))
+			{
+				shop.GetEntry(ItemID.TeleportationPylonPurity).AddCondition(ExtraConditions_MoreTownsfolk.NotInSkyHeight);
+			}
+
+			if (shop.ActiveEntries.Any(e => e.Item.type == ItemType<TeleportationPylonHell>() && !e.Conditions.Any(c => c == Condition.InUnderworldHeight)))
+			{
+				shop.GetEntry(ItemType<TeleportationPylonHell>()).AddCondition(Condition.InUnderworldHeight);
+			}
+
+			if (shop.ActiveEntries.Any(e => e.Item.type == ItemID.TeleportationPylonUnderground && !e.Conditions.Any(c => c == Condition.NotInUnderworld)))
+			{
+				shop.GetEntry(ItemID.TeleportationPylonUnderground).AddCondition(Condition.NotInUnderworld);
+			}
 		}
 	}
 
