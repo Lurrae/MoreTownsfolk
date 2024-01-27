@@ -83,6 +83,20 @@ Mods: {
 					You can only place one per type and in the matching biome
 					'''
 			}
+
+			TeleportationPylonHell: {
+				DisplayName: Underworld Pylon
+				Tooltip: "{$CommonItemTooltip.TeleportationPylon}"
+			}
+
+			TeleportationPylonSky: {
+				DisplayName: Sky Pylon
+				Tooltip:
+					'''
+					{$CommonItemTooltip.TeleportationPylon}
+					'Not to be confused with a Skylon'
+					'''
+			}
 		}
 
 		NPCs: {
@@ -358,6 +372,8 @@ Mods: {
 		Tiles: {
 			CrimsonPylonTile.MapEntry: Crimson Pylon
 			CorruptPylonTile.MapEntry: Corruption Pylon
+			HellPylonTile.MapEntry: Hell Pylon Tile
+			SkyPylonTile.MapEntry: Sky Pylon Tile
 		}
 
 		Conditions.BestiaryCompletionPercent: Mods.MoreTownsfolk.Conditions.BestiaryCompletionPercent
