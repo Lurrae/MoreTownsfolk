@@ -7,6 +7,7 @@ namespace MoreTownsfolk.Tiles
 	{
 		public override int BaseItem => ItemType<TeleportationPylonCrimson>();
 		public override string BaseItemKey => GetInstance<TeleportationPylonCrimson>().DisplayName.Key;
+		public override int RequiredNPCCount => 1;
 
 		public override bool ValidTeleportCheck_BiomeRequirements(TeleportPylonInfo pylonInfo, SceneMetrics sceneData)
 		{

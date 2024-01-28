@@ -17,6 +17,7 @@ namespace MoreTownsfolk.Tiles
 		public Asset<Texture2D> mapIcon;
 
 		public abstract int BaseItem { get; }
+		public abstract int RequiredNPCCount { get; }
 		public abstract string BaseItemKey { get; }
 
 		public sealed override void Load()
@@ -61,6 +62,11 @@ namespace MoreTownsfolk.Tiles
 		public sealed override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			GetInstance<ModPylonTileEntity>().Kill(i, j);
+		}
+
+		public sealed override bool ValidTeleportCheck_NPCCount(TeleportPylonInfo pylonInfo, int defaultNecessaryNPCCount)
+		{
+			return TeleportPylonsSystem.DoesPositionHaveEnoughNPCs(RequiredNPCCount, pylonInfo.PositionInTiles);
 		}
 
 		public sealed override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
