@@ -254,7 +254,13 @@ namespace MoreTownsfolk.NPCs
 			tileCounts[TileID.Sunflower] = 0;
 			if (WorldGen.GetTileTypeCountByCategory(tileCounts, TileScanGroup.Crimson) <= 0 && Main.rand.NextFloat() <= 0.3f)
 			{
-				return Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Harvester.Dialogue21").Replace("{?Day}{?!Day}", "");
+				return Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Harvester.Dialogue23").Replace("{?Day}{?!Day}", "");
+			}
+
+			// Failing that, if Blood and Gore is enabled and the Pirate is present, 30% chance to return Pirate dialogue
+			if (ChildSafety.Disabled && NPC.AnyNPCs(NPCID.Pirate) && Main.rand.NextFloat() <= 0.3f)
+			{
+				return Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Harvester.Dialogue9").Replace("{?Day}{?!Day}", "").Replace("{Pirate}", NPC.GetFirstNPCNameOrNull(NPCID.Pirate));
 			}
 
 			// Otherwise, just returns default dialogue

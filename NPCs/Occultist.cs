@@ -171,7 +171,7 @@ namespace MoreTownsfolk.NPCs
 			tileCounts[TileID.Sunflower] = 0;
 			if (WorldGen.GetTileTypeCountByCategory(tileCounts, TileScanGroup.Corruption) <= 0 && Main.rand.NextFloat() <= 0.3f)
 			{
-				return Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Occultist.Dialogue21").Replace("{?Day}{?!Day}", "");
+				return Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Occultist.Dialogue22").Replace("{?Day}{?!Day}", "");
 			}
 
 			// Otherwise, just returns default dialogue

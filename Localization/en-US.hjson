@@ -335,22 +335,25 @@ Mods: {
 				Dialogue6: Does {Nurse} have any Ibuprofen on her? The Crimson is great and all, but it always gives me headaches...
 				Dialogue7: Hey, I've been trying to come up with something to give {MoreTownsfolk.Occultist}. Do you have any ideas?
 				Dialogue8: Can you ask {MoreTownsfolk.Occultist} if she would like to eviscerate some critters with me sometime?
+				Dialogue9: "{?Day}{?!Day}You think {Pirate} has ever strung up someone's entrails on their own ship's mast to frighten the rest of their crew into submission? ... What? I thought pirates did that!"
+				Dialogue10: I once put a horse head in {Dryad}'s bed because she wouldn't stop annoying me. She hasn't talked to me since. Good!
 				# Events
-				Dialogue9: "{?BloodMoon}I'm trying to take a nap, here! What is it?!"
-				Dialogue10: "{?BloodMoon}My head hurts SO MUCH. What do you want?!"
-				Dialogue11: "{?BloodMoon}Either give me your spleen or get out!"
-				Dialogue12: "{?Thunderstorm}Every time thunder strikes, I can almost hear something wailing in pain."
-				Dialogue13: "{?Thunderstorm}Oof, this thunder is really not helping my head..."
-				Dialogue14: "{?!Thunderstorm}{?Rain}Did you know that the Crimson rains blood? I think that's how it regulates its moisture."
-				Dialogue15: "{?!Thunderstorm}{?Rain}Rain's great, but it's hard to do my usual flaying when it pours."
-				Dialogue16: "{?BirthdayParty}I used to drink TONS of Bloody Marys during parties, but one time I blacked out and woke up covered in the organs of multiple different animals."
-				Dialogue17: "{?BirthdayParty}Let's play pin the tail on the donkey! ... You have a donkey somewhere, right?"
-				Dialogue18: "{?!Thunderstorm}{?HappyWindyDay}The smell of blood carries very well on the wind. Can you smell that coppery scent?"
-				Dialogue19: "{?!Thunderstorm}{?HappyWindyDay}I love wearing thick clothing on a windy day! All cold on the outside and warm on the inside..."
+				Dialogue11: "{?BloodMoon}I'm trying to take a nap, here! What is it?!"
+				Dialogue12: "{?BloodMoon}My head hurts SO MUCH. What do you want?!"
+				Dialogue13: "{?BloodMoon}Either give me your spleen or get out!"
+				Dialogue14: "{?Thunderstorm}Every time thunder strikes, I can almost hear something wailing in pain."
+				Dialogue15: "{?Thunderstorm}Oof, this thunder is really not helping my head..."
+				Dialogue16: "{?!Thunderstorm}{?Rain}Did you know that the Crimson rains blood? I think that's how it regulates its moisture."
+				Dialogue17: "{?!Thunderstorm}{?Rain}Rain's great, but it's hard to do my usual flaying when it pours."
+				Dialogue18: "{?BirthdayParty}I used to drink TONS of Bloody Marys during parties, but one time I blacked out and woke up covered in the organs of multiple different animals."
+				Dialogue19: "{?BirthdayParty}Let's play pin the tail on the donkey! ... You have a donkey somewhere, right?"
+				Dialogue20: "{?!Thunderstorm}{?HappyWindyDay}The smell of blood carries very well on the wind. Can you smell that coppery scent?"
+				Dialogue21: "{?!Thunderstorm}{?HappyWindyDay}I love wearing thick clothing on a windy day! All cold on the outside and warm on the inside..."
 				# Biomes/Environment
-				Dialogue20: "{?Graveyard}Can we dig some of these graves up? This is a waste of perfectly good human bones!"
+				Dialogue22: "{?Graveyard}Can we dig some of these graves up? This is a waste of perfectly good human bones!"
 				# Other
-				Dialogue21: "{?Day}{?!Day}Hey, I have some seeds for the Crimson. Think you could do me a solid and make a small patch of it for me to live in? Thanks!"
+				Dialogue23: "{?Day}{?!Day}Hey, I have some seeds for the Crimson. Think you could do me a solid and make a small patch of it for me to live in? Thanks!"
+				Dialogue24: "{?MartiansDefeated}Aww... I've always wanted to eviscerate an alien! No fair!!"
 			}
 
 			Occultist: {
@@ -365,20 +368,22 @@ Mods: {
 				Dialogue7: I know every one of {Clothier}'s sins... but I won't tell you what they are.
 				Dialogue8: I picked a bunch of Elderberries today for {MoreTownsfolk.Harvester}... Do you think she'll like them?
 				Dialogue9: Every now and again, I like to watch {MoreTownsfolk.Harvester} from far away as she does her work... She's so good at it, isn't she?
+				Dialogue10: "{?SkeletronDefeated}{?!HardMode}I have heard that the demons below keep voodoo dolls of {Guide}... He certainly is a worthy sacrifice..."
 				# Events
-				Dialogue10: "{?BloodMoon}Ha, ha... hahahah... why am I laughing? It's better you don't know..."
-				Dialogue11: "{?BloodMoon}Are you keeping an eye on me tonight? Smart..."
-				Dialogue12: "{?BloodMoon}I hid a block of ebonstone somewhere under your house. Don't tell anyone!"
-				Dialogue13: "{?Thunderstorm}Ooh, what a nasty storm... Perhaps I could crawl up under the ebonstone caves..."
-				Dialogue14: "{?Thunderstorm}The sun... what a reliable friend, hm? This is why I trust the pits more..."
-				Dialogue15: "{?!Thunderstorm}{?Rain}Have you ever stood outside in the rain? It helps me think sometimes..."
-				Dialogue16: "{?!Thunderstorm}{?Rain}The sky is crying... I think we should give it a reason to cry..."
-				Dialogue17: "{?BirthdayParty}A party? A perfect time to make decisions you'll regret..."
-				Dialogue18: "{?BirthdayParty}I made some punch. Would you like to try some? ... What? I didn't put anything in it."
-				Dialogue19: "{?!Thunderstorm}{?HappyWindyDay}I love the Corruption... but days like these remind me that it absolutely reeks..."
-				Dialogue20: "{?!Thunderstorm}{?HappyWindyDay}The wind might carry the screams of the next person you stab. Keep that in mind..."
+				Dialogue11: "{?BloodMoon}Ha, ha... hahahah... why am I laughing? It's better you don't know..."
+				Dialogue12: "{?BloodMoon}Are you keeping an eye on me tonight? Smart..."
+				Dialogue13: "{?BloodMoon}I hid a block of ebonstone somewhere under your house. Don't tell anyone!"
+				Dialogue14: "{?Thunderstorm}Ooh, what a nasty storm... Perhaps I could crawl up under the ebonstone caves..."
+				Dialogue15: "{?Thunderstorm}The sun... what a reliable friend, hm? This is why I trust the pits more..."
+				Dialogue16: "{?!Thunderstorm}{?Rain}Have you ever stood outside in the rain? It helps me think sometimes..."
+				Dialogue17: "{?!Thunderstorm}{?Rain}The sky is crying... I think we should give it a reason to cry..."
+				Dialogue18: "{?BirthdayParty}A party? A perfect time to make decisions you'll regret..."
+				Dialogue19: "{?BirthdayParty}I made some punch. Would you like to try some? ... What? I didn't put anything in it."
+				Dialogue20: "{?!Thunderstorm}{?HappyWindyDay}I love the Corruption... but days like these remind me that it absolutely reeks..."
+				Dialogue21: "{?!Thunderstorm}{?HappyWindyDay}The wind might carry the screams of the next person you stab. Keep that in mind..."
 				# Other
-				Dialogue21: "{?Day}{?!Day}Think you could do me a favor? Take some of these seeds... make a home I'd truly love for me..."
+				Dialogue22: "{?Day}{?!Day}Think you could do me a favor? Take some of these seeds... make a home I'd truly love for me..."
+				Dialogue23: "{?GolemDefeated}A cult has moved to the entrance of the dungeon... Praising a mysterious tablet. I wonder, to what evil are they so devoted...?"
 			}
 		}
 
@@ -390,6 +395,8 @@ Mods: {
 				GaveFood0: Hey! I managed to pull this out of the gore from all those animals you gave me! Keep it - consider it a show of thanks.
 				GaveFood1: Oh, sweet! Just found this after going through the carcasses. Here you go...
 				GaveFood2: Ooh, found something! I'm telling you, it's like cracking open tiny piñatas. Here - see?
+				GfbKill: I can't take this anymore! Come here!!!
+				PlayerDeath_Harvested: "{0} was harvested."
 			}
 		}
 
