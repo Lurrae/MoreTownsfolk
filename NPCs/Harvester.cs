@@ -203,8 +203,9 @@ namespace MoreTownsfolk.NPCs
 		public override void AddShops()
 		{
 			var npcShop = new NPCShop(Type, "Shop")
-				// Crimson Seeds
+				// Crimson Seeds and Grass Walls
 				.Add(ItemID.CrimsonSeeds)
+				.Add(ItemID.CrimsonGrassEcho)
 				
 				// Crimson Heart items and Crimtane (dependent on moon phase)
 				.Add(ItemID.CrimtaneOre, Condition.MoonPhaseFull)

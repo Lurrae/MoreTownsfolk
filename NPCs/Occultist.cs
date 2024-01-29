@@ -120,8 +120,9 @@ namespace MoreTownsfolk.NPCs
 		public override void AddShops()
 		{
 			var npcShop = new NPCShop(Type, "Shop")
-				// Corrupt Seeds
+				// Corrupt Seeds and Grass Walls
 				.Add(ItemID.CorruptSeeds)
+				.Add(ItemID.CorruptGrassEcho)
 
 				// Shadow Orb items and Demonite (dependent on moon phase)
 				.Add(ItemID.DemoniteOre, Condition.MoonPhaseFull)
