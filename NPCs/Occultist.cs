@@ -80,7 +80,7 @@ namespace MoreTownsfolk.NPCs
 			return names;
 		}
 
-		// Spawns in Hardmode if at least one block of Crimson exists
+		// Spawns when the Brain of Cthulhu has been defeated
 		public override bool CanTownNPCSpawn(int numTownNPCs)
 		{
 			return TownsfolkWorld.downedBrain;

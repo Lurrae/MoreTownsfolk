@@ -39,7 +39,7 @@ namespace MoreTownsfolk.NPCs
 			NPCID.Sets.NPCFramingGroup[Type] = 4;
 
 			// Values copied from town cat's bestiary entry
-			NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Velocity = 0.25f };
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new() { Velocity = 0.25f };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 
 			// Create all the variant textures for the axolotl
@@ -67,6 +67,12 @@ namespace MoreTownsfolk.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
 				new FlavorTextBestiaryInfoElement("Mods.MoreTownsfolk.Bestiary.Axolotl")
 			});
+		}
+
+		// Spawns once the player has purchased and used an Axolotl License
+		public override bool CanTownNPCSpawn(int numTownNPCs)
+		{
+			return TownsfolkWorld.boughtAxolotl;
 		}
 
 		public override string GetChat()

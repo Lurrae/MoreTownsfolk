@@ -80,7 +80,7 @@ namespace MoreTownsfolk.NPCs
 			return names;
 		}
 
-		// Spawns in Hardmode if at least one block of Corruption exists
+		// Spawns once the Eater of Worlds has been defeated
 		public override bool CanTownNPCSpawn(int numTownNPCs)
 		{
 			return TownsfolkWorld.downedEater;
