@@ -369,21 +369,22 @@ Mods: {
 				Dialogue8: I picked a bunch of Elderberries today for {MoreTownsfolk.Harvester}... Do you think she'll like them?
 				Dialogue9: Every now and again, I like to watch {MoreTownsfolk.Harvester} from far away as she does her work... She's so good at it, isn't she?
 				Dialogue10: "{?SkeletronDefeated}{?!HardMode}I have heard that the demons below keep voodoo dolls of {Guide}... He certainly is a worthy sacrifice..."
+				Dialogue11: So this {CalamityMod.WITCH}... she is also versed in the occult..? And such raw power, too! I would love to learn her magicks...
 				# Events
-				Dialogue11: "{?BloodMoon}Ha, ha... hahahah... why am I laughing? It's better you don't know..."
-				Dialogue12: "{?BloodMoon}Are you keeping an eye on me tonight? Smart..."
-				Dialogue13: "{?BloodMoon}I hid a block of ebonstone somewhere under your house. Don't tell anyone!"
-				Dialogue14: "{?Thunderstorm}Ooh, what a nasty storm... Perhaps I could crawl up under the ebonstone caves..."
-				Dialogue15: "{?Thunderstorm}The sun... what a reliable friend, hm? This is why I trust the pits more..."
-				Dialogue16: "{?!Thunderstorm}{?Rain}Have you ever stood outside in the rain? It helps me think sometimes..."
-				Dialogue17: "{?!Thunderstorm}{?Rain}The sky is crying... I think we should give it a reason to cry..."
-				Dialogue18: "{?BirthdayParty}A party? A perfect time to make decisions you'll regret..."
-				Dialogue19: "{?BirthdayParty}I made some punch. Would you like to try some? ... What? I didn't put anything in it."
-				Dialogue20: "{?!Thunderstorm}{?HappyWindyDay}I love the Corruption... but days like these remind me that it absolutely reeks..."
-				Dialogue21: "{?!Thunderstorm}{?HappyWindyDay}The wind might carry the screams of the next person you stab. Keep that in mind..."
+				Dialogue12: "{?BloodMoon}Ha, ha... hahahah... why am I laughing? It's better you don't know..."
+				Dialogue13: "{?BloodMoon}Are you keeping an eye on me tonight? Smart..."
+				Dialogue14: "{?BloodMoon}I hid a block of ebonstone somewhere under your house. Don't tell anyone!"
+				Dialogue15: "{?Thunderstorm}Ooh, what a nasty storm... Perhaps I could crawl up under the ebonstone caves..."
+				Dialogue16: "{?Thunderstorm}The sun... what a reliable friend, hm? This is why I trust the pits more..."
+				Dialogue17: "{?!Thunderstorm}{?Rain}Have you ever stood outside in the rain? It helps me think sometimes..."
+				Dialogue18: "{?!Thunderstorm}{?Rain}The sky is crying... I think we should give it a reason to cry..."
+				Dialogue19: "{?BirthdayParty}A party? A perfect time to make decisions you'll regret..."
+				Dialogue20: "{?BirthdayParty}I made some punch. Would you like to try some? ... What? I didn't put anything in it."
+				Dialogue21: "{?!Thunderstorm}{?HappyWindyDay}I love the Corruption... but days like these remind me that it absolutely reeks..."
+				Dialogue22: "{?!Thunderstorm}{?HappyWindyDay}The wind might carry the screams of the next person you stab. Keep that in mind..."
 				# Other
-				Dialogue22: "{?Day}{?!Day}Think you could do me a favor? Take some of these seeds... make a home I'd truly love for me..."
-				Dialogue23: "{?GolemDefeated}A cult has moved to the entrance of the dungeon... Praising a mysterious tablet. I wonder, to what evil are they so devoted...?"
+				Dialogue23: "{?Day}{?!Day}Think you could do me a favor? Take some of these seeds... make a home I'd truly love for me..."
+				Dialogue24: "{?GolemDefeated}A cult has moved to the entrance of the dungeon... Praising a mysterious tablet. I wonder, to what evil are they so devoted...?"
 			}
 		}
 
