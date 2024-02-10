@@ -1,4 +1,5 @@
 using MoreTownsfolk.NPCs;
+using MoreTownsfolk.NPCs.Roombas;
 
 namespace MoreTownsfolk
 {
@@ -6,6 +7,11 @@ namespace MoreTownsfolk
 	public class PettingPlayer : ModPlayer
 	{
 		public int pettingType = -1;
+
+		private static readonly List<int> Roombas = new()
+		{
+			NPCType<MaidRoomba>()
+		};
 
 		public override void PostUpdate()
 		{
@@ -16,7 +22,7 @@ namespace MoreTownsfolk
 				if (counter == 1)
 					stretch = Player.CompositeArmStretchAmount.Full;
 
-				if (pettingType == NPCType<Axolotl>())
+				if (pettingType == NPCType<Axolotl>() || Roombas.Contains(pettingType))
 				{
 					Player.SetCompositeArmBack(true, stretch, -MathHelper.TwoPi * 0.1f * Player.direction);
 				}

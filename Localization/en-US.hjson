@@ -39,14 +39,21 @@ Mods: {
 		}
 
 		Common: {
-			# Message output to chat when using an Axolotl License
+			# Message output to chat when using a town pet license or Roomba kit
 			AxoLicenseUsed: The license teleports away to the axolotl delivery service...
+			MaidKitUsed: "{0} says 'Hello World!'"
 			# Secondary button text for the Occultist and Harvester
 			CorruptButton: Corrupt Armor
 			HarvestButton: Give Critter
 			# Text for Occultist's corruption UI
 			Cost: "Cost: "
 			PlaceArmorHere: Place an armor piece here
+			# Item tooltip for roomba kits
+			RoombaKitTip:
+				'''
+				Use to construct your very own {0} Roomba!
+				Once a Roomba has been built, they will respawn like any other town NPC
+				'''
 		}
 
 		OccultistCorruptions: {
@@ -92,6 +99,11 @@ Mods: {
 					Use additional licenses to activate the Pet Exchange Program!
 					Find the perfect fit for you and your axolotl!
 					'''
+			}
+
+			KitMaid: {
+				DisplayName: Maid Cleaning Kit
+				Tooltip: ""
 			}
 
 			Spittle: {
@@ -193,6 +205,8 @@ Mods: {
 
 				Census.SpawnCondition: When the Brain of Cthulhu has been defeated
 			}
+
+			MaidRoomba.DisplayName: Maid Roomba
 		}
 
 		# Specialized names for town NPCs/pets
@@ -208,6 +222,23 @@ Mods: {
 				Ruby: Ruby
 				Scarlett: Scarlett
 				Sienna: Sienna
+			}
+
+			MaidRoomba: {
+				Alex: Alex
+				Berta: Berta
+				Consuela: Consuela
+				Daphne: Daphne
+				Dorota: Dorota
+				Esther: Esther
+				Jeanne: Jeanne
+				Kelly: Kelly
+				Louise: Louise
+				Mammy: Mammy
+				Marie: Marie
+				Mary: Mary
+				Rosey: Rosey
+				Sakuya: Sakuya
 			}
 
 			Occultist: {
@@ -356,6 +387,13 @@ Mods: {
 				Dialogue24: "{?MartiansDefeated}Aww... I've always wanted to eviscerate an alien! No fair!!"
 			}
 
+			MaidRoomba: {
+				# Always available
+				Dialogue1: "{0} is almost too busy cleaning to notice you."
+				Dialogue2: "{0} is trying to clean up a spill."
+				Dialogue3: "{0} curtsies by shifting left-to-right in place."
+			}
+
 			Occultist: {
 				# Always available
 				Dialogue1: Have you had any intrusive thoughts recently? You should listen to them for once...
@@ -403,8 +441,9 @@ Mods: {
 
 		# Bestiary entries for the town NPCs and pets
 		Bestiary: {
-			Axolotl: This is a placeholder Bestiary entry.
+			Axolotl: Silly yet elegant amphibians. Handle with care and treat with respect!
 			Harvester: A crimson fanatic with a penchant for bloodshed. Has aspirations to flay a human, but hasn't found a willing candidate yet.
+			MaidRoomba: Every day is cleaning, cleaning, and more cleaning for this stout little roomba. Despite that, it's grateful for every day it operates.
 			Occultist: A corruption fanatic who likes to get up to mischief for fun. Wants to create an abomination of her own one day.
 		}
 
