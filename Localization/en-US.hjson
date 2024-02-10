@@ -206,7 +206,10 @@ Mods: {
 				Census.SpawnCondition: When the Brain of Cthulhu has been defeated
 			}
 
-			MaidRoomba.DisplayName: Maid Roomba
+			MaidRoomba: {
+				DisplayName: Maid Roomba
+				Census.SpawnCondition: Use a Maid Cleaning Kit
+			}
 		}
 
 		# Specialized names for town NPCs/pets
