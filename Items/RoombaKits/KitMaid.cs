@@ -13,7 +13,8 @@ namespace MoreTownsfolk.Items.RoombaKits
 			CreateRecipe()
 				.AddRecipeGroup(RecipeGroupID.IronBar, 5)
 				.AddIngredient(ItemID.BlackThread, 3)
-				.AddCondition(Condition.NearShimmer);
+				.AddCondition(Condition.NearShimmer)
+				.Register();
 		}
 	}
 }
