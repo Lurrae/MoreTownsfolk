@@ -7,5 +7,13 @@ namespace MoreTownsfolk.Items.RoombaKits
 		public override string RoombaName => "Maid";
 		public override int RoombaType => NPCType<MaidRoomba>();
 		public override ref bool RoombaBuiltBool => ref TownsfolkWorld.builtRoombaMaid;
+
+		public override void AddRecipes()
+		{
+			CreateRecipe()
+				.AddRecipeGroup(RecipeGroupID.IronBar, 5)
+				.AddIngredient(ItemID.BlackThread, 3)
+				.AddCondition(Condition.NearShimmer);
+		}
 	}
 }
