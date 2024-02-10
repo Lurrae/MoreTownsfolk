@@ -208,7 +208,7 @@ Mods: {
 
 			MaidRoomba: {
 				DisplayName: Maid Roomba
-				Census.SpawnCondition: Use a Maid Cleaning Kit
+				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitMaid.DisplayName} [i:MoreTownsfolk/KitMaid], crafted near Shimmer
 			}
 		}
 
