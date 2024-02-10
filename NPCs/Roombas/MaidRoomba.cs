@@ -1,6 +1,5 @@
 namespace MoreTownsfolk.NPCs.Roombas
 {
-	[AutoloadHead]
 	public class MaidRoomba : RoombaBase
 	{
 		public override string RoombaType => "MaidRoomba";
