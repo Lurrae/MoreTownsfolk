@@ -1,9 +1,9 @@
 displayName = Extra Townsfolk
 author = Lurrae & Skulgan
-version = 0.1.0
+version = 1.0
+modReferences = TepigCore@1.0
 hideCode = false
 hideResources = false
 includeSource = true
 buildIgnore = *.csproj, *.sln, *.user, obj\*, bin\*, .vs\*
 includePDB = true
-modReferences = TepigCore@0.1.0

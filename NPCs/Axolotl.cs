@@ -45,6 +45,7 @@ namespace MoreTownsfolk.NPCs
 			// Create all the variant textures for the axolotl
 			Profile = new ModdedVariantNPCProfile(
 				Texture,
+				"Mods.MoreTownsfolk.NPCNames.",
 				"Axolotl",
 				new int[] { HeadIdx_Blue, HeadIdx_Copper, HeadIdx_Gold, HeadIdx_Melanoid, HeadIdx_Pink, HeadIdx_Wild },
 				new string[] { "Blue", "Copper", "Gold", "Melanoid", "Pink", "Wild" }
