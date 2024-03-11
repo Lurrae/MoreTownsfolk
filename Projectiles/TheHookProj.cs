@@ -4,7 +4,7 @@ namespace MoreTownsfolk.Projectiles
 {
 	public class TheHookProj : ModFlailProj
 	{
-		public override string ChainTex => Texture + "_Chain";
+		public override string[] ChainTex => new string[] { Texture + "_Chain" };
 
 		public override void SetStaticDefaults()
 		{
