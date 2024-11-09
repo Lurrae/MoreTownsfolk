@@ -1,5 +1,7 @@
+using rail;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Events;
 using Terraria.ID;
 
 namespace MoreTownsfolk.NPCs
@@ -36,7 +38,14 @@ namespace MoreTownsfolk.NPCs
 			NPCID.Sets.ExtraFramesCount[Type] = 18;
 			NPCID.Sets.DangerDetectRange[Type] = 250;
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Shimmer] = true;
-			NPCID.Sets.NPCFramingGroup[Type] = 4;
+			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+			NPCID.Sets.NPCFramingGroup[Type] = 8;
+
+			// The player needs to stand a bit closer to the axolotl when they pet it
+			NPCID.Sets.PlayerDistanceWhilePetting[Type] = 24;
+
+			// Axolotls cannot sit on furniture
+			NPCID.Sets.CannotSitOnFurniture[Type] = true;
 
 			// Values copied from town cat's bestiary entry
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new() { Velocity = 0.25f };
@@ -57,8 +66,48 @@ namespace MoreTownsfolk.NPCs
 			NPC.CloneDefaults(NPCID.TownCat);
 			NPC.height = 16;
 			NPC.aiStyle = NPCAIStyleID.Passive;
-			AIType = NPCID.TownCat;
 			AnimationType = NPCID.TownCat; // Copies town cat's animation style exactly
+		}
+
+		public override void PartyHatPosition(ref Vector2 position, ref SpriteEffects spriteEffects)
+		{
+			int frame = NPC.frame.Y / NPC.frame.Height;
+			int xOffset = 4;
+			int yOffset = 2;
+
+			switch (frame)
+			{
+				case 1:
+					yOffset -= 6;
+					break;
+				case 11:
+				case 12:
+				case 13:
+				case 14:
+					yOffset += 2;
+					break;
+				case 22:
+				case 27:
+					yOffset -= 2;
+					break;
+				case 23:
+				case 24:
+				case 25:
+				case 26:
+					yOffset -= 4;
+					break;
+				default:
+					break;
+			}
+
+			position.X += xOffset * NPC.spriteDirection;
+			position.Y += yOffset;
+
+			// While sitting in a chair, the hat needs to move up a bit more
+			if (NPC.ai[0] == 5f)
+			{
+				position.Y += -10;
+			}
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

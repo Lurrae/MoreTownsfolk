@@ -29,7 +29,14 @@ namespace MoreTownsfolk.NPCs.Roombas
 			NPCID.Sets.ExtraFramesCount[Type] = 18;
 			NPCID.Sets.DangerDetectRange[Type] = 250;
 			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Shimmer] = true;
-			NPCID.Sets.NPCFramingGroup[Type] = 4;
+			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+			NPCID.Sets.NPCFramingGroup[Type] = 8;
+
+			// The player needs to stand a bit closer to the roomba when they pet it
+			NPCID.Sets.PlayerDistanceWhilePetting[Type] = 24;
+
+			// Roombas cannot sit on furniture
+			NPCID.Sets.CannotSitOnFurniture[Type] = true;
 
 			// Values copied from town cat's bestiary entry
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new() { Velocity = 0.25f };
@@ -38,8 +45,8 @@ namespace MoreTownsfolk.NPCs.Roombas
 			// The roomba just uses the default NPC profile since it doesn't have variants in the same way as the axolotl
 			Profile = new Profiles.DefaultNPCProfile(
 				Texture,
-				HeadIdx/*,
-				Texture + "_Party"*/);
+				HeadIdx,
+				Texture + "_Party");
 		}
 
 		public override void SetDefaults()
@@ -48,10 +55,41 @@ namespace MoreTownsfolk.NPCs.Roombas
 			NPC.height = 20;
 			NPC.width = 40;
 			NPC.aiStyle = NPCAIStyleID.Passive;
-			AIType = NPCID.TownCat;
 			AnimationType = NPCID.TownCat; // Copies town cat's animation style exactly
 			NPC.HitSound = SoundID.NPCHit4;
 			NPC.DeathSound = SoundID.NPCDeath14;
+		}
+
+		public override void PartyHatPosition(ref Vector2 position, ref SpriteEffects spriteEffects)
+		{
+			int frame = NPC.frame.Y / NPC.frame.Height;
+			int xOffset = -14;
+			int yOffset = 4;
+
+			switch (frame)
+			{
+				case 2:
+				case 3:
+				case 6:
+				case 7:
+				case 12:
+				case 13:
+				case 14:
+				case 15:
+					yOffset += 2;
+					break;
+				default:
+					break;
+			}
+
+			position.X += xOffset * NPC.spriteDirection;
+			position.Y += yOffset;
+
+			// While sitting in a chair, the hat needs to move up a bit more
+			if (NPC.ai[0] == 5f)
+			{
+				position.Y += -10;
+			}
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -90,6 +128,18 @@ namespace MoreTownsfolk.NPCs.Roombas
 			}
 
 			return names;
+		}
+
+		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		{
+			Texture2D tex = ModContent.Request<Texture2D>(Texture + "_Glow").Value;
+
+			var spriteEffects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+			//var rect = new Rectangle((int)(NPC.getRect().X - screenPos.X - 4), (int)(NPC.getRect().Y - screenPos.Y - 16), NPC.frame.Width, NPC.frame.Height);
+			//var origin = new Vector2(0, 0);
+
+			// Draw the glowmask texture with no color modification, so it appears fullbright
+			Main.EntitySpriteDraw(tex, NPC.position, NPC.frame, Color.White, NPC.rotation, Vector2.Zero, NPC.scale, spriteEffects);
 		}
 	}
 }
