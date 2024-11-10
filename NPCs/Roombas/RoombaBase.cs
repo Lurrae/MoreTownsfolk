@@ -9,13 +9,20 @@ namespace MoreTownsfolk.NPCs.Roombas
 		public abstract string RoombaType { get; }
 		public abstract int MaxDialogues { get; }
 		public abstract Func<bool> RoombaKitBool { get; }
+		public abstract bool HasGlow { get; }
 
 		private static int HeadIdx;
 		private static Profiles.DefaultNPCProfile Profile;
+		private static Texture2D glow;
 
 		public override void Load()
 		{
 			HeadIdx = Mod.AddNPCHeadTexture(Type, Texture + "_Head");
+			
+			if (HasGlow)
+			{
+				glow = Request<Texture2D>(Texture + "_Glow").Value;
+			}
 		}
 
 		public override void SetStaticDefaults()
@@ -132,14 +139,13 @@ namespace MoreTownsfolk.NPCs.Roombas
 
 		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-			Texture2D tex = ModContent.Request<Texture2D>(Texture + "_Glow").Value;
+			if (HasGlow)
+			{
+				var spriteEffects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-			var spriteEffects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-			//var rect = new Rectangle((int)(NPC.getRect().X - screenPos.X - 4), (int)(NPC.getRect().Y - screenPos.Y - 16), NPC.frame.Width, NPC.frame.Height);
-			//var origin = new Vector2(0, 0);
-
-			// Draw the glowmask texture with no color modification, so it appears fullbright
-			Main.EntitySpriteDraw(tex, NPC.position, NPC.frame, Color.White, NPC.rotation, Vector2.Zero, NPC.scale, spriteEffects);
+				// Draw the glowmask texture with no color modification, so it appears fullbright
+				Main.EntitySpriteDraw(glow, NPC.position, NPC.frame, Color.White, NPC.rotation, Vector2.Zero, NPC.scale, spriteEffects);
+			}
 		}
 	}
 }

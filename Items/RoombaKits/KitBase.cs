@@ -18,7 +18,7 @@ namespace MoreTownsfolk.Items.RoombaKits
 
 		public override bool CanUseItem(Player player)
 		{
-			return !NPC.AnyNPCs(NPCType<MaidRoomba>());
+			return !NPC.AnyNPCs(RoombaType);
 		}
 
 		public override bool? UseItem(Player player)
@@ -26,7 +26,7 @@ namespace MoreTownsfolk.Items.RoombaKits
 			if (player.itemAnimation < Item.useAnimation)
 				return base.UseItem(player);
 
-			NPC roomba = NPC.NewNPCDirect(player.GetSource_ItemUse(Item), player.Center, NPCType<MaidRoomba>());
+			NPC roomba = NPC.NewNPCDirect(player.GetSource_ItemUse(Item), player.Center, RoombaType);
 			roomba.netUpdate = true;
 			Main.NewText(Language.GetTextValue($"Mods.MoreTownsfolk.Common.{RoombaName}KitUsed", roomba.GivenName));
 			RoombaBuiltBool = true;

@@ -41,6 +41,7 @@ Mods: {
 		Common: {
 			# Message output to chat when using a town pet license or Roomba kit
 			AxoLicenseUsed: The license teleports away to the axolotl delivery service...
+			FleshyKitUsed: "{0} has awoken!"
 			MaidKitUsed: "{0} says 'Hello World!'"
 			# Secondary button text for the Occultist and Harvester
 			CorruptButton: Corrupt Armor
@@ -101,10 +102,8 @@ Mods: {
 					'''
 			}
 
-			KitMaid: {
-				DisplayName: Maid Cleaning Kit
-				Tooltip: ""
-			}
+			KitFleshy.DisplayName: Fleshy Cleaning Kit
+			KitMaid.DisplayName: Maid Cleaning Kit
 
 			Spittle: {
 				DisplayName: Spittle
@@ -210,6 +209,8 @@ Mods: {
 				DisplayName: Maid Roomba
 				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitMaid.DisplayName} [i:MoreTownsfolk/KitMaid], crafted near Shimmer
 			}
+
+			FleshyRoomba.DisplayName: Fleshy Roomba
 		}
 
 		# Specialized names for town NPCs/pets
@@ -225,6 +226,23 @@ Mods: {
 				Ruby: Ruby
 				Scarlett: Scarlett
 				Sienna: Sienna
+			}
+
+			FleshyRoomba: {
+				Meatball: Meatball
+				Meatwad: Meatwad
+				Meatloaf: Meatloaf
+				Meatbag: Meatbag
+				Meatbun: Meatbun
+				Meatboy: Meatboy
+				Meathead: Meathead
+				Meatstack: Meatstack
+				Meatsticks: Meatsticks
+				Meatmat: Meatmat
+				Meatmo: Meatmo
+				Meaty: Meaty
+				Meatmor: Meatmor
+				Meatmeat: Meatmeat
 			}
 
 			MaidRoomba: {
@@ -358,6 +376,14 @@ Mods: {
 				Dialogue2: *Salamander noises*
 			}
 
+			FleshyRoomba: {
+				# Always available
+				Dialogue1: Blarg!!
+				Dialogue2: *Panting*
+				Dialogue3: *{0} likely would've greeted you, but it's busy licking crumbs off of the floor*
+				Dialogue4: Bpblbplth.
+			}
+
 			Harvester: {
 				# Always available
 				Dialogue1: Hey, do you have any spare organs? ... Do you NEED any spare organs?
@@ -392,9 +418,9 @@ Mods: {
 
 			MaidRoomba: {
 				# Always available
-				Dialogue1: "{0} is almost too busy cleaning to notice you."
-				Dialogue2: "{0} is trying to clean up a spill."
-				Dialogue3: "{0} curtsies by shifting left-to-right in place."
+				Dialogue1: *{0} is almost too busy cleaning to notice you*
+				Dialogue2: *{0} is trying to clean up a spill*
+				Dialogue3: *{0} curtsies by shifting left-to-right in place*
 			}
 
 			Occultist: {
@@ -445,6 +471,7 @@ Mods: {
 		# Bestiary entries for the town NPCs and pets
 		Bestiary: {
 			Axolotl: Silly yet elegant amphibians. Handle with care and treat with respect!
+			FleshyRoomba: A cleaning assistant made of flesh and programmed by grey matter. Loves to serve, even if it exists in a constant state of mild suffering.
 			Harvester: A crimson fanatic with a penchant for bloodshed. Has aspirations to flay a human, but hasn't found a willing candidate yet.
 			MaidRoomba: Every day is cleaning, cleaning, and more cleaning for this stout little roomba. Despite that, it's grateful for every day it operates.
 			Occultist: A corruption fanatic who likes to get up to mischief for fun. Wants to create an abomination of her own one day.
@@ -460,8 +487,8 @@ Mods: {
 		Tiles: {
 			CrimsonPylonTile.MapEntry: Crimson Pylon
 			CorruptPylonTile.MapEntry: Corruption Pylon
-			HellPylonTile.MapEntry: Hell Pylon Tile
-			SkyPylonTile.MapEntry: Sky Pylon Tile
+			HellPylonTile.MapEntry: Underworld Pylon
+			SkyPylonTile.MapEntry: Sky Pylon
 		}
 	}
 }
