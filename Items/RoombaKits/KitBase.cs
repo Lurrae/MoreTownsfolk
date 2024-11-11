@@ -1,5 +1,3 @@
-using MoreTownsfolk.NPCs.Roombas;
-
 namespace MoreTownsfolk.Items.RoombaKits
 {
 	public abstract class KitBase : ModItem
@@ -28,7 +26,7 @@ namespace MoreTownsfolk.Items.RoombaKits
 
 			NPC roomba = NPC.NewNPCDirect(player.GetSource_ItemUse(Item), player.Center, RoombaType);
 			roomba.netUpdate = true;
-			Main.NewText(Language.GetTextValue($"Mods.MoreTownsfolk.Common.{RoombaName}KitUsed", roomba.GivenName));
+			Main.NewText(Language.GetTextValue($"Mods.MoreTownsfolk.Common.RoombaKitUsed", roomba.GivenName, RoombaName));
 			RoombaBuiltBool = true;
 
 			return base.UseItem(player);

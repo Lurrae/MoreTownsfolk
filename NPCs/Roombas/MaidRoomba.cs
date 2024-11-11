@@ -1,10 +1,14 @@
+
 namespace MoreTownsfolk.NPCs.Roombas
 {
 	public class MaidRoomba : RoombaBase
 	{
 		public override string RoombaType => "MaidRoomba";
-		public override int MaxDialogues => 3;
 		public override Func<bool> RoombaKitBool => () => TownsfolkWorld.builtRoombaMaid;
-		public override bool HasGlow => true;
+
+		public override Vector2 GlowOffset()
+		{
+			return new Vector2(4, 16);
+		}
 	}
 }

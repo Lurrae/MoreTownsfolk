@@ -27,7 +27,6 @@ Mods: {
 						Angler: Dislikes the Underworld instead of the Desert
 						Tavernkeep: Dislikes the Sky instead of the Snow
 						Mechanic: Dislikes the Underworld in addition to the Underground
-						Dullahan: Likes the Underworld instead of the Underground
 						NPCs who like or dislike the Forest: Neutral to the Sky
 						NPCs who like or dislike the Underground: Neutral to the Underworld
 
@@ -41,8 +40,7 @@ Mods: {
 		Common: {
 			# Message output to chat when using a town pet license or Roomba kit
 			AxoLicenseUsed: The license teleports away to the axolotl delivery service...
-			FleshyKitUsed: "{0} has awoken!"
-			MaidKitUsed: "{0} says 'Hello World!'"
+			RoombaKitUsed: "{0} the {1} Roomba says 'Hello World!'"
 			# Secondary button text for the Occultist and Harvester
 			CorruptButton: Corrupt Armor
 			HarvestButton: Give Critter
@@ -102,8 +100,14 @@ Mods: {
 					'''
 			}
 
-			KitFleshy.DisplayName: Fleshy Cleaning Kit
 			KitMaid.DisplayName: Maid Cleaning Kit
+			KitFleshy.DisplayName: Fleshy Cleaning Kit
+			KitGamer.DisplayName: Gamer Cleaning Kit
+			KitPlanty.DisplayName: Planty Cleaning Kit
+			KitGhostbuster.DisplayName: Ghostbuster Cleaning Kit
+			KitLihzahrd.DisplayName: Sunny Cleaning Kit
+			KitMartian.DisplayName: Martian Cleaning Kit
+			KitAncient.DisplayName: Ancient Cleaning Kit
 
 			Spittle: {
 				DisplayName: Spittle
@@ -210,7 +214,40 @@ Mods: {
 				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitMaid.DisplayName} [i:MoreTownsfolk/KitMaid], crafted near Shimmer
 			}
 
-			FleshyRoomba.DisplayName: Fleshy Roomba
+			FleshyRoomba: {
+				DisplayName: Fleshy Roomba
+				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitFleshy.DisplayName} [i:MoreTownsfolk/KitFleshy], crafted near Shimmer
+			}
+
+			GamerRoomba: {
+				DisplayName: Gamer Roomba
+				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitGamer.DisplayName} [i:MoreTownsfolk/KitGamer], crafted near Shimmer
+			}
+
+			PlantyRoomba: {
+				DisplayName: Planty Roomba
+				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitPlanty.DisplayName} [i:MoreTownsfolk/KitPlanty], crafted near Shimmer
+			}
+
+			GhostbusterRoomba: {
+				DisplayName: Ghostbuster Roomba
+				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitGhostbuster.DisplayName} [i:MoreTownsfolk/KitGhostbuster], crafted near Shimmer
+			}
+
+			LihzahrdRoomba: {
+				DisplayName: Sunny Roomba
+				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitLihzahrd.DisplayName} [i:MoreTownsfolk/KitLihzahrd], crafted near Shimmer
+			}
+
+			MartianRoomba: {
+				DisplayName: Martian Roomba
+				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitMartian.DisplayName} [i:MoreTownsfolk/KitMartian], crafted near Shimmer
+			}
+
+			AncientRoomba: {
+				DisplayName: Ancient Roomba
+				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitAncient.DisplayName} [i:MoreTownsfolk/KitAncient], crafted near Shimmer
+			}
 		}
 
 		# Specialized names for town NPCs/pets
@@ -226,40 +263,6 @@ Mods: {
 				Ruby: Ruby
 				Scarlett: Scarlett
 				Sienna: Sienna
-			}
-
-			FleshyRoomba: {
-				Meatball: Meatball
-				Meatwad: Meatwad
-				Meatloaf: Meatloaf
-				Meatbag: Meatbag
-				Meatbun: Meatbun
-				Meatboy: Meatboy
-				Meathead: Meathead
-				Meatstack: Meatstack
-				Meatsticks: Meatsticks
-				Meatmat: Meatmat
-				Meatmo: Meatmo
-				Meaty: Meaty
-				Meatmor: Meatmor
-				Meatmeat: Meatmeat
-			}
-
-			MaidRoomba: {
-				Alex: Alex
-				Berta: Berta
-				Consuela: Consuela
-				Daphne: Daphne
-				Dorota: Dorota
-				Esther: Esther
-				Jeanne: Jeanne
-				Kelly: Kelly
-				Louise: Louise
-				Mammy: Mammy
-				Marie: Marie
-				Mary: Mary
-				Rosey: Rosey
-				Sakuya: Sakuya
 			}
 
 			Occultist: {
@@ -366,6 +369,142 @@ Mods: {
 				Quetzalcoatl: Quetzalcoatl
 				Tlalli: Tlalli
 			}
+
+			AncientRoomba: {
+				Polaris: Polaris
+				Sirius: Sirius
+				Centauri: Centauri
+				Betelgeuse: Betelgeuse
+				Rigel: Rigel
+				Vega: Vega
+				Pleiades: Pleiades
+				Antares: Antares
+				Canopus: Canopus
+				Icarus: Icarus
+				Scuti: Scuti
+				Earendel: Earendel
+				Messier: Messier
+				Fornax: Fornax
+			}
+
+			FleshyRoomba: {
+				Meatball: Meatball
+				Meatwad: Meatwad
+				Meatloaf: Meatloaf
+				Meatbag: Meatbag
+				Meatbun: Meatbun
+				Meatboy: Meatboy
+				Meathead: Meathead
+				Meatstack: Meatstack
+				Meatsticks: Meatsticks
+				Meatmat: Meatmat
+				Meatmo: Meatmo
+				Meaty: Meaty
+				Meatmor: Meatmor
+				Meatmeat: Meatmeat
+			}
+
+			GamerRoomba: {
+				Mark: Mark
+				Jack: Jack
+				Corey: Corey
+				Dan: Dan
+				Faker: Faker
+				Flash: Flash
+				Forest: Forest
+				Boxer: Boxer
+				Daigo: Daigo
+				Ryan: Ryan
+				Trofline: Trofline
+				Pest: Pest
+				Cube: Cube
+				Emily: Emily
+			}
+
+			GhostbusterRoomba: {
+				Casper: Casper
+				Beetlejuice: Beetlejuice
+				Blinky: Blinky
+				Pinky: Pinky
+				Inky: Inky
+				Clyde: Clyde
+				Slimer: Slimer
+				Emily: Emily
+				Nick: Nick
+				Samara: Samara
+				Myrtle: Myrtle
+				Malcolm: Malcolm
+				Freddy: Freddy
+				Blooky: Blooky
+			}
+
+			LihzahrdRoomba: {
+				Sol: Sol
+				Lumina: Lumina
+				Pyrite: Pyrite
+				Hearth: Hearth
+				Furnace: Furnace
+				Flame: Flame
+				Ember: Ember
+				Sun: Sun
+				Zuma: Zuma
+				Glimmer: Glimmer
+				Radiance: Radiance
+				Flare: Flare
+				Heath: Heath
+				Dawn: Dawn
+			}
+
+			MaidRoomba: {
+				Alex: Alex
+				Berta: Berta
+				Consuela: Consuela
+				Daphne: Daphne
+				Dorota: Dorota
+				Esther: Esther
+				Jeanne: Jeanne
+				Kelly: Kelly
+				Louise: Louise
+				Mammy: Mammy
+				Marie: Marie
+				Mary: Mary
+				Rosey: Rosey
+				Sakuya: Sakuya
+			}
+
+			MartianRoomba: {
+				Bleepmorp: Bleepmorp
+				Peridox: Peridox
+				Greeble: Greeble
+				Hinscanz: Hinscanz
+				Shwoomok: Shwoomok
+				Nozxos: Nozxos
+				Johlklik: Johlklik
+				Vroomsives: Vroomsives
+				Skibido: Skibido
+				Juujax: Juujax
+				Plombon: Plombon
+				Orzainz: Orzainz
+				Blarphis: Blarphis
+				Groop: Groop
+			}
+
+			PlantyRoomba: {
+				Rose: Rose
+				Lily: Lily
+				Dahlia: Dahlia
+				Poppy: Poppy
+				Daisy: Daisy
+				Narcissus: Narcissus
+				Camellia: Camellia
+				Buttercup: Buttercup
+				Snapdragon: Snapdragon
+				Anemone: Anemone
+				Marigold: Marigold
+				Dandelion: Dandelion
+				Peony: Peony
+				Jasmine: Jasmine
+			}
 		}
 
 		# Town NPC/pet dialogue
@@ -376,12 +515,60 @@ Mods: {
 				Dialogue2: *Salamander noises*
 			}
 
+			MaidRoomba: {
+				# Always available
+				Dialogue1: "{0} is almost too busy cleaning to notice you."
+				Dialogue2: "{0} is trying to clean up a spill."
+				Dialogue3: "{0} curtsies by shifting left-to-right in place."
+			}
+
 			FleshyRoomba: {
 				# Always available
-				Dialogue1: Blarg!!
-				Dialogue2: *Panting*
-				Dialogue3: *{0} likely would've greeted you, but it's busy licking crumbs off of the floor*
-				Dialogue4: Bpblbplth.
+				Dialogue1: "{0} is panting furiously."
+				Dialogue2: "{0} is licking crumbs off of the floor."
+				Dialogue3: "{0} makes a gross, yet affectionate noise."
+			}
+
+			GamerRoomba: {
+				# Always available
+				Dialogue1: "{0} is focused on blowing dust off the floor."
+				Dialogue2: "{0} is currently running DOOM in the background."
+				Dialogue3: "{0} shifts the colors on their LEDs to greet you."
+			}
+
+			PlantyRoomba: {
+				# Always available
+				Dialogue1: "{0} lifts its hat and pops the roof of its chassis. There are sprouts germinating inside."
+				Dialogue2: "{0} makes a quiet rattling noise at you."
+				Dialogue3: "{0} is looking for a garden to tend to."
+			}
+
+			GhostbusterRoomba: {
+				# Always available
+				Dialogue1: "{0} is feverishly scanning the area for ghosts."
+				Dialogue2: "{0} snaps a photo of you, inspects it, then greets you with a strange look."
+				Dialogue3: "{0} is making an array of feedback noises."
+			}
+
+			LihzahrdRoomba: {
+				# Always available
+				Dialogue1: "{0} is keeping this part of the floor warm for you."
+				Dialogue2: "{0} gives you a reverent greeting by nodding its face and making a gentle whirr."
+				Dialogue3: "{0} is trying to find a space to sunbathe."
+			}
+
+			MartianRoomba: {
+				# Always available
+				Dialogue1: "{0} makes a series of indecipherable beeps."
+				Dialogue2: "{0} says hello by playing an automated message in a language you don't recognize."
+				Dialogue3: "{0} is shampooing your floor with a scent you've never smelled in your entire life."
+			}
+
+			AncientRoomba: {
+				# Always available
+				Dialogue1: "{0} hums an ethereal tone as it meticulously cleans."
+				Dialogue2: "{0} extends a metal appendage to gently touch your hand."
+				Dialogue3: "{0} is leaving the floors cleaner than when you first saw them."
 			}
 
 			Harvester: {
@@ -414,13 +601,6 @@ Mods: {
 				# Other
 				Dialogue23: "{?Day}{?!Day}Hey, I have some seeds for the Crimson. Think you could do me a solid and make a small patch of it for me to live in? Thanks!"
 				Dialogue24: "{?MartiansDefeated}Aww... I've always wanted to eviscerate an alien! No fair!!"
-			}
-
-			MaidRoomba: {
-				# Always available
-				Dialogue1: *{0} is almost too busy cleaning to notice you*
-				Dialogue2: *{0} is trying to clean up a spill*
-				Dialogue3: *{0} curtsies by shifting left-to-right in place*
 			}
 
 			Occultist: {
@@ -470,11 +650,19 @@ Mods: {
 
 		# Bestiary entries for the town NPCs and pets
 		Bestiary: {
-			Axolotl: Silly yet elegant amphibians. Handle with care and treat with respect!
-			FleshyRoomba: A cleaning assistant made of flesh and programmed by grey matter. Loves to serve, even if it exists in a constant state of mild suffering.
+			# Town NPCs
 			Harvester: A crimson fanatic with a penchant for bloodshed. Has aspirations to flay a human, but hasn't found a willing candidate yet.
-			MaidRoomba: Every day is cleaning, cleaning, and more cleaning for this stout little roomba. Despite that, it's grateful for every day it operates.
 			Occultist: A corruption fanatic who likes to get up to mischief for fun. Wants to create an abomination of her own one day.
+			# Town Pets and Roombas
+			Axolotl: Silly yet elegant amphibians. Handle with care and treat with respect!
+			MaidRoomba: Every day is cleaning, cleaning, and more cleaning for this stout little roomba. Despite that, it's grateful for every day it operates.
+			FleshyRoomba: A cleaning assistant made of flesh and programmed by grey matter. Loves to serve, even if it exists in a constant state of mild suffering.
+			GamerRoomba: An eight core powerhouse of a cleaning appliance capable of vacuuming your floors while running a perfect TAS simultaneously! Now comes in cutting edge red.
+			PlantyRoomba: A tidy pick for the green thumbs, this Roomba is designed to cull weeds and fertilize geraniums so you have more time to eviscerate whatever horror is bearing down on your town!
+			GhostbusterRoomba: Afraid of ghosts? So is the Ghostbuster Roomba, but at least it's equipped with the tools to suck up any specter and leave your carpets ectoplasm free.
+			LihzahrdRoomba: The best companion for a cold and dirty home. Designed to harness the power of the sun, this wonder of the world will ensure your grimy hardwood is clean and pristine.
+			MartianRoomba: Capable of sanitizing areas for alien life, the Martian Roomba is one of the most thorough cleaning companions... if you can ignore the digital-only manual being written in Martian.
+			AncientRoomba: A Roomba from outer space, with cleaning capabilities so otherworldly that it could clean the dustiest place in the galaxy: the moon.
 		}
 
 		Projectiles: {

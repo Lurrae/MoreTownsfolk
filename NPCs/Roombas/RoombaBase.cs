@@ -1,5 +1,8 @@
+using ReLogic.Content;
+using System.Runtime.CompilerServices;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Events;
 
 namespace MoreTownsfolk.NPCs.Roombas
 {
@@ -7,22 +10,23 @@ namespace MoreTownsfolk.NPCs.Roombas
 	public abstract class RoombaBase : ModNPC
 	{
 		public abstract string RoombaType { get; }
-		public abstract int MaxDialogues { get; }
 		public abstract Func<bool> RoombaKitBool { get; }
-		public abstract bool HasGlow { get; }
+		public virtual Vector2 GlowOffset() { return new Vector2(8, 16); }
+		public virtual Vector2 PartyHatOffset() { return new Vector2(-14, 4); }
 
-		private static int HeadIdx;
-		private static Profiles.DefaultNPCProfile Profile;
-		private static Texture2D glow;
+		private static readonly Dictionary<string, int> HeadIdxs = new();
+		private static readonly Dictionary<string, Profiles.DefaultNPCProfile> Profiles = new();
+		private static readonly Dictionary<string, Asset<Texture2D>> Glows = new();
+		private static readonly Dictionary<string, Asset<Texture2D>> PartyGlows = new();
 
 		public override void Load()
 		{
-			HeadIdx = Mod.AddNPCHeadTexture(Type, Texture + "_Head");
-			
-			if (HasGlow)
-			{
-				glow = Request<Texture2D>(Texture + "_Glow").Value;
-			}
+			HeadIdxs.Add(RoombaType, Mod.AddNPCHeadTexture(Type, Texture + "_Head"));
+
+			RequestIfExists<Texture2D>(Texture + "_Glow", out Asset<Texture2D> Glow);
+			Glows.Add(RoombaType, Glow);
+			RequestIfExists<Texture2D>(Texture + "_PartyGlow", out Asset<Texture2D> PartyGlow);
+			PartyGlows.Add(RoombaType, PartyGlow);
 		}
 
 		public override void SetStaticDefaults()
@@ -50,10 +54,15 @@ namespace MoreTownsfolk.NPCs.Roombas
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 
 			// The roomba just uses the default NPC profile since it doesn't have variants in the same way as the axolotl
-			Profile = new Profiles.DefaultNPCProfile(
-				Texture,
-				HeadIdx,
-				Texture + "_Party");
+			// Not all roombas have a party texture, though, so that needs to be accounted for
+			if (HasAsset(Texture + "_Party"))
+			{
+				Profiles.Add(RoombaType, new Profiles.DefaultNPCProfile(Texture, HeadIdxs[RoombaType], Texture + "_Party"));
+			}
+			else
+			{
+				Profiles.Add(RoombaType, new Profiles.DefaultNPCProfile(Texture, HeadIdxs[RoombaType]));
+			}
 		}
 
 		public override void SetDefaults()
@@ -70,8 +79,8 @@ namespace MoreTownsfolk.NPCs.Roombas
 		public override void PartyHatPosition(ref Vector2 position, ref SpriteEffects spriteEffects)
 		{
 			int frame = NPC.frame.Y / NPC.frame.Height;
-			int xOffset = -14;
-			int yOffset = 4;
+			float xOffset = PartyHatOffset().X;
+			float yOffset = PartyHatOffset().Y;
 
 			switch (frame)
 			{
@@ -116,13 +125,13 @@ namespace MoreTownsfolk.NPCs.Roombas
 
 		public override string GetChat()
 		{
-			string locKey = $"Mods.MoreTownsfolk.Dialogue.{RoombaType}.Dialogue" + Main.rand.Next(1, MaxDialogues + 1);
+			string locKey = $"Mods.MoreTownsfolk.Dialogue.{RoombaType}.Dialogue" + Main.rand.Next(1, 4);
 			return Language.GetTextValue(locKey, NPC.GivenName);
 		}
 
 		public override ITownNPCProfile TownNPCProfile()
 		{
-			return Profile;
+			return Profiles[RoombaType];
 		}
 
 		public override List<string> SetNPCNameList()
@@ -137,15 +146,28 @@ namespace MoreTownsfolk.NPCs.Roombas
 			return names;
 		}
 
+		[UnsafeAccessor(UnsafeAccessorKind.Method)]
+		private static extern void DrawNPCExtras(Main self, NPC n, bool beforeDraw, float addHeight, float addY, Color npcColor, Vector2 halfSize, SpriteEffects npcSpriteEffect, Vector2 screenPosition);
+
 		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
-			if (HasGlow)
+			SpriteEffects spriteEffects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+			if (Glows[RoombaType] != null)
 			{
-				var spriteEffects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+				Texture2D glowSprite = Glows[RoombaType].Value;
+				Vector2 offset = GlowOffset();
+
+				if (PartyGlows[RoombaType] != null && BirthdayParty.PartyIsUp)
+				{
+					glowSprite = PartyGlows[RoombaType].Value;
+				}
 
 				// Draw the glowmask texture with no color modification, so it appears fullbright
-				Main.EntitySpriteDraw(glow, NPC.position, NPC.frame, Color.White, NPC.rotation, Vector2.Zero, NPC.scale, spriteEffects);
+				Main.EntitySpriteDraw(glowSprite, NPC.position - screenPos - offset, NPC.frame, Color.White, NPC.rotation, Vector2.Zero, NPC.scale, spriteEffects);
 			}
+
+			// Draw party hat after the glowmask, so it's layered above it
+			DrawNPCExtras(Main.instance, NPC, false, 0f, 0f, drawColor, Vector2.Zero, spriteEffects, screenPos);
 		}
 	}
 }
