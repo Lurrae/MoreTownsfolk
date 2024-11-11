@@ -11,7 +11,13 @@ namespace MoreTownsfolk
 		private static readonly List<int> Roombas = new()
 		{
 			NPCType<MaidRoomba>(),
-			NPCType<FleshyRoomba>()
+			NPCType<FleshyRoomba>(),
+			NPCType<GamerRoomba>(),
+			NPCType<PlantyRoomba>(),
+			NPCType<GhostbusterRoomba>(),
+			NPCType<LihzahrdRoomba>(),
+			NPCType<MartianRoomba>(),
+			NPCType<AncientRoomba>()
 		};
 
 		public override void PostUpdate()
