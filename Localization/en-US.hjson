@@ -511,64 +511,64 @@ Mods: {
 		Dialogue: {
 			Axolotl: {
 				# Always available
-				Dialogue1: *Axolotl noises*
-				Dialogue2: *Salamander noises*
+				Dialogue1: Mrrrp!
+				Dialogue2: Bllpt!
 			}
 
 			MaidRoomba: {
 				# Always available
-				Dialogue1: "{0} is almost too busy cleaning to notice you."
-				Dialogue2: "{0} is trying to clean up a spill."
-				Dialogue3: "{0} curtsies by shifting left-to-right in place."
+				Dialogue1: "Brrrvvvvv..."
+				Dialogue2: "Shwrrrrrrrrr...!"
+				Dialogue3: "Vvv Vvv Vvv... Hello, master!"
 			}
 
 			FleshyRoomba: {
 				# Always available
-				Dialogue1: "{0} is panting furiously."
-				Dialogue2: "{0} is licking crumbs off of the floor."
-				Dialogue3: "{0} makes a gross, yet affectionate noise."
+				Dialogue1: "Hff hff hff hff hff hff hff"
+				Dialogue2: "Mlem... mlem... mlem..."
+				Dialogue3: "Grrglblr! Rroagh!!"
 			}
 
 			GamerRoomba: {
 				# Always available
-				Dialogue1: "{0} is focused on blowing dust off the floor."
-				Dialogue2: "{0} is currently running DOOM in the background."
-				Dialogue3: "{0} shifts the colors on their LEDs to greet you."
+				Dialogue1: "Brrrrrrrrvv!"
+				Dialogue2: "Zzzzt... Pow! Pow! Pow!"
+				Dialogue3: "Vrlt! Hello everybody, my name is {0}!"
 			}
 
 			PlantyRoomba: {
 				# Always available
-				Dialogue1: "{0} lifts its hat and pops the roof of its chassis. There are sprouts germinating inside."
-				Dialogue2: "{0} makes a quiet rattling noise at you."
-				Dialogue3: "{0} is looking for a garden to tend to."
+				Dialogue1: "Plop! Shwff shwff shwff!"
+				Dialogue2: "Kltlt! Let's get pollinating!"
+				Dialogue3: "Zwoot... Zwoot... Zwoot... ???"
 			}
 
 			GhostbusterRoomba: {
 				# Always available
-				Dialogue1: "{0} is feverishly scanning the area for ghosts."
-				Dialogue2: "{0} snaps a photo of you, inspects it, then greets you with a strange look."
-				Dialogue3: "{0} is making an array of feedback noises."
+				Dialogue1: "OooooooOOooooo... OooooooOOooooo..."
+				Dialogue2: "Cthnk! Vmmnnn... Not ghost!"
+				Dialogue3: "Swhhhhrrrrr vweeeeerrrrr sweeeeeeiirrrr...!!!"
 			}
 
 			LihzahrdRoomba: {
 				# Always available
-				Dialogue1: "{0} is keeping this part of the floor warm for you."
-				Dialogue2: "{0} gives you a reverent greeting by nodding its face and making a gentle whirr."
-				Dialogue3: "{0} is trying to find a space to sunbathe."
+				Dialogue1: "Hwwwwwwfffff... hwwwwffff..."
+				Dialogue2: "Whirr... greetings, o creator."
+				Dialogue3: "Mhvvv... mhvvv...  mhvvv... ???"
 			}
 
 			MartianRoomba: {
 				# Always available
-				Dialogue1: "{0} makes a series of indecipherable beeps."
-				Dialogue2: "{0} says hello by playing an automated message in a language you don't recognize."
-				Dialogue3: "{0} is shampooing your floor with a scent you've never smelled in your entire life."
+				Dialogue1: "Bppt bppt bppt bpt bppt bpt bpt bppt!"
+				Dialogue2: "Clk. NYLLAPUNZ LHYAOSPUN!"
+				Dialogue3: "Shhhhhbbrbllrblrblr..."
 			}
 
 			AncientRoomba: {
 				# Always available
-				Dialogue1: "{0} hums an ethereal tone as it meticulously cleans."
-				Dialogue2: "{0} extends a metal appendage to gently touch your hand."
-				Dialogue3: "{0} is leaving the floors cleaner than when you first saw them."
+				Dialogue1: "Hhhhhhhvvvvvvvhhhhhhhhmmmmmvvvvvvvhhhhhhhmmmm..."
+				Dialogue2: "Yyyyyyzzzzz... zzzzzzvvvvvmmmvvvvvv...?"
+				Dialogue3: "Bzt zzt zzt... Rotaerc, reverof naelc."
 			}
 
 			Harvester: {
