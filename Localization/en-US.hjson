@@ -524,7 +524,7 @@ Mods: {
 
 			FleshyRoomba: {
 				# Always available
-				Dialogue1: "Hff hff hff hff hff hff hff"
+				Dialogue1: "Hff hff hff hff hff hff hff..."
 				Dialogue2: "Mlem... mlem... mlem..."
 				Dialogue3: "Grrglblr! Rroagh!!"
 			}
