@@ -12,19 +12,7 @@ namespace MoreTownsfolk.Items.RoombaKits
 		{
 			CreateRecipe()
 				.AddIngredient(ItemID.SpectreBar)
-				.AddIngredient(ItemID.BlueBrick, 5)
-				.AddCondition(Condition.NearShimmer)
-				.Register();
-
-			CreateRecipe()
-				.AddIngredient(ItemID.SpectreBar)
-				.AddIngredient(ItemID.GreenBrick, 5)
-				.AddCondition(Condition.NearShimmer)
-				.Register();
-
-			CreateRecipe()
-				.AddIngredient(ItemID.SpectreBar)
-				.AddIngredient(ItemID.PinkBrick, 5)
+				.AddRecipeGroup("MoreTownsfolk:DungeonBricks", 5)
 				.AddCondition(Condition.NearShimmer)
 				.Register();
 		}

@@ -7,6 +7,11 @@ Mods: {
 			Hell: the Underworld
 		}
 
+		RecipeGroup: {
+			Flesh: Any {$ItemName.FleshBlock}
+			DungeonBricks: Any Dungeon Brick
+		}
+
 		Conditions: {
 			NotInSkyHeight: Not in the Sky
 			BestiaryCompletionPercent: Mods.MoreTownsfolk.Conditions.BestiaryCompletionPercent
@@ -211,41 +216,49 @@ Mods: {
 
 			MaidRoomba: {
 				DisplayName: Maid Roomba
+				TownNPCMood.Princess_LovesNPC: "{NPCName} is really adorable!"
 				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitMaid.DisplayName} [i:MoreTownsfolk/KitMaid], crafted near Shimmer
 			}
 
 			FleshyRoomba: {
 				DisplayName: Fleshy Roomba
+				TownNPCMood.Princess_LovesNPC: "{NPCName} is really adorable!"
 				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitFleshy.DisplayName} [i:MoreTownsfolk/KitFleshy], crafted near Shimmer
 			}
 
 			GamerRoomba: {
 				DisplayName: Gamer Roomba
+				TownNPCMood.Princess_LovesNPC: "{NPCName} is really adorable!"
 				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitGamer.DisplayName} [i:MoreTownsfolk/KitGamer], crafted near Shimmer
 			}
 
 			PlantyRoomba: {
 				DisplayName: Planty Roomba
+				TownNPCMood.Princess_LovesNPC: "{NPCName} is really adorable!"
 				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitPlanty.DisplayName} [i:MoreTownsfolk/KitPlanty], crafted near Shimmer
 			}
 
 			GhostbusterRoomba: {
 				DisplayName: Ghostbuster Roomba
+				TownNPCMood.Princess_LovesNPC: "{NPCName} is really adorable!"
 				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitGhostbuster.DisplayName} [i:MoreTownsfolk/KitGhostbuster], crafted near Shimmer
 			}
 
 			LihzahrdRoomba: {
 				DisplayName: Sunny Roomba
+				TownNPCMood.Princess_LovesNPC: "{NPCName} is really adorable!"
 				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitLihzahrd.DisplayName} [i:MoreTownsfolk/KitLihzahrd], crafted near Shimmer
 			}
 
 			MartianRoomba: {
 				DisplayName: Martian Roomba
+				TownNPCMood.Princess_LovesNPC: "{NPCName} is really adorable!"
 				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitMartian.DisplayName} [i:MoreTownsfolk/KitMartian], crafted near Shimmer
 			}
 
 			AncientRoomba: {
 				DisplayName: Ancient Roomba
+				TownNPCMood.Princess_LovesNPC: "{NPCName} is really adorable!"
 				Census.SpawnCondition: Use {$Mods.MoreTownsfolk.Items.KitAncient.DisplayName} [i:MoreTownsfolk/KitAncient], crafted near Shimmer
 			}
 		}
@@ -517,58 +530,58 @@ Mods: {
 
 			MaidRoomba: {
 				# Always available
-				Dialogue1: "Brrrvvvvv..."
-				Dialogue2: "Shwrrrrrrrrr...!"
-				Dialogue3: "Vvv Vvv Vvv... Hello, master!"
+				Dialogue1: Brrrvvvvv...
+				Dialogue2: Shwrrrrrrrrr...!
+				Dialogue3: Vvv Vvv Vvv... Hello, master!
 			}
 
 			FleshyRoomba: {
 				# Always available
-				Dialogue1: "Hff hff hff hff hff hff hff..."
-				Dialogue2: "Mlem... mlem... mlem..."
-				Dialogue3: "Grrglblr! Rroagh!!"
+				Dialogue1: Hff hff hff hff hff hff hff...
+				Dialogue2: Mlem... mlem... mlem...
+				Dialogue3: Grrglblr! Rroagh!!
 			}
 
 			GamerRoomba: {
 				# Always available
-				Dialogue1: "Brrrrrrrrvv!"
-				Dialogue2: "Zzzzt... Pow! Pow! Pow!"
-				Dialogue3: "Vrlt! Hello everybody, my name is {0}!"
+				Dialogue1: Brrrrrrrrvv!
+				Dialogue2: Zzzzt... Pow! Pow! Pow!
+				Dialogue3: Vrlt! Hello everybody, my name is {0}!
 			}
 
 			PlantyRoomba: {
 				# Always available
-				Dialogue1: "Plop! Shwff shwff shwff!"
-				Dialogue2: "Kltlt! Let's get pollinating!"
-				Dialogue3: "Zwoot... Zwoot... Zwoot... ???"
+				Dialogue1: Plop! Shwff shwff shwff!
+				Dialogue2: Kltlt! Let's get pollinating!
+				Dialogue3: Zwoot... Zwoot... Zwoot... ???
 			}
 
 			GhostbusterRoomba: {
 				# Always available
-				Dialogue1: "OooooooOOooooo... OooooooOOooooo..."
-				Dialogue2: "Cthnk! Vmmnnn... Not ghost!"
-				Dialogue3: "Swhhhhrrrrr vweeeeerrrrr sweeeeeeiirrrr...!!!"
+				Dialogue1: OooooooOOooooo... OooooooOOooooo...
+				Dialogue2: Cthnk! Vmmnnn... Not ghost!
+				Dialogue3: Swhhhhrrrrr vweeeeerrrrr sweeeeeeiirrrr...!!!
 			}
 
 			LihzahrdRoomba: {
 				# Always available
-				Dialogue1: "Hwwwwwwfffff... hwwwwffff..."
-				Dialogue2: "Whirr... greetings, o creator."
-				Dialogue3: "Mhvvv... mhvvv...  mhvvv... ???"
+				Dialogue1: Hwwwwwwfffff... hwwwwffff...
+				Dialogue2: Whirr... greetings, o creator.
+				Dialogue3: Mhvvv... mhvvv...  mhvvv... ???
 			}
 
 			MartianRoomba: {
 				# Always available
-				Dialogue1: "Bppt bppt bppt bpt bppt bpt bpt bppt!"
-				Dialogue2: "Clk. NYLLAPUNZ LHYAOSPUN!"
-				Dialogue3: "Shhhhhbbrbllrblrblr..."
+				Dialogue1: Bppt bppt bppt bpt bppt bpt bpt bppt!
+				Dialogue2: Clk. NYLLAPUNZ LHYAOSPUN!
+				Dialogue3: Shhhhhbbrbllrblrblr...
 			}
 
 			AncientRoomba: {
 				# Always available
-				Dialogue1: "Hhhhhhhvvvvvvvhhhhhhhhmmmmmvvvvvvvhhhhhhhmmmm..."
-				Dialogue2: "Yyyyyyzzzzz... zzzzzzvvvvvmmmvvvvvv...?"
-				Dialogue3: "Bzt zzt zzt... Rotaerc, reverof naelc."
+				Dialogue1: Hhhhhhhvvvvvvvhhhhhhhhmmmmmvvvvvvvhhhhhhhmmmm...
+				Dialogue2: Yyyyyyzzzzz... zzzzzzvvvvvmmmvvvvvv...?
+				Dialogue3: Bzt zzt zzt... Rotaerc, reverof naelc.
 			}
 
 			Harvester: {

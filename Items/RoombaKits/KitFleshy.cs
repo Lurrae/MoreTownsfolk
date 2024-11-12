@@ -11,14 +11,7 @@ namespace MoreTownsfolk.Items.RoombaKits
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ItemID.EbonstoneBlock, 5)
-				.AddIngredient(ItemID.SoulofLight)
-				.AddIngredient(ItemID.SoulofNight)
-				.AddCondition(Condition.NearShimmer)
-				.Register();
-
-			CreateRecipe()
-				.AddIngredient(ItemID.CrimstoneBlock, 5)
+				.AddRecipeGroup("MoreTownsfolk:FleshBlocks", 5)
 				.AddIngredient(ItemID.SoulofLight)
 				.AddIngredient(ItemID.SoulofNight)
 				.AddCondition(Condition.NearShimmer)

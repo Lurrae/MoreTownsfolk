@@ -111,4 +111,20 @@ namespace MoreTownsfolk
 			self.GetModPlayer<PettingPlayer>().pettingType = -1;
 		}
 	}
+
+	public class CustomRecipeGroups : ModSystem
+	{
+		public override void AddRecipeGroups()
+		{
+			string anyFleshBlock = $"{Language.GetTextValue("LegacyMisc.37")} {Language.GetTextValue("ItemName.FleshBlock")}";
+
+			RecipeGroup group = new(() => anyFleshBlock, [ItemID.FleshBlock, ItemID.LesionBlock]);
+			RecipeGroup.RegisterGroup("MoreTownsfolk:FleshBlocks", group);
+
+			string anyDungeonBrick = Language.GetTextValue("Mods.MoreTownsfolk.RecipeGroup.DungeonBricks");
+
+			group = new(() => anyDungeonBrick, [ItemID.BlueBrick, ItemID.GreenBrick, ItemID.PinkBrick]);
+			RecipeGroup.RegisterGroup("MoreTownsfolk:DungeonBricks", group);
+		}
+	}
 }
