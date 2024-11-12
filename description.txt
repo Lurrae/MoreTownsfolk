@@ -1,14 +1,18 @@
 Adds more town pets and town NPCs to the game! Currently adds the following content:
 
-Items: 
+Items:
 - Axolotl License: A new pet license, sold by the Zoologist at 65% or greater Bestiary completion. Allows the Axolotl to come to your town
-- [UPCOMING] Corruption Pylon: A pylon which can be placed in the Corruption, and only requires one nearby NPC to function instead of two. Sold by the Occultist when she's housed in the Corruption and happy enough.
-- [UPCOMING] Crimson Pylon: A pylon which can be placed in the Crimson, and only requires one nearby NPC to function instead of two. Sold by the Harvester when she's housed in the Crimson and happy enough.
-- [UPCOMING] The Hook: A flail which is dropped by the Harvester at a 1/8 chance when she is killed.
+- Roomba Cleaning Kits: A series of items that spawn a corresponding Roomba town pet on use. Crafted with various materials while near Shimmer, with most Roombas being locked behind certain progression milestones.
+- Corruption Pylon: A pylon which can be placed in the Corruption, and only requires one nearby NPC to function instead of two. Sold by the Occultist when she's housed in the Corruption and happy enough.
+- Crimson Pylon: A pylon which can be placed in the Crimson, and only requires one nearby NPC to function instead of two. Sold by the Harvester when she's housed in the Crimson and happy enough.
+- Underworld & Sky Pylons: If the "Sky/Underworld Biome Split" config option is enabled, these pylons are made available for the corresponding biomes! They're obtained in the same way as all vanilla biome pylons, being sold by a happy town NPC in the correct biome.
+- The Hook: A flail which is dropped by the Harvester at a 1/8 chance when she is killed.
+- Spittle: A magic weapon which is dropped by the Occultist at a 1/8 chance when she is killed.
 
 Town NPCs:
 - Harvester: A crimson fanatic who sells various Crimson-themed items, and can uniquely be housed within evil biomes! She spawns in Hardmode worlds that have at least one block of Corruption.
-- [UPCOMING] Occultist: A corruption fanatic who sells various Corruption-themed items, and can uniquely be housed within evil biomes! She spawns in Hardmode worlds that have at least one block of Crimson.
+- Occultist: A corruption fanatic who sells various Corruption-themed items, and can uniquely be housed within evil biomes! She spawns in Hardmode worlds that have at least one block of Crimson.
 
 Town Pets:
 - Axolotl: A new town pet which shows up after using an Axolotl License. Comes in six different colors, and using an Axolotl License while you have an Axolotl already rerolls its color and name. The Axolotl is capable of swimming and cannot drown!
+- Roombas: A series of town pets split throughout progression, in much the same way as Town Slimes. Roombas are obtained by crafting and using the aforementioned cleaning kits.
