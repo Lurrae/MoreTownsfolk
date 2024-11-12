@@ -16,12 +16,14 @@ namespace MoreTownsfolk
 		public static bool builtRoombaLihz = false;
 		public static bool builtRoombaMars = false;
 		public static bool builtRoombaMoon = false;
+		public static bool occultistSecret = false;
 
 		public override void ClearWorld()
 		{
 			boughtAxolotl = false;
 			downedEater = false;
 			downedBrain = false;
+			occultistSecret = false;
 
 			// Roomba bools
 			builtRoombaMaid = false;
@@ -44,6 +46,9 @@ namespace MoreTownsfolk
 
 			if (downedBrain)
 				tag["downedBrain"] = true;
+
+			if (occultistSecret)
+				tag["occultistSecret"] = true;
 
 			if (builtRoombaMaid)
 				tag["boughtRoombaMaid"] = true;
@@ -75,6 +80,7 @@ namespace MoreTownsfolk
 			boughtAxolotl = tag.ContainsKey("boughtAxolotl");
 			downedEater = tag.ContainsKey("downedEater");
 			downedBrain = tag.ContainsKey("downedBrain");
+			occultistSecret = tag.ContainsKey("occultistSecret");
 
 			// Roomba bools
 			builtRoombaMaid = tag.ContainsKey("boughtRoombaMaid");
@@ -93,6 +99,7 @@ namespace MoreTownsfolk
 			flags[0] = boughtAxolotl;
 			flags[1] = downedEater;
 			flags[2] = downedBrain;
+			flags[3] = occultistSecret;
 			
 			writer.Write(flags);
 
@@ -116,6 +123,7 @@ namespace MoreTownsfolk
 			boughtAxolotl = flags[0];
 			downedEater = flags[1];
 			downedBrain = flags[2];
+			occultistSecret = flags[3];
 
 			// Roomba bools
 			flags = reader.ReadByte();

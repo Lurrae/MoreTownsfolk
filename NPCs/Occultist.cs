@@ -1,5 +1,7 @@
+using Humanizer;
 using MoreTownsfolk.Items;
 using MoreTownsfolk.Projectiles;
+using Steamworks;
 using TepigCore.Base.ModdedNPC;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
@@ -217,6 +219,68 @@ namespace MoreTownsfolk.NPCs
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(new CommonDrop(ItemType<Spittle>(), 10));
+		}
+
+		public override void AI()
+		{
+			base.AI();
+
+			// Check if player is talking to this Occultist while on GFB seed
+			if (Main.LocalPlayer.TalkNPC != null && Main.LocalPlayer.TalkNPC.whoAmI == NPC.whoAmI && Main.zenithWorld)
+			{
+				// If the Occultist's secret hasn't been triggered yet, check if it should be triggered
+				if (!TownsfolkWorld.occultistSecret)
+				{
+					string translatedText = Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Occultist.Dialogue14").Replace("{?BloodMoon}", "");
+
+					// The dialogue about placing a block of Ebonstone was used, secret activated
+					if (Main.npcChatText.Equals(translatedText))
+					{
+						List<Tile> validTiles = new();
+
+						// Get the position of the player's spawn point
+						Vector2 spawn = new(Main.LocalPlayer.SpawnX, Main.LocalPlayer.SpawnY);
+
+						if (spawn.X == -1 || spawn.Y == -1)
+						{
+							spawn = new Vector2(Main.spawnTileX, Main.spawnTileY);
+						}
+
+						// Limit the placement of the block to within 16 blocks of spawn horizontally, and 1-8 blocks below it vertically
+						int startX = (int)Math.Max(spawn.X - 16, 0);
+						int endX = (int)Math.Min(spawn.X + 16, Main.maxTilesX);
+						int startY = (int)Math.Max(spawn.Y + 1, 0);
+						int endY = (int)Math.Min(spawn.Y + 8, Main.maxTilesY);
+
+						// Find a random block within range that is a tile that's not already Ebonstone
+						int failsafeTimer = 100;
+						Vector2 chosenPos = new(-1, -1);
+						while (chosenPos == new Vector2(-1, -1))
+						{
+							int i = Main.rand.Next(startX, endX);
+							int j = Main.rand.Next(startY, endY);
+							Tile t = Main.tile[i, j];
+
+							if (t.TileType != TileID.Ebonstone)
+							{
+								chosenPos = new Vector2(i, j);
+							}
+
+							// If we test 100 tiles and can't find a valid tile, skip placing a tile at all
+							// This prevents the dialogue from ever freezing the game
+							if (failsafeTimer-- < 0)
+								return;
+						}
+
+						// The random tile is then converted to Ebonstone
+						Tile tile = Main.tile[chosenPos.ToPoint()];
+						tile.ResetToType(TileID.Ebonstone);
+
+						// Make sure the game knows the secret has been triggered now
+						TownsfolkWorld.occultistSecret = true;
+					}
+				}
+			}
 		}
 	}
 }

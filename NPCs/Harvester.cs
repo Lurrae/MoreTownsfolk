@@ -249,7 +249,29 @@ namespace MoreTownsfolk.NPCs
 
 		public override string GetChat()
 		{
-			// Has a 30% chance to return a special dialogue if your world has no Crimson
+			// First, has a 1/8 chance during a Blood Moon on GFB to use special super-secret dialogue
+			if (Main.zenithWorld && Main.bloodMoon && Main.rand.NextFloat() <= 0.125f)
+			{
+				var source = new Terraria.DataStructures.PlayerDeathReason()
+				{
+					SourceCustomReason = Language.GetTextValue("Mods.MoreTownsfolk.SpecialDialogue.Harvester.PlayerDeath_Harvested", Main.LocalPlayer.name)
+				};
+
+				var hurtInfo = new Player.HurtInfo()
+				{
+					Damage = 666,
+					Dodgeable = false,
+					DamageSource = source
+				};
+
+				Main.LocalPlayer.Hurt(hurtInfo);
+
+				CombatText.NewText(NPC.getRect(), Color.Crimson, Language.GetTextValue("Mods.MoreTownsfolk.SpecialDialogue.Harvester.GfbKill"), true);
+
+				return Language.GetTextValue("Mods.MoreTownsfolk.SpecialDialogue.Harvester.GfbKill");
+			}
+			
+			// If that fails for any reason, has a 30% chance to return a special dialogue if your world has no Crimson
 			var tileCounts = new int[TileLoader.TileCount];
 			WorldGen.CountTileTypesInArea(tileCounts, 0, Main.maxTilesX, 0, Main.maxTilesY);
 			tileCounts[TileID.Sunflower] = 0;
@@ -258,7 +280,7 @@ namespace MoreTownsfolk.NPCs
 				return Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Harvester.Dialogue23").Replace("{?Day}{?!Day}", "");
 			}
 
-			// Failing that, if Blood and Gore is enabled and the Pirate is present, 30% chance to return Pirate dialogue
+			// Failing both of those, if Blood and Gore is enabled and the Pirate is present, 30% chance to return Pirate dialogue
 			if (ChildSafety.Disabled && NPC.AnyNPCs(NPCID.Pirate) && Main.rand.NextFloat() <= 0.3f)
 			{
 				return Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Harvester.Dialogue9").Replace("{?Day}{?!Day}", "").Replace("{Pirate}", NPC.GetFirstNPCNameOrNull(NPCID.Pirate));
