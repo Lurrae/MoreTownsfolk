@@ -163,7 +163,7 @@ namespace MoreTownsfolk.NPCs.Roombas
 				}
 
 				// Draw the glowmask texture with no color modification, so it appears fullbright
-				Main.EntitySpriteDraw(glowSprite, NPC.position - screenPos - offset, NPC.frame, Color.White, NPC.rotation, Vector2.Zero, NPC.scale, spriteEffects);
+				Main.EntitySpriteDraw(glowSprite, NPC.position - screenPos - offset + new Vector2(0, NPC.gfxOffY), NPC.frame, Color.White, NPC.rotation, Vector2.Zero, NPC.scale, spriteEffects);
 			}
 
 			// Draw party hat after the glowmask, so it's layered above it
