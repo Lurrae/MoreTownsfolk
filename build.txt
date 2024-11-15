@@ -1,6 +1,6 @@
 displayName = Extra Townsfolk
 author = Lurrae & Skulgan
-version = 1.1
+version = 1.2.0
 modReferences = TepigCore@1.0
 hideCode = false
 hideResources = false

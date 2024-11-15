@@ -70,6 +70,11 @@ namespace MoreTownsfolk.NPCs
 			return Profile;
 		}
 
+		public override void PartyHatPosition(ref Vector2 position, ref SpriteEffects spriteEffects)
+		{
+			position += new Vector2(-4 * NPC.direction, NPC.IsShimmerVariant ? -2 : 2);
+		}
+
 		public override List<string> SetNPCNameList()
 		{
 			List<string> names = new();
