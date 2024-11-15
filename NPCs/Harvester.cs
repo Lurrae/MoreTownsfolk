@@ -12,7 +12,7 @@ namespace MoreTownsfolk.NPCs
 	[AutoloadHead]
 	public class Harvester : ModTownee
 	{
-		//private static int ShimmerHeadIdx;
+		private static int ShimmerHeadIdx;
 		private static Profiles.StackedNPCProfile Profile;
 
 		public override string DialogueKey => "Mods.MoreTownsfolk.Dialogue.Harvester.";
@@ -39,8 +39,8 @@ namespace MoreTownsfolk.NPCs
 				.SetNPCAffection(NPCID.Dryad, AffectionLevel.Hate);
 
 			Profile = new Profiles.StackedNPCProfile(
-				new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture), Texture + "_Party")//,
-				//new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIdx, Texture + _ShimmerParty)
+				new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture), Texture + "_Party"),
+				new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIdx)
 			);
 		}
 
@@ -49,10 +49,10 @@ namespace MoreTownsfolk.NPCs
 			AnimationType = NPCID.Merchant;
 		}
 
-		//public override void Load()
-		//{
-			//ShimmerHeadIdx = Mod.AddNPCHeadTexture(Type, Texture + "_Shimmer_Head");
-		//}
+		public override void Load()
+		{
+			ShimmerHeadIdx = Mod.AddNPCHeadTexture(Type, Texture + "_HeadShimmer");
+		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
