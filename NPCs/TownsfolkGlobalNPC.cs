@@ -89,9 +89,9 @@ namespace MoreTownsfolk.NPCs
 				fargo.TryFind("Abominationn", out ModNPC abom);
 				fargo.TryFind("Mutant", out ModNPC mutant);
 
-				happiness[devi.Type].SetBiomeAffection<CustomShoppingBiomes.SkyBiome>(AffectionLevel.Love);
-				happiness[abom.Type].SetBiomeAffection<CustomShoppingBiomes.SkyBiome>(AffectionLevel.Love);
-				happiness[mutant.Type].SetBiomeAffection<CustomShoppingBiomes.SkyBiome>(AffectionLevel.Love);
+				NPCHappiness.Get(devi.Type).SetBiomeAffection<CustomShoppingBiomes.SkyBiome>(AffectionLevel.Love);
+				NPCHappiness.Get(abom.Type).SetBiomeAffection<CustomShoppingBiomes.SkyBiome>(AffectionLevel.Love);
+				NPCHappiness.Get(mutant.Type).SetBiomeAffection<CustomShoppingBiomes.SkyBiome>(AffectionLevel.Love);
 			}
 
 			// Nurse: Changed to like the Sky instead of the Hallow
