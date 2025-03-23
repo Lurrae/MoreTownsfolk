@@ -81,6 +81,19 @@ namespace MoreTownsfolk.NPCs
 			if (!GetInstance<ServerConfig>().ShuffleBiomePreferences)
 				return;
 
+			// If Fargo's mod is enabled, make its sky-loving NPCs love our sky biome too
+			// TODO: This probably isn't ideal, since it effectively doubles the effectiveness of them loving the sky, and has them provide duplicated dialogue
+			if (ModLoader.TryGetMod("Fargowiltas", out Mod fargo))
+			{
+				fargo.TryFind("Deviantt", out ModNPC devi);
+				fargo.TryFind("Abominationn", out ModNPC abom);
+				fargo.TryFind("Mutant", out ModNPC mutant);
+
+				happiness[devi.Type].SetBiomeAffection<CustomShoppingBiomes.SkyBiome>(AffectionLevel.Love);
+				happiness[abom.Type].SetBiomeAffection<CustomShoppingBiomes.SkyBiome>(AffectionLevel.Love);
+				happiness[mutant.Type].SetBiomeAffection<CustomShoppingBiomes.SkyBiome>(AffectionLevel.Love);
+			}
+
 			// Nurse: Changed to like the Sky instead of the Hallow
 			happiness[NPCID.Nurse].SetBiomeAffection<CustomShoppingBiomes.SkyBiome>(AffectionLevel.Like);
 			happiness[NPCID.Nurse].SetBiomeAffection<HallowBiome>(0);
