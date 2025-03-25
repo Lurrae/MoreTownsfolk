@@ -214,6 +214,78 @@ Mods: {
 				Census.SpawnCondition: When the Brain of Cthulhu has been defeated
 			}
 
+			Ninja: {
+				DisplayName: Ninja
+
+				TownNPCMood: {
+					Content: I am content.
+					NoHome: I have no home.
+					FarFromHome: I am far from my home.
+					LoveSpace: I love how few others are present.
+					DislikeCrowded: I dislike this crowd.
+					HateCrowded: I hate this crowd.
+					LoveBiome: I love {BiomeName}.
+					LikeBiome: I like {BiomeName}.
+					DislikeBiome: I dislike {BiomeName}.
+					HateBiome: I hate {BiomeName}.
+					LoveNPC: I love {NPCName}.
+					LikeNPC: I like {NPCName}.
+					LikeNPC_Princess: I like {NPCName}, she's the princess.
+					DislikeNPC: I dislike {NPCName}.
+					HateNPC: I hate {NPCName}.
+					Princess_LovesNPC: "{NPCName} is cool!"
+				}
+
+				Dialogue: {
+					# Always available
+					Dialogue1: Dialogue1.
+					Dialogue2: Dialogue2.
+					Dialogue3: Dialogue3.
+					Dialogue4: Dialogue4.
+					Dialogue5: Dialogue5.
+					Dialogue6: Dialogue6.
+					# Requires a specific town NPC to be present in the world
+					Dialogue7: Dialogue7, featuring {ArmsDealer}.
+					Dialogue8: Dialogue8, featuring {WitchDoctor}.
+					Dialogue9: Dialogue9, featuring {TaxCollector}.
+					Dialogue10: Dialogue10, featuring {Merchant}.
+					# Events
+					Dialogue11: "{?BloodMoon}BloodMoon dialogue 1."
+					Dialogue12: "{?BloodMoon}BloodMoon dialogue 2."
+					Dialogue13: "{?BloodMoon}BloodMoon dialogue 3."
+					Dialogue14: "{?Thunderstorm}Thunderstorm dialogue 1."
+					Dialogue15: "{?Thunderstorm}Thunderstorm dialogue 2."
+					Dialogue16: "{?!Thunderstorm}{?Rain}Rain dialogue 1."
+					Dialogue17: "{?!Thunderstorm}{?Rain}Rain dialogue 2."
+					Dialogue18: "{?BirthdayParty}Party dialogue 1."
+					Dialogue19: "{?BirthdayParty}Party dialogue 2."
+					Dialogue20: "{?!Thunderstorm}{?HappyWindyDay}WindyDay dialogue 1."
+					Dialogue21: "{?!Thunderstorm}{?HappyWindyDay}WindyDay dialogue 2."
+					# Biomes/Environment
+					Dialogue22: "{?Graveyard}Graveyard dialogue 1."
+				}
+
+				SpecialDialogue: {
+					Sleeping: He's out cold... Perhaps some kind of potion could help?
+					WakeUp_Neutral: Thanks for the healing potion.
+					WakeUp_Good: That was a good healing potion, thank you.
+					WakeUp_StrangeBrew: What in the world did you just give me?
+					WakeUp_Alcohol: I feel funny...
+					HuntMenuOpen: What would you like me to hunt? I will need at least one banner to identify the target.
+					HuntFail: I cannot hunt if I do not know what it is I am hunting. I need the target's banner.
+					HuntFail_AlreadyDone: I have already hunted that creature. If you require more items, I am selling {0} in my shop.
+					HuntLeaving: I must leave to hunt {0}. I will return with my spoils in {1} {^1:hour;hours}.
+					HuntReturn: The {0} hunt was successful. Here is your reward, it's also been added to my shop.
+				}
+
+				Buttons: {
+					Heal: Give Healing Potion ({0})
+					BannerButton: Turn in Banner
+				}
+
+				Census.SpawnCondition: Falls out of the King Slime, and needs to be given something to rejuvenate him...
+			}
+
 			MaidRoomba: {
 				DisplayName: Maid Roomba
 				TownNPCMood.Princess_LovesNPC: "{NPCName} is really adorable!"
@@ -289,6 +361,11 @@ Mods: {
 				Ophelia: Ophelia
 				Salem: Salem
 				Violet: Violet
+			}
+
+			Ninja: {
+				Ninja: Ninja
+				Ninja2: Ninja
 			}
 
 			AxolotlNames_Blue: {

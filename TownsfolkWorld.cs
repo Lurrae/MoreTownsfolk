@@ -1,4 +1,6 @@
+using MoreTownsfolk.NPCs;
 using System.IO;
+using Terraria.Chat;
 using Terraria.ModLoader.IO;
 
 namespace MoreTownsfolk
@@ -17,6 +19,40 @@ namespace MoreTownsfolk
 		public static bool builtRoombaMars = false;
 		public static bool builtRoombaMoon = false;
 		public static bool occultistSecret = false;
+		public static bool savedNinja = false;
+		public static int currentNinjaHunt = -1;
+		public static int currentNinjaHuntTimer = -1;
+		public static int ninjaHomeX = 0;
+		public static int ninjaHomeY = 0;
+		public static List<int> completedNinjaHunts = [];
+
+		public override void PostUpdateTime()
+		{
+			// Decrement timer while on a quest, unless a Ninja is present in the world (or time is frozen with Journey Mode)
+			if (currentNinjaHunt > -1 && !NPC.AnyNPCs(NPCType<Ninja>()))
+			{
+				if (currentNinjaHuntTimer > 0)
+				{
+					currentNinjaHuntTimer--;
+				}
+
+				// Timer hit 0 this frame, Ninja should respawn immediately!
+				if (currentNinjaHuntTimer <= 0)
+				{
+					int newNinja = NPC.NewNPC(Entity.GetSource_TownSpawn(), Conversions.ToPixels(ninjaHomeX), Conversions.ToPixels(ninjaHomeY), NPCType<Ninja>());
+					NPC ninja = Main.npc[newNinja];
+
+					if (Main.netMode == NetmodeID.SinglePlayer)
+					{
+						Main.NewText(Language.GetTextValue("Announcement.HasArrived", ninja.FullName), 50, 125, 255); // "(name) the Ninja has arrived!"
+					}
+					else if (Main.netMode == NetmodeID.Server)
+					{
+						ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasArrived", ninja.GetFullNetName()), new Color(50, 125, 255));
+					}
+				}
+			}
+		}
 
 		public override void ClearWorld()
 		{
@@ -34,6 +70,14 @@ namespace MoreTownsfolk
 			builtRoombaLihz = false;
 			builtRoombaMars = false;
 			builtRoombaMoon = false;
+
+			// Ninja-related variables
+			savedNinja = false;
+			currentNinjaHunt = -1;
+			currentNinjaHuntTimer = -1;
+			ninjaHomeX = 0;
+			ninjaHomeY = 0;
+			completedNinjaHunts = [];
 		}
 
 		public override void SaveWorldData(TagCompound tag)
@@ -73,6 +117,15 @@ namespace MoreTownsfolk
 
 			if (builtRoombaMoon)
 				tag["boughtRoombaMoon"] = true;
+
+			if (savedNinja)
+				tag["savedNinja"] = true;
+
+			tag["currentNinjaHunt"] = currentNinjaHunt;
+			tag["currentNinjaHuntTimer"] = currentNinjaHuntTimer;
+			tag["ninjaHomeX"] = ninjaHomeX;
+			tag["ninjaHomeY"] = ninjaHomeY;
+			tag["completedNinjaHunts"] = completedNinjaHunts;
 		}
 
 		public override void LoadWorldData(TagCompound tag)
@@ -91,6 +144,14 @@ namespace MoreTownsfolk
 			builtRoombaLihz = tag.ContainsKey("boughtRoombaLihz");
 			builtRoombaMars = tag.ContainsKey("boughtRoombaMars");
 			builtRoombaMoon = tag.ContainsKey("boughtRoombaMoon");
+
+			// Ninja-related variables
+			savedNinja = tag.ContainsKey("savedNinja");
+			currentNinjaHunt = tag.GetInt("currentNinjaHunt");
+			currentNinjaHuntTimer = tag.GetInt("currentNinjaHuntTimer");
+			ninjaHomeX = tag.GetInt("ninjaHomeX");
+			ninjaHomeY = tag.GetInt("ninjaHomeY");
+			completedNinjaHunts = tag.GetList<int>("completedNinjaHunts").ToList();
 		}
 
 		public override void NetSend(BinaryWriter writer)
@@ -100,6 +161,7 @@ namespace MoreTownsfolk
 			flags[1] = downedEater;
 			flags[2] = downedBrain;
 			flags[3] = occultistSecret;
+			flags[4] = savedNinja;
 			
 			writer.Write(flags);
 
@@ -115,6 +177,20 @@ namespace MoreTownsfolk
 			flags[7] = builtRoombaMoon;
 
 			writer.Write(flags);
+
+			writer.Write7BitEncodedInt(currentNinjaHunt);
+			writer.Write7BitEncodedInt(currentNinjaHuntTimer);
+			writer.Write7BitEncodedInt(ninjaHomeX);
+			writer.Write7BitEncodedInt(ninjaHomeY);
+
+			// Write the length of the array so we know how many encoded ints to read later
+			writer.Write7BitEncodedInt(completedNinjaHunts.Count);
+
+			// Write the value of every int in the array
+			for (int i = 0; i < completedNinjaHunts.Count; i++)
+			{
+				writer.Write7BitEncodedInt(completedNinjaHunts[i]);
+			}
 		}
 
 		public override void NetReceive(BinaryReader reader)
@@ -124,6 +200,7 @@ namespace MoreTownsfolk
 			downedEater = flags[1];
 			downedBrain = flags[2];
 			occultistSecret = flags[3];
+			savedNinja = flags[4];
 
 			// Roomba bools
 			flags = reader.ReadByte();
@@ -135,6 +212,17 @@ namespace MoreTownsfolk
 			builtRoombaLihz = flags[5];
 			builtRoombaMars = flags[6];
 			builtRoombaMoon = flags[7];
+
+			currentNinjaHunt = reader.Read7BitEncodedInt();
+			currentNinjaHuntTimer = reader.Read7BitEncodedInt();
+
+			// Get the amount of quests completed so we know how many ints to read, then read them all
+			int numCompletedQuests = reader.Read7BitEncodedInt();
+
+			for (int i = 0; i < numCompletedQuests; i++)
+			{
+				completedNinjaHunts.Add(reader.Read7BitEncodedInt());
+			}
 		}
 	}
 }
