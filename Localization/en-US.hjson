@@ -275,7 +275,8 @@ Mods: {
 					HuntFail: I cannot hunt if I do not know what it is I am hunting. I need the target's banner.
 					HuntFail_AlreadyDone: I have already hunted that creature. If you require more items, I am selling {0} in my shop.
 					HuntLeaving: I must leave to hunt {0}. I will return with my spoils in {1} {^1:hour;hours}.
-					HuntReturn: The {0} hunt was successful. Here is your reward, it's also been added to my shop.
+					HuntReturn_OneTime: The {0} hunt was successful. Here is your reward, it's also been added to my shop.
+					HuntReturn_Repeatable: The {0} hunt was successful. Here is your reward.
 				}
 
 				Buttons: {

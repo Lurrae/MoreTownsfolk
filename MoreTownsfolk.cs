@@ -37,8 +37,17 @@ namespace MoreTownsfolk
 			On_Player.PetAnimal += On_Player_PetAnimal;
 			On_Player.StopPettingAnimal += On_Player_StopPettingAnimal;
 
+			On_Main.UpdateTime_StartDay += On_Main_UpdateTime_StartDay;
+
 			MonoModHooks.Add(typeof(Player).GetProperty(nameof(Player.ShoppingZone_Forest)).GetGetMethod(), ShoppingZone_Forest_NotSky);
 			MonoModHooks.Add(typeof(Player).GetProperty(nameof(Player.ShoppingZone_BelowSurface)).GetGetMethod(), ShoppingZone_BelowSurface_NotHell);
+		}
+
+		private void On_Main_UpdateTime_StartDay(On_Main.orig_UpdateTime_StartDay orig, ref bool stopEvents)
+		{
+			orig(ref stopEvents);
+
+			TownsfolkWorld.decrementedNinjaDaysToday = false;
 		}
 
 		public static bool ShoppingZone_Forest_NotSky(Func<Player, bool> orig, Player self)

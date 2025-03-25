@@ -21,23 +21,28 @@ namespace MoreTownsfolk
 		public static bool occultistSecret = false;
 		public static bool savedNinja = false;
 		public static int currentNinjaHunt = -1;
-		public static int currentNinjaHuntTimer = -1;
+		//public static int currentNinjaHuntTimer = -1;
+		public static float ninjaReturnTime = -1;
+		public static int daysUntilReturn = -1;
+		public static bool decrementedNinjaDaysToday = false;
 		public static int ninjaHomeX = 0;
 		public static int ninjaHomeY = 0;
 		public static List<int> completedNinjaHunts = [];
 
 		public override void PostUpdateTime()
 		{
-			// Decrement timer while on a quest, unless a Ninja is present in the world (or time is frozen with Journey Mode)
-			if (currentNinjaHunt > -1 && !NPC.AnyNPCs(NPCType<Ninja>()))
-			{
-				if (currentNinjaHuntTimer > 0)
-				{
-					currentNinjaHuntTimer--;
-				}
+			// Only handle Ninja timer if he's on a quest and not present in the world
+			if (currentNinjaHunt == -1 || NPC.AnyNPCs(NPCType<Ninja>()))
+				return;
 
-				// Timer hit 0 this frame, Ninja should respawn immediately!
-				if (currentNinjaHuntTimer <= 0)
+			// Once we've hit the targeted time of day for the first time today, decrement the number of days until the Ninja returns
+			if (!decrementedNinjaDaysToday && Utils.GetDayTimeAs24FloatStartingFromMidnight() >= ninjaReturnTime)
+			{
+				daysUntilReturn--;
+				decrementedNinjaDaysToday = true;
+
+				// Ninja should return now, spawn him immediately!
+				if (daysUntilReturn == 0)
 				{
 					int newNinja = NPC.NewNPC(Entity.GetSource_TownSpawn(), Conversions.ToPixels(ninjaHomeX), Conversions.ToPixels(ninjaHomeY), NPCType<Ninja>());
 					NPC ninja = Main.npc[newNinja];
@@ -74,7 +79,10 @@ namespace MoreTownsfolk
 			// Ninja-related variables
 			savedNinja = false;
 			currentNinjaHunt = -1;
-			currentNinjaHuntTimer = -1;
+			//currentNinjaHuntTimer = -1;
+			ninjaReturnTime = -1;
+			daysUntilReturn = -1;
+			decrementedNinjaDaysToday = false;
 			ninjaHomeX = 0;
 			ninjaHomeY = 0;
 			completedNinjaHunts = [];
@@ -122,7 +130,13 @@ namespace MoreTownsfolk
 				tag["savedNinja"] = true;
 
 			tag["currentNinjaHunt"] = currentNinjaHunt;
-			tag["currentNinjaHuntTimer"] = currentNinjaHuntTimer;
+			//tag["currentNinjaHuntTimer"] = currentNinjaHuntTimer;
+			tag["ninjaReturnTime"] = ninjaReturnTime;
+			tag["daysUntilReturn"] = daysUntilReturn;
+
+			if (decrementedNinjaDaysToday)
+				tag["decrementedNinjaDaysToday"] = true;
+
 			tag["ninjaHomeX"] = ninjaHomeX;
 			tag["ninjaHomeY"] = ninjaHomeY;
 			tag["completedNinjaHunts"] = completedNinjaHunts;
@@ -148,7 +162,10 @@ namespace MoreTownsfolk
 			// Ninja-related variables
 			savedNinja = tag.ContainsKey("savedNinja");
 			currentNinjaHunt = tag.GetInt("currentNinjaHunt");
-			currentNinjaHuntTimer = tag.GetInt("currentNinjaHuntTimer");
+			//currentNinjaHuntTimer = tag.GetInt("currentNinjaHuntTimer");
+			ninjaReturnTime = tag.GetFloat("ninjaReturnTime");
+			daysUntilReturn = tag.GetInt("daysUntilReturn");
+			decrementedNinjaDaysToday = tag.ContainsKey("decrementedNinjaDaysToday");
 			ninjaHomeX = tag.GetInt("ninjaHomeX");
 			ninjaHomeY = tag.GetInt("ninjaHomeY");
 			completedNinjaHunts = tag.GetList<int>("completedNinjaHunts").ToList();
@@ -162,6 +179,7 @@ namespace MoreTownsfolk
 			flags[2] = downedBrain;
 			flags[3] = occultistSecret;
 			flags[4] = savedNinja;
+			flags[5] = decrementedNinjaDaysToday;
 			
 			writer.Write(flags);
 
@@ -179,7 +197,9 @@ namespace MoreTownsfolk
 			writer.Write(flags);
 
 			writer.Write7BitEncodedInt(currentNinjaHunt);
-			writer.Write7BitEncodedInt(currentNinjaHuntTimer);
+			//writer.Write7BitEncodedInt(currentNinjaHuntTimer);
+			writer.Write((double)ninjaReturnTime);
+			writer.Write7BitEncodedInt(daysUntilReturn);
 			writer.Write7BitEncodedInt(ninjaHomeX);
 			writer.Write7BitEncodedInt(ninjaHomeY);
 
@@ -201,6 +221,7 @@ namespace MoreTownsfolk
 			downedBrain = flags[2];
 			occultistSecret = flags[3];
 			savedNinja = flags[4];
+			decrementedNinjaDaysToday = flags[5];
 
 			// Roomba bools
 			flags = reader.ReadByte();
@@ -214,7 +235,9 @@ namespace MoreTownsfolk
 			builtRoombaMoon = flags[7];
 
 			currentNinjaHunt = reader.Read7BitEncodedInt();
-			currentNinjaHuntTimer = reader.Read7BitEncodedInt();
+			//currentNinjaHuntTimer = reader.Read7BitEncodedInt();
+			ninjaReturnTime = (float)reader.ReadDouble();
+			daysUntilReturn = reader.Read7BitEncodedInt();
 
 			// Get the amount of quests completed so we know how many ints to read, then read them all
 			int numCompletedQuests = reader.Read7BitEncodedInt();

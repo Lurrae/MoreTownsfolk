@@ -158,10 +158,20 @@ namespace MoreTownsfolk.NPCs
 				// We'll need to mention the NPC being hunted in the dialogue, so we need its ID
 				int targetNPCID = BannerItemToNPC(questData.AcceptedBannerTypes[0]);
 
+				// Calculate how many days it should take to return
+				// Every 24 hours that have to pass adds an extra day (so 0-24 = 1 day, 25-48 = 2 days, etc.)
+				// The ninja always returns the corresponding number of hours after the current time
+				int huntHours = (int)Math.Round(questData.HuntTime * 24);
+				float currentTime = Utils.GetDayTimeAs24FloatStartingFromMidnight(); // Examples: 6:30 am would be 6.5f, 6:00 pm would be 18.0f
+				TownsfolkWorld.daysUntilReturn = (int)Math.Ceiling(huntHours / 24.0f);
+				TownsfolkWorld.ninjaReturnTime = (currentTime + huntHours) % 24; // % 24 (or mod 24) wraps the value back around if it goes above 24
+
+				// This variable needs to be set depending on whether we've passed the target time or not
+				// If we don't set it properly, the Ninja will either return too early or take a whole extra day
+				TownsfolkWorld.decrementedNinjaDaysToday = currentTime >= TownsfolkWorld.ninjaReturnTime;
+
+				// Set the current hunt to this quest's index, so we can access its data when the Ninja returns
 				TownsfolkWorld.currentNinjaHunt = questIdx;
-				// Convert this quest's HuntTime to 24-hour days, in frames
-				// 3600 seconds = 1 hour, times 24 is 1 day, then that gets multiplied by the HuntTime
-				TownsfolkWorld.currentNinjaHuntTimer = Conversions.ToFrames((float)Math.Round(3600 * 24 * questData.HuntTime));
 				Main.npcChatText = Language.GetTextValue("Mods.MoreTownsfolk.NPCs.Ninja.SpecialDialogue.HuntLeaving", Lang.GetNPCName(targetNPCID), (int)Math.Round(24 * questData.HuntTime));
 			}
 		}
@@ -225,7 +235,7 @@ namespace MoreTownsfolk.NPCs
 				string npcName = Lang.GetNPCNameValue(npcID);
 
 				// Currently trying to leave for a hunt, use leaving dialogue
-				if (TownsfolkWorld.currentNinjaHuntTimer > 0)
+				if (TownsfolkWorld.daysUntilReturn > 0)
 				{
 					// The Ninja mentions how long he'll be gone for, which means we need the hunt time in hours
 					// The HuntTime variable in the quest data is basically just a multiplier for how many days he'll be gone
@@ -242,16 +252,23 @@ namespace MoreTownsfolk.NPCs
 					var src = NPC.GetSource_GiftOrReward();
 					Main.LocalPlayer.QuickSpawnItem(src, questData.RewardItem, questData.RewardQuantity);
 
-					// Next, we register that this quest has been fulfilled if it was a one-time quest
+					// Next, we grab the localization key for the type of hunt we did; this defaults to repeatable, but is set to one-time below
+					string questType = "Repeatable";
+
+					// We also have to register that this quest has been fulfilled if it was a one-time quest, as well as use a different line of dialogue
 					if (!questData.Repeatable)
 					{
 						TownsfolkWorld.completedNinjaHunts.Add(TownsfolkWorld.currentNinjaHunt);
+						questType = "OneTime";
 					}
 
-					// Lastly, we need to reset this variable so that the game doesn't think we're still on a quest
-					// We do this last since we need to access this value before inputting the dialogue obviously
+					// Lastly, we need to reset the world's variables so that the game doesn't think we're still on a quest
+					// We do this last since we need to access some of the values before inputting the dialogue
 					TownsfolkWorld.currentNinjaHunt = -1;
-					return Language.GetTextValue("Mods.MoreTownsfolk.NPCs.Ninja.SpecialDialogue.HuntReturn", npcName);
+					TownsfolkWorld.ninjaReturnTime = -1;
+					TownsfolkWorld.daysUntilReturn = -1;
+					TownsfolkWorld.decrementedNinjaDaysToday = false;
+					return Language.GetTextValue("Mods.MoreTownsfolk.NPCs.Ninja.SpecialDialogue.HuntReturn_" + questType, npcName);
 				}
 			}
 
@@ -264,20 +281,17 @@ namespace MoreTownsfolk.NPCs
 			Item itemData = ContentSamples.ItemsByType[itemID];
 			int npcID = -1;
 
-			// For vanilla banners, we just need to get the placeStyle of the banner, which gives us a special "Banner ID" that's able to be converted
-			// For some reason item IDs can't be converted directly, so this is needed
-			// Only vanilla banners use the vanilla TileID, so we can check for that
-			if (itemData.createTile == TileID.Banners)
+			// First, try using this method if it returns a valid NPC ID
+			if (NPCLoader.BannerItemToNPC(itemID) != -1)
 			{
-				// Vanilla banners use their placeStyle as their Banner ID
-				npcID = Item.BannerToNPC(itemData.placeStyle);
-			}
-			// If the item doesn't use the vanilla tile ID, we should make 100% sure it's a modded item, then plug it in to this special method
-			// that's only used for modded banners. It gives us the NPC ID given just the banner's item ID, which is nice
-			else if (itemData.ModItem != null)
-			{
-				// Modded banners have a special method we can call
 				npcID = NPCLoader.BannerItemToNPC(itemID);
+			}
+			// Failing that, we probably have a vanilla banner, so we can calculate the banner ID from the item's placeStyle
+			else if (itemData.createTile == TileID.Banners)
+			{
+				int bannerID = itemData.placeStyle - 21;
+
+				npcID = Item.BannerToNPC(bannerID);
 			}
 
 			return npcID;
@@ -345,7 +359,7 @@ namespace MoreTownsfolk.NPCs
 					return;
 			}
 
-			if (TownsfolkWorld.currentNinjaHunt > -1 && TownsfolkWorld.currentNinjaHuntTimer > 0)
+			if (TownsfolkWorld.currentNinjaHunt > -1 && TownsfolkWorld.daysUntilReturn > 0)
 			{
 				// TODO: Make the Ninja walk offscreen
 				//		 For now he just has placeholder code to make him a s c e n d
