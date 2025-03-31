@@ -1,7 +1,5 @@
-using Humanizer;
 using MoreTownsfolk.Items;
 using MoreTownsfolk.Projectiles;
-using Steamworks;
 using TepigCore.Base.ModdedNPC;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
@@ -16,7 +14,7 @@ namespace MoreTownsfolk.NPCs
 		private static int ShimmerHeadIdx;
 		private static Profiles.StackedNPCProfile Profile;
 
-		public override string DialogueKey => "Mods.MoreTownsfolk.Dialogue.Occultist.";
+		public override string DialogueKey => "Mods.MoreTownsfolk.NPCs.Occultist.";
 		public override bool IsMale => false;
 
 		public override void TowneeStaticDefaults()
@@ -174,12 +172,14 @@ namespace MoreTownsfolk.NPCs
 		public override string GetChat()
 		{
 			// Has a 30% chance to return a special dialogue if your world has no Corruption
+			// This special dialogue gives the player five Corrupt Seeds (and won't trigger if Corrupt Seeds exist in the player's inventory)
 			var tileCounts = new int[TileLoader.TileCount];
 			WorldGen.CountTileTypesInArea(tileCounts, 0, Main.maxTilesX, 0, Main.maxTilesY);
 			tileCounts[TileID.Sunflower] = 0;
-			if (WorldGen.GetTileTypeCountByCategory(tileCounts, TileScanGroup.Corruption) <= 0 && Main.rand.NextFloat() <= 0.3f)
+			if (WorldGen.GetTileTypeCountByCategory(tileCounts, TileScanGroup.Corruption) <= 0 && !Main.LocalPlayer.HasItem(ItemID.CorruptSeeds) && Main.rand.NextFloat() <= 0.3f)
 			{
-				return Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Occultist.Dialogue23").Replace("{?Day}{?!Day}", "");
+				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_FromThis(), ItemID.CorruptSeeds, 5);
+				return Language.GetTextValue(DialogueKey + "Dialogue.Dialogue15").Replace("{?Day}{?!Day}", "");
 			}
 
 			// Otherwise, just returns default dialogue
@@ -236,7 +236,7 @@ namespace MoreTownsfolk.NPCs
 				// If the Occultist's secret hasn't been triggered yet, check if it should be triggered
 				if (!TownsfolkWorld.occultistSecret)
 				{
-					string translatedText = Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Occultist.Dialogue14").Replace("{?BloodMoon}", "");
+					string translatedText = Language.GetTextValue(DialogueKey + "Dialogue.Dialogue14").Replace("{?BloodMoon}", "");
 
 					// The dialogue about placing a block of Ebonstone was used, secret activated
 					if (Main.npcChatText.Equals(translatedText))

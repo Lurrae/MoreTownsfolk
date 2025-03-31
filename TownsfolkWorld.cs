@@ -49,11 +49,11 @@ namespace MoreTownsfolk
 
 					if (Main.netMode == NetmodeID.SinglePlayer)
 					{
-						Main.NewText(Language.GetTextValue("Announcement.HasArrived", ninja.FullName), 50, 125, 255); // "(name) the Ninja has arrived!"
+						Main.NewText(Language.GetTextValue("Announcement.HasArrived", ninja.FullName), ChatColors.NPCArrived); // "(name) the Ninja has arrived!"
 					}
 					else if (Main.netMode == NetmodeID.Server)
 					{
-						ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasArrived", ninja.GetFullNetName()), new Color(50, 125, 255));
+						ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasArrived", ninja.GetFullNetName()), ChatColors.NPCArrived);
 					}
 				}
 			}

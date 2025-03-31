@@ -12,7 +12,7 @@ namespace MoreTownsfolk.NPCs
 		private static int ShimmerHeadIdx;
 		private static Profiles.StackedNPCProfile Profile;
 
-		public override string DialogueKey => "Mods.MoreTownsfolk.NPCs.Ninja.Dialogue.";
+		public override string DialogueKey => "Mods.MoreTownsfolk.NPCs.Ninja.";
 		public override bool IsMale => true;
 
 		public override void TowneeStaticDefaults()
@@ -118,7 +118,7 @@ namespace MoreTownsfolk.NPCs
 				// If we've already done this quest and it is non-repeatable, give some unique dialogue
 				if (TownsfolkWorld.completedNinjaHunts.Contains(questIdx) && !questData.Repeatable)
 				{
-					Main.npcChatText = Language.GetTextValue("Mods.MoreTownsfolk.NPCs.Ninja.SpecialDialogue.HuntFail_AlreadyDone", Lang.GetItemName(questData.RewardItem));
+					Main.npcChatText = Language.GetTextValue(DialogueKey + "SpecialDialogue.HuntFail_AlreadyDone", Lang.GetItemName(questData.RewardItem));
 					return;
 				}
 
@@ -137,7 +137,7 @@ namespace MoreTownsfolk.NPCs
 				// Not enough banners, update the message box and do nothing else
 				if (totalBannersOwned < questData.Cost)
 				{
-					Main.npcChatText = Language.GetTextValue("Mods.MoreTownsfolk.NPCs.Ninja.SpecialDialogue.HuntFail");
+					Main.npcChatText = Language.GetTextValue(DialogueKey + "SpecialDialogue.HuntFail");
 					return;
 				}
 
@@ -172,7 +172,7 @@ namespace MoreTownsfolk.NPCs
 
 				// Set the current hunt to this quest's index, so we can access its data when the Ninja returns
 				TownsfolkWorld.currentNinjaHunt = questIdx;
-				Main.npcChatText = Language.GetTextValue("Mods.MoreTownsfolk.NPCs.Ninja.SpecialDialogue.HuntLeaving", Lang.GetNPCName(targetNPCID), (int)Math.Round(24 * questData.HuntTime));
+				Main.npcChatText = Language.GetTextValue(DialogueKey + "SpecialDialogue.HuntLeaving", Lang.GetNPCName(targetNPCID), (int)Math.Round(24 * questData.HuntTime));
 			}
 		}
 
@@ -242,7 +242,7 @@ namespace MoreTownsfolk.NPCs
 					// Most of the time this will just be 24 hours (so a multiplier of 1), but some repeatable quests have a much shorter delay
 					int huntTime = (int)Math.Round(questData.HuntTime * 24);
 
-					return Language.GetTextValue("Mods.MoreTownsfolk.NPCs.Ninja.SpecialDialogue.HuntLeaving", npcName, huntTime);
+					return Language.GetTextValue(DialogueKey + "SpecialDialogue.HuntLeaving", npcName, huntTime);
 				}
 				// Just got back from a hunt, give the player their reward item, add the idx of this hunt to the list of completed ones,
 				// and return special dialogue and reset the hunt variable
@@ -268,7 +268,7 @@ namespace MoreTownsfolk.NPCs
 					TownsfolkWorld.ninjaReturnTime = -1;
 					TownsfolkWorld.daysUntilReturn = -1;
 					TownsfolkWorld.decrementedNinjaDaysToday = false;
-					return Language.GetTextValue("Mods.MoreTownsfolk.NPCs.Ninja.SpecialDialogue.HuntReturn_" + questType, npcName);
+					return Language.GetTextValue(DialogueKey + "SpecialDialogue.HuntReturn_" + questType, npcName);
 				}
 			}
 
@@ -304,11 +304,11 @@ namespace MoreTownsfolk.NPCs
 			{
 				if (Main.netMode == NetmodeID.SinglePlayer)
 				{
-					Main.NewText(Language.GetTextValue("LegacyMisc.35", NPC.FullName), 50, 125, 255); // "(name) the Ninja has departed!"
+					Main.NewText(Language.GetTextValue("LegacyMisc.35", NPC.FullName), ChatColors.NPCArrived); // "(name) the Ninja has departed!"
 				}
 				else if (Main.netMode == NetmodeID.Server)
 				{
-					ChatHelper.BroadcastChatMessage(NetworkText.FromKey("LegacyMisc.35", NPC.GetFullNetName()), new Color(50, 125, 255));
+					ChatHelper.BroadcastChatMessage(NetworkText.FromKey("LegacyMisc.35", NPC.GetFullNetName()), ChatColors.NPCArrived);
 				}
 
 				NPC.active = false;
