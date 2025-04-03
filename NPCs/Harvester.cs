@@ -281,7 +281,7 @@ namespace MoreTownsfolk.NPCs
 			{
 				var source = new Terraria.DataStructures.PlayerDeathReason()
 				{
-					SourceCustomReason = Language.GetTextValue(DialogueKey + "ExtraDialogue.PlayerDeath_Harvested", Main.LocalPlayer.name)
+					CustomReason = NetworkText.FromKey(DialogueKey + "ExtraDialogue.PlayerDeath_Harvested", Main.LocalPlayer.name)
 				};
 
 				var hurtInfo = new Player.HurtInfo()

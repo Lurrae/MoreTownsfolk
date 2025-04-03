@@ -1,3 +1,4 @@
+using MoreTownsfolk.Gores;
 using TepigCore.Base.ModdedNPC;
 using Terraria.Chat;
 using Terraria.GameContent;
@@ -109,7 +110,7 @@ namespace MoreTownsfolk.NPCs
 			{
 				// TODO: Implement the Ninja's UI so players can select any quest they want
 				//		 For now I'll just be using hardcoded values to test stuff
-				int questIdx = 0; // Current quest being tested: Any slime banner -> Gel (x100) (repeatable)
+				int questIdx = 10; // Current quest being tested: Hellbat/Lava Bat Banner -> Magma Stone
 
 				// Get the quest data from the index we're given
 				// (eventually this index will come from the UI, but I haven't implemented it yet)
@@ -118,7 +119,8 @@ namespace MoreTownsfolk.NPCs
 				// If we've already done this quest and it is non-repeatable, give some unique dialogue
 				if (TownsfolkWorld.completedNinjaHunts.Contains(questIdx) && !questData.Repeatable)
 				{
-					Main.npcChatText = Language.GetTextValue(DialogueKey + "SpecialDialogue.HuntFail_AlreadyDone", Lang.GetItemName(questData.RewardItem));
+					GetSoldMoonPhase(questData, questIdx, out string soldMoonPhase);
+					Main.npcChatText = Language.GetTextValue(DialogueKey + "SpecialDialogue.HuntFail_AlreadyDone", Lang.GetItemName(questData.RewardItem), soldMoonPhase);
 					return;
 				}
 
@@ -129,9 +131,16 @@ namespace MoreTownsfolk.NPCs
 
 				foreach (int bannerItemID in questData.AcceptedBannerTypes)
 				{
+					int mult = 1;
+
+					// Some banners are worth more than others (i.e, Pinky Banners are worth 25x more than normal Slime banners, and Lava Bat banners are worth 3x more than Hellbat banners)
+					// This makes sure that is factored into the calculations
+					if (questData.ValuableBanners.TryGetValue(bannerItemID, out int value))
+						mult = value;
+
 					// Only banners in the main inventory are counted
 					// The Piggy Bank, Safe, Defender's Forge, and Void Bag are all ignored, even if the player has an opened Void Bag in their inventory
-					totalBannersOwned += plr.CountItem(bannerItemID);
+					totalBannersOwned += plr.CountItem(bannerItemID) * mult;
 				}
 
 				// Not enough banners, update the message box and do nothing else
@@ -145,6 +154,15 @@ namespace MoreTownsfolk.NPCs
 				for (int i = totalBannersOwned; i > totalBannersOwned - questData.Cost; i--)
 				{
 					Item item = plr.inventory.First(it => questData.AcceptedBannerTypes.Contains(it.type));
+
+					// Some banners are worth more than others, so we need to decrement i by more than usual
+					// Since it already gets decremented by 1, we subtract 1 less than the extra value from it
+					// For example, Pinky Banners will subtract 24 from i, since they're worth 25
+					if (questData.ValuableBanners.TryGetValue(item.type, out int value))
+					{
+						i -= value - 1;
+
+					}
 
 					item.stack--;
 
@@ -185,9 +203,42 @@ namespace MoreTownsfolk.NPCs
 				.Add(ItemID.NinjaPants)
 			;
 
-			// TODO: Add wares for any completed quests
-			//		 This is easier said than done, since items can't be added at runtime as the quests are finished
-			//		 I'll have to figure out how to make a condition that can dynamically check the completed status of any quest...
+			// Loop through all the loaded quests, adding the reward items if they are not repeatable quests
+			// The moon phase counter is needed to determine the current moon phase- it needs to be a separate variable
+			// so that repeatable quests don't cause certain moon phases to be skipped
+			// It starts at -1 instead of 0 since the incrementing happens before any calculations are done
+			int moonPhaseCounter = -1;
+
+			for (int i = 0; i < NinjaBannerQuests.Quests.Count; i++)
+			{
+				BannerQuest quest = NinjaBannerQuests.Quests[i];
+
+				// Ignore repeatable quests
+				if (quest.Repeatable)
+					continue;
+
+				// Increment moon phase counter, so that each item cycles through the moon phases
+				// This is done to prevent the Shinobi's shop from filling up if too many quests are completed
+				moonPhaseCounter++;
+
+				var targetPhase = (MoonPhase)(moonPhaseCounter % 8); // Returns a number 0-7, which is then converted to a moon phase
+
+				// Get the condition variable from the target moon phase, so that the item is only sold on the correct moon phase
+				Condition phaseCondition = targetPhase switch
+				{
+					MoonPhase.ThreeQuartersAtLeft => Condition.MoonPhaseWaxingCrescent,
+					MoonPhase.HalfAtLeft => Condition.MoonPhaseFirstQuarter,
+					MoonPhase.QuarterAtLeft => Condition.MoonPhaseWaxingGibbous,
+					MoonPhase.Empty => Condition.MoonPhaseNew,
+					MoonPhase.QuarterAtRight => Condition.MoonPhaseWaningGibbous,
+					MoonPhase.HalfAtRight => Condition.MoonPhaseThirdQuarter,
+					MoonPhase.ThreeQuartersAtRight => Condition.MoonPhaseWaningCrescent,
+					_ => Condition.MoonPhaseFull,
+				};
+
+				// Add the reward item, with the condition that the corresponding quest has been completed and the moon phase is right
+				npcShop.Add(new NPCShop.Entry(quest.RewardItem, ExtraConditions_MoreTownsfolk.CompletedANinjaQuest(i), phaseCondition));
+			}
 
 			npcShop.Register();
 		}
@@ -254,12 +305,15 @@ namespace MoreTownsfolk.NPCs
 
 					// Next, we grab the localization key for the type of hunt we did; this defaults to repeatable, but is set to one-time below
 					string questType = "Repeatable";
+					string soldMoonPhase = "";
 
 					// We also have to register that this quest has been fulfilled if it was a one-time quest, as well as use a different line of dialogue
+					// One-time quests also need to mention the moon phase
 					if (!questData.Repeatable)
 					{
 						TownsfolkWorld.completedNinjaHunts.Add(TownsfolkWorld.currentNinjaHunt);
 						questType = "OneTime";
+						GetSoldMoonPhase(questData, TownsfolkWorld.currentNinjaHunt, out soldMoonPhase);
 					}
 
 					// Lastly, we need to reset the world's variables so that the game doesn't think we're still on a quest
@@ -268,7 +322,7 @@ namespace MoreTownsfolk.NPCs
 					TownsfolkWorld.ninjaReturnTime = -1;
 					TownsfolkWorld.daysUntilReturn = -1;
 					TownsfolkWorld.decrementedNinjaDaysToday = false;
-					return Language.GetTextValue(DialogueKey + "SpecialDialogue.HuntReturn_" + questType, npcName);
+					return Language.GetTextValue(DialogueKey + "SpecialDialogue.HuntReturn_" + questType, npcName, soldMoonPhase);
 				}
 			}
 
@@ -276,7 +330,52 @@ namespace MoreTownsfolk.NPCs
 			return base.GetChat();
 		}
 
-		private static int BannerItemToNPC(int itemID)
+		public static MoonPhase GetSoldMoonPhase(BannerQuest questData, int questIdx, out string phaseName)
+		{
+			// Determine the moon phase in which this item will be sold
+			// Because repeatable quests are skipped for determining the moon phase, we can't just use the quest idx directly,
+			// and instead have to loop through the quests until we find this one
+			// We can at least skip this loop if the quest is repeatable, since we know it isn't sold
+			phaseName = "";
+			int moonPhaseCounter = -1;
+
+			if (!questData.Repeatable)
+			{
+				for (int i = 0; i <= questIdx; i++)
+				{
+					var otherQuestData = NinjaBannerQuests.Quests[i];
+
+					if (!otherQuestData.Repeatable)
+						moonPhaseCounter++;
+				}
+
+				var targetPhase = (MoonPhase)(moonPhaseCounter % 8); // Returns a number 0-7, which is then converted to a moon phase
+
+				// Grab the name of the phase
+				phaseName = GetMoonPhaseName(targetPhase);
+				return targetPhase;
+			}
+
+			return (MoonPhase)(-1);
+		}
+
+		public static string GetMoonPhaseName(MoonPhase targetPhase)
+		{
+			return targetPhase switch
+			{
+				MoonPhase.Full => "full",
+				MoonPhase.ThreeQuartersAtLeft => "waxing crescent",
+				MoonPhase.HalfAtLeft => "first quarter",
+				MoonPhase.QuarterAtLeft => "waxing gibbous",
+				MoonPhase.Empty => "new",
+				MoonPhase.QuarterAtRight => "waning gibbous",
+				MoonPhase.HalfAtRight => "third quarter",
+				MoonPhase.ThreeQuartersAtRight => "waning crescent",
+				_ => null
+			};
+		}
+
+		public static int BannerItemToNPC(int itemID)
 		{
 			Item itemData = ContentSamples.ItemsByType[itemID];
 			int npcID = -1;
@@ -297,11 +396,25 @@ namespace MoreTownsfolk.NPCs
 			return npcID;
 		}
 
-		// Despawn the Ninja if he should be on a quest and he's offscreen
+		// Despawn the Shinobi if he should be on a quest
+		// When he despawns this way, he should also spawn smoke and a decoy
 		public override bool PreAI()
 		{
-			if (TownsfolkWorld.currentNinjaHunt > -1 && !IsNpcOnscreen(NPC.Center))
+			// Don't try to despawn the Shinobi while he's being talked to
+			foreach (Player player in Main.ActivePlayers)
 			{
+				if (player.talkNPC == NPC.whoAmI)
+					return base.PreAI();
+			}
+
+			// Make sure the Shinobi is actually on a hunt; he shouldn't despawn if not on a hunt
+			// He also shouldn't despawn when he's returned from a hunt
+			if (TownsfolkWorld.currentNinjaHunt > -1 && TownsfolkWorld.daysUntilReturn > 0)
+			{
+				// Spawns black smoke and a custom "decoy" gore
+				NinjaVanish(Vector2.UnitY * -4f);
+
+				// Display a message about his departure
 				if (Main.netMode == NetmodeID.SinglePlayer)
 				{
 					Main.NewText(Language.GetTextValue("LegacyMisc.35", NPC.FullName), ChatColors.NPCArrived); // "(name) the Ninja has departed!"
@@ -311,9 +424,10 @@ namespace MoreTownsfolk.NPCs
 					ChatHelper.BroadcastChatMessage(NetworkText.FromKey("LegacyMisc.35", NPC.GetFullNetName()), ChatColors.NPCArrived);
 				}
 
+				// Despawn the Shinobi
 				NPC.active = false;
 
-				// Store the location of the Ninja's home, so he'll respawn there
+				// Store the location of the Shinobi's home, so he'll respawn there
 				// If the Ninja is homeless when he despawns, he'll respawn at the world spawn instead
 				if (NPC.homeless)
 				{
@@ -332,40 +446,31 @@ namespace MoreTownsfolk.NPCs
 			return base.PreAI();
 		}
 
-		private static bool IsNpcOnscreen(Vector2 center)
+		void NinjaVanish(Vector2 matVelocity)
 		{
-			int w = NPC.sWidth + NPC.safeRangeX * 2;
-			int h = NPC.sHeight + NPC.safeRangeY * 2;
-			Rectangle npcScreenRect = new((int)center.X - w / 2, (int)center.Y - h / 2, w, h);
-			foreach (Player player in Main.ActivePlayers)
+			// Spawn a cloud of black smoke, similar to what happens when a Wraith dies
+			// In fact, this is exactly what happens when a Wraith dies! This code was adapted from the Wraith's dying code,
+			// NPC.cs lines 91225-91241
+			for (int i = 0; i < 20; i++)
 			{
-				// If any player is close enough to the traveling merchant, it will prevent the npc from despawning
-				if (player.getRect().Intersects(npcScreenRect))
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-
-		// If the Ninja is supposed to be on a quest, make him try to navigate offscreen like the Traveling Merchant does at dusk
-		// He won't do this if being talked to
-		public override void AI()
-		{
-			// Do nothing while any player is talking to the Ninja
-			foreach (Player player in Main.ActivePlayers)
-			{
-				if (player.talkNPC == NPC.whoAmI)
-					return;
+				int num738 = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Wraith, Alpha: 50, Scale: 1.5f);
+				Dust dust = Main.dust[num738];
+				dust.velocity *= 2f;
+				Main.dust[num738].noGravity = true;
 			}
 
-			if (TownsfolkWorld.currentNinjaHunt > -1 && TownsfolkWorld.daysUntilReturn > 0)
+			for (int i = 0; i < 5; i++)
 			{
-				// TODO: Make the Ninja walk offscreen
-				//		 For now he just has placeholder code to make him a s c e n d
-				NPC.velocity.Y -= 1.0f;
-				NPC.noTileCollide = true;
+				// Fun fact: Despite the fact there's a "GoreID" class, very few of the gores in the game actually use it!
+				float goreOffset = 10f + (5f * i);
+				Gore smoke = Gore.NewGoreDirect(NPC.GetSource_Death(), new Vector2(NPC.Center.X, NPC.Center.Y - goreOffset), Vector2.UnitX * Main.rand.Next(-1, 2), 99, NPC.scale);
+				smoke.velocity *= 0.3f;
 			}
+
+			// In addition to the Wraith smoke, spawn a folded-up tatami mat to serve as a "decoy" that lingers for five seconds (half as long as standard gores)
+			Gore mat = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, matVelocity, GoreType<ShinobiDecoy>());
+			mat.timeLeft = Conversions.ToFrames(5);
+			mat.velocity = matVelocity;
 		}
 
 		public override void TownNPCAttackStrength(ref int damage, ref float knockback)
@@ -388,7 +493,7 @@ namespace MoreTownsfolk.NPCs
 
 		public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
 		{
-			multiplier = 1;
+			multiplier = 9;
 		}
 	}
 }
