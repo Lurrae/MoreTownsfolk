@@ -8,6 +8,7 @@ namespace MoreTownsfolk.Gores
 		{
 			// Allows the decoy to spawn when "Blood and Gore" is disabled, since it's not really "gore" in the traditional sense
 			ChildSafety.SafeGore[Type] = true;
+			GoreID.Sets.DrawBehind[Type] = true;
 		}
 	}
 }

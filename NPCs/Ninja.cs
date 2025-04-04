@@ -45,7 +45,7 @@ namespace MoreTownsfolk.NPCs
 
 			Profile = new Profiles.StackedNPCProfile(
 				new Profiles.DefaultNPCProfile(Texture, NPCHeadLoader.GetHeadSlot(HeadTexture), Texture + "_Party"),
-				new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIdx)
+				new Profiles.DefaultNPCProfile(Texture + "_Shimmer", ShimmerHeadIdx, Texture + "_Shimmer_Party")
 			);
 		}
 
@@ -63,7 +63,7 @@ namespace MoreTownsfolk.NPCs
 		{
 			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
 			{
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCorruption,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
 				new FlavorTextBestiaryInfoElement("Mods.MoreTownsfolk.Bestiary.Ninja")
 			});
 		}
@@ -71,11 +71,6 @@ namespace MoreTownsfolk.NPCs
 		public override ITownNPCProfile TownNPCProfile()
 		{
 			return Profile;
-		}
-
-		public override void PartyHatPosition(ref Vector2 position, ref SpriteEffects spriteEffects)
-		{
-			position += new Vector2(0 * NPC.direction, NPC.IsShimmerVariant ? 0 : 0);
 		}
 
 		public override List<string> SetNPCNameList()
@@ -99,7 +94,7 @@ namespace MoreTownsfolk.NPCs
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = Language.GetTextValue("LegacyInterface.28"); // "Shop"
-			button2 = Language.GetTextValue("Mods.MoreTownsfolk.Common.BannerButton"); // "Turn in Banner"
+			button2 = Language.GetTextValue(DialogueKey + "Buttons.BannerButton"); // "Turn in Banner"
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
@@ -109,8 +104,16 @@ namespace MoreTownsfolk.NPCs
 			else
 			{
 				// TODO: Implement the Ninja's UI so players can select any quest they want
-				//		 For now I'll just be using hardcoded values to test stuff
-				int questIdx = 10; // Current quest being tested: Hellbat/Lava Bat Banner -> Magma Stone
+				//		 For now the available quest index is obtained from the ID of the item in the first slot of the player's piggy bank
+				//		 This wraps around when the ID goes past the number of quests that exist (which is currently 38)
+				//		 Examples:
+				//		 - Item ID 0 (None) = 1 slime banner -> Gel repeatable quest
+				//		 - Item ID 1 (Iron Pickaxe) = 100 slime banners -> Slime Staff quest
+				//		 - Item ID 37 (Goggles) = 6 any Armored Bones banners -> Bone Feather quest
+				//		 - Item ID 38 (Lens) = 1 slime banner -> Gel repeatable quest
+				//		 - Item ID 100 (Shadow Greaves) = 4 Skeleton Archer banners -> Marrow quest
+				Player plr = Main.LocalPlayer;
+				int questIdx = plr.bank.item[0].type % NinjaBannerQuests.Quests.Count;
 
 				// Get the quest data from the index we're given
 				// (eventually this index will come from the UI, but I haven't implemented it yet)
@@ -126,7 +129,6 @@ namespace MoreTownsfolk.NPCs
 
 				// We need to find out how many valid banners the player has in their inventory
 				// If they don't have enough, pressing this button won't initiate a quest, after all!
-				Player plr = Main.LocalPlayer;
 				int totalBannersOwned = 0;
 
 				foreach (int bannerItemID in questData.AcceptedBannerTypes)
@@ -135,7 +137,7 @@ namespace MoreTownsfolk.NPCs
 
 					// Some banners are worth more than others (i.e, Pinky Banners are worth 25x more than normal Slime banners, and Lava Bat banners are worth 3x more than Hellbat banners)
 					// This makes sure that is factored into the calculations
-					if (questData.ValuableBanners.TryGetValue(bannerItemID, out int value))
+					if (questData.ValuableBanners != null && questData.ValuableBanners.TryGetValue(bannerItemID, out int value))
 						mult = value;
 
 					// Only banners in the main inventory are counted
@@ -158,16 +160,15 @@ namespace MoreTownsfolk.NPCs
 					// Some banners are worth more than others, so we need to decrement i by more than usual
 					// Since it already gets decremented by 1, we subtract 1 less than the extra value from it
 					// For example, Pinky Banners will subtract 24 from i, since they're worth 25
-					if (questData.ValuableBanners.TryGetValue(item.type, out int value))
+					if (questData.ValuableBanners != null && questData.ValuableBanners.TryGetValue(item.type, out int value))
 					{
 						i -= value - 1;
-
 					}
 
 					item.stack--;
 
 					// Ran out of items in this stack, delete it
-					if (item.stack == 0)
+					if (item.stack <= 0)
 					{
 						item.TurnToAir();
 					}
@@ -412,7 +413,7 @@ namespace MoreTownsfolk.NPCs
 			if (TownsfolkWorld.currentNinjaHunt > -1 && TownsfolkWorld.daysUntilReturn > 0)
 			{
 				// Spawns black smoke and a custom "decoy" gore
-				NinjaVanish(Vector2.UnitY * -4f);
+				NinjaVanish(new Vector2(Main.rand.Next(-3, 4) * 0.01f, -4f));
 
 				// Display a message about his departure
 				if (Main.netMode == NetmodeID.SinglePlayer)
@@ -459,7 +460,7 @@ namespace MoreTownsfolk.NPCs
 				Main.dust[num738].noGravity = true;
 			}
 
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < 8; i++)
 			{
 				// Fun fact: Despite the fact there's a "GoreID" class, very few of the gores in the game actually use it!
 				float goreOffset = 10f + (5f * i);
