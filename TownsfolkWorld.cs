@@ -44,6 +44,13 @@ namespace MoreTownsfolk
 				// Ninja should return now, spawn him immediately!
 				if (daysUntilReturn == 0)
 				{
+					// If the ninja would spawn out of bounds for some reason, force him to go to spawn
+					if (ninjaHomeX < 0 || ninjaHomeY < 0)
+					{
+						ninjaHomeX = Main.spawnTileX;
+						ninjaHomeY = Main.spawnTileY;
+					}
+					
 					int newNinja = NPC.NewNPC(Entity.GetSource_TownSpawn(), Conversions.ToPixels(ninjaHomeX), Conversions.ToPixels(ninjaHomeY), NPCType<Ninja>());
 					NPC ninja = Main.npc[newNinja];
 
