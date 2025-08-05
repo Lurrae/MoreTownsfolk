@@ -208,7 +208,7 @@ Mods: {
 					Dialogue14: "{?Day}{?!Day}Hey, I have some seeds for the Crimson. Think you could do me a solid and make a small patch of it for me to live in? Thanks!"
 					Dialogue15: "{?MartiansDefeated}Aww... I've always wanted to eviscerate an alien! No fair!!"
 				}
-				
+
 				SpecialText: {
 					# Events
 					Storm1: Every time thunder strikes, I can almost hear something wailing in pain.
@@ -222,7 +222,7 @@ Mods: {
 					# Biomes/Environment
 					Graveyard: Can we dig some of these graves up? This is a waste of perfectly good human bones!
 				}
-				
+
 				ExtraDialogue: {
 					NoCritters0: Got a critter on you? No? I'm willing to butcher any animal you hand over. Who knows? You might get something out of it!
 					NoCritters1: Listen, you know what I do - feed my vice and I might just feed you back.
@@ -281,7 +281,7 @@ Mods: {
 					Dialogue15: "{?Day}{?!Day}Think you could do me a favor? Take some of these seeds... make a home I'd truly love for me..."
 					Dialogue16: "{?GolemDefeated}A cult has moved to the entrance of the dungeon... Praising a mysterious tablet. I wonder, to what evil are they so devoted...?"
 				}
-				
+
 				SpecialText: {
 					# Events
 					Storm1: Ooh, what a nasty storm... Perhaps I could crawl up under the ebonstone caves...
