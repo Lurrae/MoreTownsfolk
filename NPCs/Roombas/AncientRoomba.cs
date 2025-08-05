@@ -21,19 +21,15 @@ namespace MoreTownsfolk.NPCs.Roombas
 		{
 			base.Load();
 
-			RequestIfExists<Texture2D>(Texture + "_GlowSolar", out GlowSolar);
-			RequestIfExists<Texture2D>(Texture + "_GlowVortex", out GlowVortex);
-			RequestIfExists<Texture2D>(Texture + "_GlowNebula", out GlowNebula);
-			RequestIfExists<Texture2D>(Texture + "_GlowStardust", out GlowStardust);
+			RequestIfExists(Texture + "_GlowSolar", out GlowSolar);
+			RequestIfExists(Texture + "_GlowVortex", out GlowVortex);
+			RequestIfExists(Texture + "_GlowNebula", out GlowNebula);
+			RequestIfExists(Texture + "_GlowStardust", out GlowStardust);
 		}
 
 		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			// Null checks are a failsafe in case something goes catastrophically wrong
-			Mod.Logger.Info(GlowSolar);
-			Mod.Logger.Info(GlowVortex);
-			Mod.Logger.Info(GlowNebula);
-			Mod.Logger.Info(GlowStardust);
 			if (GlowSolar != null && GlowVortex != null && GlowNebula != null && GlowStardust != null)
 			{
 				// Code adapted from vanilla's Ancient Manipulator glowmask drawing code, TileDrawing.cs lines 7722-7728

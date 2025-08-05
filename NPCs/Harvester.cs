@@ -6,6 +6,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Personalities;
+using Terraria.UI;
 
 namespace MoreTownsfolk.NPCs
 {
@@ -15,7 +16,7 @@ namespace MoreTownsfolk.NPCs
 		private static int ShimmerHeadIdx;
 		private static Profiles.StackedNPCProfile Profile;
 
-		public override string DialogueKey => "Mods.MoreTownsfolk.Dialogue.Harvester.";
+		public override string DialogueKey => "Mods.MoreTownsfolk.NPCs.Harvester.";
 		public override bool IsMale => false;
 
 		public override void TowneeStaticDefaults()
@@ -123,7 +124,7 @@ namespace MoreTownsfolk.NPCs
 
 				if (!player.inventory.Any(i => !i.favorited && i.stack > 0 && i.makeNPC > 0)) // Player has no usable critters in their inventory
 				{
-					Main.npcChatText = Language.GetTextValue("Mods.MoreTownsfolk.SpecialDialogue.Harvester.NoCritters" + Main.rand.Next(3));
+					Main.npcChatText = Language.GetTextValue(DialogueKey + "ExtraDialogue.NoCritters" + Main.rand.Next(3));
 				}
 				else
 				{
@@ -132,11 +133,32 @@ namespace MoreTownsfolk.NPCs
 						if (item.favorited || item.stack <= 0)
 							continue;
 
-						if (item.makeNPC > 0) // Item is most likely a critter (theoretically it could be a captured NPC from Fargo's though)
+						// Item is most likely a critter (theoretically it could be a captured NPC from Fargo's though)
+						// That's why we have to check that the item isn't from Fargo's Mutant Mod
+						// I don't *think* Mutant Mod adds any critters (Top Hat Squirrels are from Souls Mod) so no need to worry about that
+						if (item.makeNPC > 0 && (item.ModItem == null || item.ModItem.Mod.Name.Equals("Fargowiltas")))
 						{
-							item.stack--;
-							crittersGiven++;
 							SoundEngine.PlaySound(SoundID.Grab);
+							int crittersLeft = MAX_CRITTERS - crittersGiven;
+
+							// While holding shift, give enough critters to reach the requirement
+							if (ItemSlot.ShiftInUse && item.stack >= crittersLeft)
+							{
+								item.stack -= crittersLeft;
+								crittersGiven += crittersLeft;
+							}
+							// If the player doesn't have enough critters in their inventory to do that,
+							// use as many critters as the player has
+							else if (ItemSlot.ShiftInUse)
+							{
+								crittersGiven += item.stack;
+								item.stack = 0;
+							}
+							else
+							{
+								item.stack--;
+								crittersGiven++;
+							}
 
 							if (item.stack <= 0)
 								item.TurnToAir();
@@ -144,7 +166,7 @@ namespace MoreTownsfolk.NPCs
 							if (crittersGiven >= MAX_CRITTERS)
 							{
 								crittersGiven = 0;
-								Main.npcChatText = Language.GetTextValue("Mods.MoreTownsfolk.SpecialDialogue.Harvester.GaveFood" + Main.rand.Next(3));
+								Main.npcChatText = Language.GetTextValue(DialogueKey + "ExtraDialogue.GaveFood" + Main.rand.Next(3));
 								var source = player.GetSource_GiftOrReward();
 
 								List<int> preBoss = new()
@@ -259,7 +281,7 @@ namespace MoreTownsfolk.NPCs
 			{
 				var source = new Terraria.DataStructures.PlayerDeathReason()
 				{
-					SourceCustomReason = Language.GetTextValue("Mods.MoreTownsfolk.SpecialDialogue.Harvester.PlayerDeath_Harvested", Main.LocalPlayer.name)
+					CustomReason = NetworkText.FromKey(DialogueKey + "ExtraDialogue.PlayerDeath_Harvested", Main.LocalPlayer.name)
 				};
 
 				var hurtInfo = new Player.HurtInfo()
@@ -271,24 +293,26 @@ namespace MoreTownsfolk.NPCs
 
 				Main.LocalPlayer.Hurt(hurtInfo);
 
-				CombatText.NewText(NPC.getRect(), Color.Crimson, Language.GetTextValue("Mods.MoreTownsfolk.SpecialDialogue.Harvester.GfbKill"), true);
+				CombatText.NewText(NPC.getRect(), Color.Crimson, Language.GetTextValue(DialogueKey + "ExtraDialogue.GfbKill"), true);
 
-				return Language.GetTextValue("Mods.MoreTownsfolk.SpecialDialogue.Harvester.GfbKill");
+				return Language.GetTextValue(DialogueKey + "ExtraDialogue.GfbKill");
 			}
-			
+
 			// If that fails for any reason, has a 30% chance to return a special dialogue if your world has no Crimson
+			// This special dialogue gives the player five Crimson Seeds (and won't trigger if Crimson Seeds exist in the player's inventory)
 			var tileCounts = new int[TileLoader.TileCount];
 			WorldGen.CountTileTypesInArea(tileCounts, 0, Main.maxTilesX, 0, Main.maxTilesY);
 			tileCounts[TileID.Sunflower] = 0;
-			if (WorldGen.GetTileTypeCountByCategory(tileCounts, TileScanGroup.Crimson) <= 0 && Main.rand.NextFloat() <= 0.3f)
+			if (WorldGen.GetTileTypeCountByCategory(tileCounts, TileScanGroup.Crimson) <= 0 && !Main.LocalPlayer.HasItem(ItemID.CrimsonSeeds) && Main.rand.NextFloat() <= 0.3f)
 			{
-				return Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Harvester.Dialogue23").Replace("{?Day}{?!Day}", "");
+				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_FromThis(), ItemID.CrimsonSeeds, 5);
+				return Language.GetTextValue(DialogueKey + "Dialogue.Dialogue14").Replace("{?Day}{?!Day}", "");
 			}
 
 			// Failing both of those, if Blood and Gore is enabled and the Pirate is present, 30% chance to return Pirate dialogue
 			if (ChildSafety.Disabled && NPC.AnyNPCs(NPCID.Pirate) && Main.rand.NextFloat() <= 0.3f)
 			{
-				return Language.GetTextValue("Mods.MoreTownsfolk.Dialogue.Harvester.Dialogue9").Replace("{?Day}{?!Day}", "").Replace("{Pirate}", NPC.GetFirstNPCNameOrNull(NPCID.Pirate));
+				return Language.GetTextValue(DialogueKey + "Dialogue.Dialogue9").Replace("{?Day}{?!Day}", "").Replace("{Pirate}", NPC.GetFirstNPCNameOrNull(NPCID.Pirate));
 			}
 
 			// Otherwise, just returns default dialogue
