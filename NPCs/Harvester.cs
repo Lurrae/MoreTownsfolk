@@ -300,10 +300,7 @@ namespace MoreTownsfolk.NPCs
 			
 			// If that fails for any reason, has a 30% chance to return a special dialogue if your world has no Crimson
 			// This special dialogue gives the player five Crimson Seeds (and won't trigger if Crimson Seeds exist in the player's inventory)
-			var tileCounts = new int[TileLoader.TileCount];
-			WorldGen.CountTileTypesInArea(tileCounts, 0, Main.maxTilesX, 0, Main.maxTilesY);
-			tileCounts[TileID.Sunflower] = 0;
-			if (WorldGen.GetTileTypeCountByCategory(tileCounts, TileScanGroup.Crimson) <= 0 && !Main.LocalPlayer.HasItem(ItemID.CrimsonSeeds) && Main.rand.NextFloat() <= 0.3f)
+			if (WorldGen.tBlood <= 0 && !Main.LocalPlayer.HasItem(ItemID.CrimsonSeeds) && Main.rand.NextFloat() <= 0.3f)
 			{
 				Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_FromThis(), ItemID.CrimsonSeeds, 5);
 				return Language.GetTextValue(DialogueKey + "Dialogue.Dialogue14").Replace("{?Day}{?!Day}", "");
